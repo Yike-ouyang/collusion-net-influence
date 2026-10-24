@@ -518,9 +518,11 @@ python experiments/analyze_llm.py results/llm_rps
 
 # variante pot, sans juge, sur Modal (détaché)
 pip install modal && modal setup
+modal run cloud/pot_modal.py::build_image   # garder le terminal ouvert jusqu'à "image ready"
 modal run --detach --name pot-channel-20 cloud/pot_modal.py \
   --condition channel --runs 20 --rounds 100 --workers 16
-modal app logs pot-channel-20 -f --timestamps
+modal app list
+modal app logs <app-id> -f --timestamps
 modal volume get netinf-pot /results/llm_rps_pot ./results_pot
 ```
 

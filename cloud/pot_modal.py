@@ -4,25 +4,29 @@ The remote function starts a vLLM server for Qwen2.5-7B-Instruct in its own cont
 the experiment in chunks, commits results and cache to a Modal Volume, then runs the analysis.
 No LLM judge is used. Every LLM request and response is also written to `llm_calls/*.jsonl`.
 
-Launch from the repository root:
+Build the image once (keep this terminal open until it prints "image ready"):
+
+    modal run cloud/pot_modal.py::build_image
+
+Then launch detached from the repository root:
 
     modal run --detach --name pot-channel-20 cloud/pot_modal.py \
         --condition channel --runs 20 --rounds 100 --workers 16
 
-Follow logs while it runs (even from another terminal). `modal app list` gives the app ID if
-the run name is not enough:
+Follow logs while it runs (even from another terminal). `modal app list` gives the app ID;
+the run name can be used as the description but is not always accepted by `app logs`:
 
     modal app list
-    modal app logs pot-channel-20 -f --timestamps
+    modal app logs <app-id> -f --timestamps
 
 Fetch the complete logs and results afterwards:
 
     modal volume get netinf-pot /logs/pot_channel_20runs_<timestamp> ./modal_logs
     modal volume get netinf-pot /results/llm_rps_pot ./results_pot
 
-Stop a run:
+Stop a run (use the ID from `modal app list`):
 
-    modal app stop pot-channel-20
+    modal app stop <app-id>
 """
 
 from __future__ import annotations
@@ -96,6 +100,18 @@ def run_logged(cmd: list[str], log_path: Path, env: dict[str, str]) -> None:
         code = proc.wait()
         if code != 0:
             raise RuntimeError(f"command failed with exit code {code}: {' '.join(cmd)}")
+
+
+@app.function(image=image, timeout=1800)
+def build_image() -> str:
+    """Build/cache the image without requesting a GPU.
+
+    Run this once and keep the terminal open until it prints "image ready". Detached runs
+    started before the image exists can be cancelled when the local client disconnects
+    during the image build.
+    """
+    print("image ready", flush=True)
+    return "ok"
 
 
 def wait_for_vllm(proc: subprocess.Popen, log_fh, timeout: float = 900.0) -> None:

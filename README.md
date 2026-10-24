@@ -98,10 +98,11 @@ server is available; `cloud/pot_modal.py` runs the whole campaign on Modal with 
 
 ```bash
 pip install modal && modal setup
+modal run cloud/pot_modal.py::build_image        # keep the terminal open until "image ready"
 modal run --detach --name pot-channel-20 cloud/pot_modal.py \
   --condition channel --runs 20 --rounds 100 --workers 16
-modal app list                                   # find the app ID / run name
-modal app logs pot-channel-20 -f --timestamps    # or: modal app logs <app-id> -f
+modal app list                                   # find the app ID
+modal app logs <app-id> -f --timestamps
 modal volume get netinf-pot /results/llm_rps_pot ./results_pot
 modal volume get netinf-pot /logs/pot_channel_20runs_<timestamp> ./modal_logs
 ```

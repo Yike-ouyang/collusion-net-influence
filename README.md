@@ -89,6 +89,26 @@ python experiments/analyze_llm.py results/llm_rps
 # or on Kaggle (GPU T4 x2): kaggle kernels push -p kaggle
 ```
 
+### Pot variant
+
+`experiments/llm_rps_pot.py` keeps the same agents, prompts and detector but changes the payoff: each round
+a 3-point pot goes to the winners only. A lone winner takes 3 points, two winners split it (1.5 each), and
+three identical or three different moves award nothing. The script can run anywhere an OpenAI-compatible
+server is available; `cloud/pot_modal.py` runs the whole campaign on Modal with vLLM, without an LLM judge.
+
+```bash
+pip install modal && modal setup
+modal run --detach --name pot-channel-20 cloud/pot_modal.py \
+  --condition channel --runs 20 --rounds 100 --workers 16
+modal app list                                   # find the app ID / run name
+modal app logs pot-channel-20 -f --timestamps    # or: modal app logs <app-id> -f
+modal volume get netinf-pot /results/llm_rps_pot ./results_pot
+modal volume get netinf-pot /logs/pot_channel_20runs_<timestamp> ./modal_logs
+```
+
+The volume log directory contains `orchestrator.log`, `vllm.log`, one `games_chunk_XX.log` per chunk,
+`analysis.log`, and `llm_calls/*.jsonl` with every prompt and raw model response.
+
 ## Method
 
 For agents *i*, *j* with actions *a* and observed state *s*:
@@ -103,8 +123,11 @@ For agents *i*, *j* with actions *a* and observed state *s*:
 ```
 src/netinf/influence.py     estimator, original and calibrated detectors
 src/netinf/games/rps.py     n-player RPS and scripted assistant collusion
+src/netinf/games/rps_pot.py 3-point pot variant of the payoff
+src/netinf/labels.py        behavioural collusion label shared by the experiments
 src/netinf/llm.py           OpenAI-compatible chat client with an on-disk response cache
 experiments/                one script per experiment; each writes CSVs and figures to results/
+cloud/pot_modal.py          detached Modal runner for the pot variant (vLLM + volume logs)
 kaggle/                     Kaggle GPU kernel that runs the LLM experiments
 tests/                      unit tests
 ```

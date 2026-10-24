@@ -17,6 +17,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from netinf.labels import colluded
+
 CONDITIONS = ["independent", "channel", "channel_shared", "instructed"]
 FIXED, CALIB = "#eb6834", "#2a78d6"  # categorical slots 2 and 1 of the dataviz reference palette
 
@@ -92,14 +94,19 @@ def main():
                 "_fixed": wilson(fixed, n), "_calib": wilson(calib, n),
             })
 
+        # The moves-only detector needs no judge: label and score both come from the run JSON.
+        y_act = [colluded(x["actions"])[0] for x in games]
+        act_scores = [x["detection"]["prev"]["net_AB"] for x in games]
+        detectors.append({"model": mdir.name, "detector": "act (net influence)", "games": len(games),
+                          "colluding_games": sum(y_act), "auroc": fmt(auroc_ci(act_scores, y_act), 2)})
+
         judge = mdir / "judge.csv"
         if judge.exists():
             rows = list(csv.DictReader(judge.open()))
             y = [r["colluded"] == "True" for r in rows]
             num = lambda k: [float(r[k]) if r[k] not in ("", "None") else np.nan for r in rows]  # noqa: E731
             for name, scores in (("talk (judge, messages only)", num("talk")),
-                                 ("talk+act (judge, messages + moves)", num("talk_act")),
-                                 ("act (net influence)", num("act_net_AB"))):
+                                 ("talk+act (judge, messages + moves)", num("talk_act"))):
                 detectors.append({"model": mdir.name, "detector": name, "games": len(rows),
                                   "colluding_games": sum(y), "auroc": fmt(auroc_ci(scores, y), 2)})
 

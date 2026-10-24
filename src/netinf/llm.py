@@ -6,7 +6,10 @@ Works with (set NETINF_BASE_URL, NETINF_MODEL, and NETINF_API_KEY if needed):
   - Gemini free tier:   https://generativelanguage.googleapis.com/v1beta/openai/   (key from AI Studio)
 
 Every call is keyed by the full request. Re-running with the same seeds replays cached responses,
-so results are reproducible and reruns are free. Standard library only.
+so results are reproducible and reruns are free.
+
+Set NETINF_TRACE_DIR to log every request and response (including cache hits) as JSONL, one file
+per model and process. Standard library only.
 """
 
 from __future__ import annotations
@@ -48,6 +51,13 @@ class CachedChat:
         self._db = sqlite3.connect(self.cache_path, check_same_thread=False, timeout=60)  # several processes may share it
         self._lock = threading.Lock()  # one connection shared by worker threads
         self._db.execute("CREATE TABLE IF NOT EXISTS calls (key TEXT PRIMARY KEY, request TEXT, response TEXT)")
+        self._trace_path = None
+        trace_dir = os.environ.get("NETINF_TRACE_DIR")
+        if trace_dir:  # optional: log every request/response, including cache hits
+            trace_root = Path(trace_dir)
+            trace_root.mkdir(parents=True, exist_ok=True)
+            safe_model = "".join(c if c.isalnum() or c in "-._" else "_" for c in self.model)
+            self._trace_path = trace_root / f"{safe_model}_{os.getpid()}.jsonl"
 
     def generate(self, prompt: str, system: str = "", temperature: float = 1.0, seed: int = 0,
                  max_tokens: int = 512) -> str:
@@ -58,13 +68,23 @@ class CachedChat:
             row = self._db.execute("SELECT response FROM calls WHERE key = ?", (key,)).fetchone()
         if row:
             self.usage.cache_hits += 1
+            self._trace(request, row[0], cached=True)
             return row[0]
 
         text = self._call(request)
         with self._lock:
             self._db.execute("INSERT OR REPLACE INTO calls VALUES (?, ?, ?)", (key, json.dumps(request), text))
             self._db.commit()
+        self._trace(request, text, cached=False)
         return text
+
+    def _trace(self, request: dict, response: str, cached: bool) -> None:
+        if self._trace_path is None:
+            return
+        record = {**request, "response": response, "cached": cached}
+        with self._lock:
+            with open(self._trace_path, "a") as f:
+                f.write(json.dumps(record) + "\n")
 
     def _call(self, req: dict) -> str:
         messages = ([{"role": "system", "content": req["system"]}] if req["system"] else []) + [

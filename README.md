@@ -121,6 +121,34 @@ bash cloud/fetch_pot_logs.sh /logs/pot_channel_20runs_<timestamp>
 `modal volume get` ne télécharge pas toujours un dossier récursivement dans Modal 1.6 ; le script
 `cloud/fetch_pot_logs.sh` récupère chaque fichier de log individuellement.
 
+### Reflection phase
+
+Add `--reflection` to `pot_modal.py` (or `llm_rps_pot.py`) to give every agent a private
+end-of-round reflection. The reflection sees the last 5 rounds, its own last 5 reflections and
+the last 5 A-B messages; A/B also plan a message when a channel exists. In the next play phase,
+each agent sees only its own previous reflection (plus the current round's messages for A/B),
+not the old round history. Reflections are stored in the run JSON under `reflections`, but are
+never shown to the other agents.
+
+```bash
+# no channel
+modal run --detach --name pot-reflect-independent-20 cloud/pot_modal.py \
+  --condition independent --runs 20 --rounds 100 --workers 12 \
+  --seed-offset 3000 --reflection --tag-suffix reflect
+
+# channel, no hint
+modal run --detach --name pot-reflect-channel-20 cloud/pot_modal.py \
+  --condition channel --runs 20 --rounds 100 --workers 12 \
+  --seed-offset 4000 --reflection --tag-suffix reflect
+
+# channel + public hint
+modal run --detach --name pot-reflect-hint-20 cloud/pot_modal.py \
+  --condition channel_public_hint --runs 20 --rounds 100 --workers 12 \
+  --seed-offset 5000 --reflection --tag-suffix reflect
+```
+
+`--tag-suffix reflect` writes to separate directories (`..._independent_reflect`, etc.).
+
 The volume log directory contains `orchestrator.log`, `vllm.log`, one `games_chunk_XX.log` per chunk,
 `analysis.log`, and `llm_calls/*.jsonl` with every prompt and raw model response.
 

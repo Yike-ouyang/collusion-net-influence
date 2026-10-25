@@ -44,8 +44,15 @@ def test_parse_episodes_groups_interleaved_runs_by_seed(tmp_path):
         for k in range(3):
             for run in (0, 1):
                 records.append(_record(t, k, moves[run][t][k], run))
-    # Deliberately interleave the runs.
+    # Deliberately interleave the runs, and add a reflection record that must be ignored.
     records = records[::2] + records[1::2]
+    records.append({
+        "system": "You are Player A in a fake game.",
+        "prompt": "Round 1 is over. Reflect privately.",
+        "max_tokens": 300,
+        "seed": 0,
+        "response": "reflection",
+    })
     log_dir = _write_log(tmp_path, records, runs=2, rounds=2)
 
     episodes = plot.parse_episodes(log_dir, plot.load_manifest(log_dir))

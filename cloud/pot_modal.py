@@ -24,6 +24,18 @@ Fetch the complete logs and results afterwards:
     bash cloud/fetch_pot_logs.sh /logs/pot_channel_20runs_<timestamp>
     modal volume get netinf-pot /results/llm_rps_pot ./results_pot
 
+Reflection runs (three separate commands):
+
+    modal run --detach --name pot-reflect-independent-20 cloud/pot_modal.py \
+        --condition independent --runs 20 --rounds 100 --workers 12 \
+        --seed-offset 3000 --reflection --tag-suffix reflect
+    modal run --detach --name pot-reflect-channel-20 cloud/pot_modal.py \
+        --condition channel --runs 20 --rounds 100 --workers 12 \
+        --seed-offset 4000 --reflection --tag-suffix reflect
+    modal run --detach --name pot-reflect-hint-20 cloud/pot_modal.py \
+        --condition channel_public_hint --runs 20 --rounds 100 --workers 12 \
+        --seed-offset 5000 --reflection --tag-suffix reflect
+
 Stop a run (use the ID from `modal app list`):
 
     modal app stop <app-id>
@@ -132,7 +144,8 @@ def wait_for_vllm(proc: subprocess.Popen, log_fh, timeout: float = 900.0) -> Non
 
 @app.function(image=image, gpu="A10G", timeout=12 * 3600, volumes={"/vol": volume})
 def run_channel(condition: str, runs: int, rounds: int, workers: int, chunk_size: int,
-                seed_offset: int = 0) -> str:
+                seed_offset: int = 0, reflection: bool = False,
+                reflection_max_tokens: int = 300, tag_suffix: str = "") -> str:
     run_stamp = utc_stamp()
     log_dir = VOL / "logs" / f"pot_{condition}_{runs}runs_{run_stamp}"
     results_dir = VOL / "results" / "llm_rps_pot"
@@ -151,6 +164,9 @@ def run_channel(condition: str, runs: int, rounds: int, workers: int, chunk_size
         "workers": workers,
         "chunk_size": chunk_size,
         "seed_offset": seed_offset,
+        "reflection": reflection,
+        "reflection_max_tokens": reflection_max_tokens,
+        "tag_suffix": tag_suffix,
         "model": MODEL,
         "started_at": utc_now(),
         "status": "running",
@@ -173,7 +189,8 @@ def run_channel(condition: str, runs: int, rounds: int, workers: int, chunk_size
     vllm_fh = None
 
     try:
-        log_line(orch, f"starting {MODEL} on A10G; condition={condition} runs={runs} rounds={rounds}")
+        log_line(orch, f"starting {MODEL} on A10G; condition={condition} runs={runs} rounds={rounds} "
+                       f"reflection={reflection} tag_suffix={tag_suffix!r}")
         vllm_fh = open(log_dir / "vllm.log", "ab", buffering=0)
         vllm_proc = subprocess.Popen(
             [sys.executable, "-m", "vllm.entrypoints.openai.api_server",
@@ -192,10 +209,12 @@ def run_channel(condition: str, runs: int, rounds: int, workers: int, chunk_size
                 "--workers", str(min(workers, n)),
                 "--run-offset", str(start),
                 "--seed-offset", str(seed_offset),
-                "--tag", condition,
+                "--tag", condition + tag_suffix,
                 "--out", str(results_dir),
                 "--cache", str(cache_path),
             ]
+            if reflection:
+                cmd += ["--reflection", "--reflection-max-tokens", str(reflection_max_tokens)]
             log_line(orch, f"chunk {chunk_idx}: runs {start}-{start + n - 1}")
             run_logged(cmd, log_dir / f"games_chunk_{chunk_idx:02d}.log", env)
             volume.commit()
@@ -230,9 +249,12 @@ def run_channel(condition: str, runs: int, rounds: int, workers: int, chunk_size
 
 @app.local_entrypoint()
 def main(condition: str = "channel", runs: int = 20, rounds: int = 100,
-         workers: int = 12, chunk_size: int = 5, seed_offset: int = 0):
+         workers: int = 12, chunk_size: int = 5, seed_offset: int = 0,
+         reflection: bool = False, reflection_max_tokens: int = 300, tag_suffix: str = ""):
     if condition not in ("independent", "channel", "channel_shared", "instructed", "channel_public_hint"):
         raise SystemExit(f"unknown condition: {condition}")
-    print(f"launching {condition}: {runs} runs x {rounds} rounds on {MODEL}", flush=True)
-    log_dir = run_channel.remote(condition, runs, rounds, workers, chunk_size, seed_offset)
+    print(f"launching {condition}: {runs} runs x {rounds} rounds on {MODEL} "
+          f"(reflection={reflection}, tag_suffix={tag_suffix!r})", flush=True)
+    log_dir = run_channel.remote(condition, runs, rounds, workers, chunk_size, seed_offset,
+                                 reflection, reflection_max_tokens, tag_suffix)
     print(f"finished; logs on volume at {log_dir}", flush=True)

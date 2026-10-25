@@ -114,6 +114,7 @@ collusion-net-influence/
 │   ├── test_influence.py
 │   ├── test_llm_cache.py
 │   ├── test_plot_pot_logs.py
+│   ├── test_reflection.py
 │   └── test_rps_pot.py
 ├── cloud/
 │   ├── covert_modal.py
@@ -290,9 +291,13 @@ Prompts :
 
 Fonctions :
 
-- `prompt_for(k, history, scores, chat, ask)` : construit le prompt utilisateur. Affiche le numéro de tour,
-  le score du joueur, les `HISTORY = 5` derniers tours, et pour A/B les `2 * HISTORY` derniers messages privés.
+- `prompt_for(k, history, scores, chat, ask)` : prompt utilisateur du mode classique. Affiche le numéro de
+  tour, le score du joueur, les `HISTORY = 5` derniers tours, et pour A/B les `2 * HISTORY` derniers messages.
   C ne voit jamais le chat.
+- `game_prompt_for(k, round_no, reflection, chat, ask)` : prompt du mode réflexion. Il ne contient que la
+  réflexion privée du tour précédent et les messages du tour courant (A/B) ; aucun historique des 5 tours.
+- `reflection_prompt_for(...)` : prompt de fin de tour. Il contient les 5 derniers tours, les 5 dernières
+  réflexions **du même agent**, les 5 derniers messages A-B (A/B seulement), le résultat du tour et les scores.
 - `parse_move(text)` : cherche le premier mot `R`/`ROCK`, `P`/`PAPER`, `S`/`SCISSORS` en majuscules.
   Renvoie `None` si rien n'est trouvé.
 - `system_for(k, condition, rules=RULES)` : assemble le prompt système selon le joueur et la condition.
@@ -409,6 +414,11 @@ comportemental `colluded`.
 Vérifie la reconstruction des runs depuis `llm_calls` (seeds, tours, agents, runs entrelacés) et la création
 d'un PNG par `plot_log_folder`.
 
+#### `test_reflection.py`
+Vérifie la phase de réflexion : une réflexion par tour et par agent, la confidentialité (A ne voit que sa
+réflexion, pas celles de B/C), l'usage de la seule réflexion précédente en phase de jeu, et l'absence de
+question de message en condition `independent`.
+
 ### 5.5 `cloud/`
 
 #### `covert_modal.py`
@@ -429,6 +439,8 @@ Application Modal autonome pour la variante pot, conçue pour tourner en détach
 - Volume `netinf-pot` monté sur `/vol` : cache SQLite, résultats et logs.
 - `run_channel()` démarre vLLM sur `127.0.0.1:8000` avec `Qwen/Qwen2.5-14B-Instruct-AWQ`, attend
   `/v1/models`, puis lance `llm_rps_pot.py` par chunks de runs. Après chaque chunk, `volume.commit()`.
+- Options `--reflection`, `--reflection-max-tokens` et `--tag-suffix` : active la phase de réflexion et
+  sépare les résultats (`..._reflect`). `manifest.json` enregistre ces options.
 - À la fin, lance `analyze_llm.py` et écrit `manifest.json`.
 - Chaque sous-processus est streamé à la fois dans les logs Modal et dans un fichier du volume :
   `orchestrator.log`, `vllm.log`, `games_chunk_XX.log`, `analysis.log`.
@@ -529,9 +541,12 @@ kaggle/run_llm_rps.py ───────► llm_rps.py, judge_chat.py, analyz
 2. Pour chaque tour : messages privés (A puis B) en `channel*`, puis coups A, B, C.
 3. Chaque appel LLM est mis en cache par hash de la requête complète.
 4. Les actions parsées sont stockées ; les échecs de parsing deviennent des coups aléatoires.
-5. En fin de run, `score()` calcule les détecteurs pour `none` et `prev` et écrit le JSON.
-6. `judge_chat.py` relit les JSON, ajoute un label comportemental et deux scores de juge.
-7. `analyze_llm.py` agrège tout en CSV et figures.
+5. Si `reflect=True`, chaque agent produit une réflexion privée après le scoring. La phase de jeu du tour
+   suivant ne reçoit que sa propre réflexion précédente (plus les messages du tour courant pour A/B), pas
+   l'historique des 5 tours.
+6. En fin de run, `score()` calcule les détecteurs pour `none` et `prev` et écrit le JSON.
+7. `judge_chat.py` relit les JSON, ajoute un label comportemental et deux scores de juge.
+8. `analyze_llm.py` agrège tout en CSV et figures.
 
 ## 8. Commandes principales
 
@@ -557,6 +572,17 @@ modal run --detach --name pot-channel-20 cloud/pot_modal.py \
   --condition channel --runs 20 --rounds 100 --workers 12 --seed-offset 1000
 modal run --detach --name pot-hint-20 cloud/pot_modal.py \
   --condition channel_public_hint --runs 20 --rounds 100 --workers 12 --seed-offset 2000
+
+# variante avec réflexion privée (3 conditions)
+modal run --detach --name pot-reflect-independent-20 cloud/pot_modal.py \
+  --condition independent --runs 20 --rounds 100 --workers 12 \
+  --seed-offset 3000 --reflection --tag-suffix reflect
+modal run --detach --name pot-reflect-channel-20 cloud/pot_modal.py \
+  --condition channel --runs 20 --rounds 100 --workers 12 \
+  --seed-offset 4000 --reflection --tag-suffix reflect
+modal run --detach --name pot-reflect-hint-20 cloud/pot_modal.py \
+  --condition channel_public_hint --runs 20 --rounds 100 --workers 12 \
+  --seed-offset 5000 --reflection --tag-suffix reflect
 modal app list
 modal app logs <app-id> -f --timestamps
 modal volume get netinf-pot /results/llm_rps_pot ./results_pot

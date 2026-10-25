@@ -1,0 +1,5 @@
+[2026-10-25T11:10:26.664728+00:00] starting Qwen/Qwen2.5-14B-Instruct-AWQ on A10G; condition=channel runs=1 rounds=2 reflection=True tag_suffix='_reflect_smoke'
+[2026-10-25T11:15:38.881582+00:00] vLLM is ready
+[2026-10-25T11:15:38.882273+00:00] chunk 0: runs 0-0
+[2026-10-25T11:16:05.415258+00:00] chunk 0 committed to volume
+[2026-10-25T11:16:26.591023+00:00] done; logs=/vol/logs/pot_channel_1runs_20261025T111026Z results=/vol/results/llm_rps_pot

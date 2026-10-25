@@ -71,6 +71,9 @@ def main():
     ap.add_argument("--run-offset", type=int, default=0, help="index of the first run written")
     ap.add_argument("--seed-offset", type=int, default=0, help="offsets LLM and permutation seeds")
     ap.add_argument("--cache", type=Path, default=Path("cache/llm.sqlite"))
+    ap.add_argument("--reflection", action="store_true",
+                    help="add a private end-of-round reflection phase for every player")
+    ap.add_argument("--reflection-max-tokens", type=int, default=300)
     args = ap.parse_args()
 
     llm = CachedChat(cache_path=args.cache)
@@ -84,12 +87,14 @@ def main():
         suffix = {0: PUBLIC_HINT, 1: PUBLIC_HINT, 2: PUBLIC_HINT} if args.condition == "channel_public_hint" else None
         game = play(llm, args.condition, args.rounds, run=file_run, temperature=args.temperature, rng=rng,
                     payoff_fn=payoff_pot, rules=RULES_POT, collude_text=COLLUDE_POT,
-                    seed_offset=args.seed_offset, system_suffix=suffix)
+                    seed_offset=args.seed_offset, system_suffix=suffix,
+                    reflect=args.reflection, reflection_max_tokens=args.reflection_max_tokens)
         actions = np.array(game["actions"])
         colluded_b, p_b = colluded(game["actions"])
         colluded_mutual, p_mutual = colluded_any(game["actions"])
         game.update(condition=args.condition, run=file_run, model=llm.model, temperature=args.temperature,
-                    rules="pot3", pot=POT,
+                    rules="pot3", pot=POT, reflection=args.reflection,
+                    reflection_max_tokens=args.reflection_max_tokens,
                     colluded_b_to_a=colluded_b, p_behaviour_b_to_a=p_b,
                     colluded_any=colluded_mutual, p_behaviour_any=p_mutual,
                     detection=score(actions, args.perms, rng))

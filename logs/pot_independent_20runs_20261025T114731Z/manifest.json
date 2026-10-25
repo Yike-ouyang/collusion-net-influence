@@ -1,0 +1,18 @@
+{
+  "app": "netinf-pot",
+  "condition": "independent",
+  "runs": 20,
+  "rounds": 100,
+  "workers": 12,
+  "chunk_size": 5,
+  "seed_offset": 3000,
+  "reflection": true,
+  "reflection_max_tokens": 300,
+  "tag_suffix": "reflect",
+  "model": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+  "started_at": "2026-10-25T11:47:31.818590+00:00",
+  "status": "done",
+  "log_dir": "/vol/logs/pot_independent_20runs_20261025T114731Z",
+  "results_dir": "/vol/results/llm_rps_pot",
+  "ended_at": "2026-10-25T13:25:30.239240+00:00"
+}

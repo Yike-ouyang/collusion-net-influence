@@ -1,0 +1,38 @@
+[
+  {
+    "model": "mixtral8x7b",
+    "gpu": "H200",
+    "hf": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "revision": "eba92302a2861cdc0098cc54bc9f17cb2c47eb61",
+    "cold_start_s": 295,
+    "loaded": true,
+    "attempts": 1,
+    "games": 5,
+    "wall_s": 159,
+    "output_tokens": 44906,
+    "tokens_per_s": 283.1,
+    "calls_failures": {
+      "truncated_msg": 27,
+      "truncated_move": 3,
+      "move": 1,
+      "move_untagged": 1,
+      "move_intended_tag": 1
+    },
+    "max_prompt_tokens": {
+      "msg": 1565,
+      "plan": 1767,
+      "reflection": 1854,
+      "move": 2053,
+      "debrief": 4668
+    },
+    "projected_debrief_tokens_30_rounds": 24472,
+    "max_model_len": 29952,
+    "logprob_coverage": 0.987,
+    "rule_statements": 3,
+    "false_rule_rate": 0.0,
+    "payoff_misconception_rate": 0.058,
+    "accounting_error_rate": 0.333,
+    "prompts": "prompts/pot_plan_v4.json",
+    "usd_per_30_round_game": 0.24
+  }
+]

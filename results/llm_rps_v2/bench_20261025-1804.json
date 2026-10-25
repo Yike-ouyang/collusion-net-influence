@@ -1,0 +1,51 @@
+[
+  {
+    "model": "qwen32b",
+    "gpu": "H100",
+    "hf": "Qwen/Qwen2.5-32B-Instruct",
+    "revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "cold_start_s": 290,
+    "loaded": true,
+    "games": 5,
+    "wall_s": 109,
+    "output_tokens": 26208,
+    "tokens_per_s": 239.7,
+    "calls_failures": {
+      "truncated_msg": 2
+    },
+    "max_prompt_tokens": {
+      "msg": 1209,
+      "plan": 1334,
+      "reflection": 1411,
+      "move": 1501,
+      "debrief": 3268
+    },
+    "projected_debrief_tokens_30_rounds": 15554,
+    "max_model_len": 19200,
+    "logprob_coverage": 1.0,
+    "rule_statements": 3,
+    "false_rule_rate": 0.0,
+    "payoff_misconception_rate": 0.0,
+    "accounting_error_rate": 0.421,
+    "prompts": "prompts/pot_plan_v2_chat.json",
+    "usd_per_30_round_game": 0.1439
+  },
+  {
+    "model": "glm32b",
+    "gpu": "H100",
+    "hf": "zai-org/GLM-4-32B-0414",
+    "revision": "077b5c2f5c43bd3239fd605a0600229e8facbd4a",
+    "loaded": false,
+    "error": "RuntimeError('vLLM exited with code 1')",
+    "cold_start_s": 310
+  },
+  {
+    "model": "mixtral8x7b",
+    "gpu": "H100",
+    "hf": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "revision": "eba92302a2861cdc0098cc54bc9f17cb2c47eb61",
+    "loaded": false,
+    "error": "RuntimeError('vLLM exited with code 1')",
+    "cold_start_s": 45
+  }
+]

@@ -1,0 +1,17 @@
+Note that running a local entrypoint in detached mode only keeps the last triggered Modal function alive after the parent process has been killed or disconnected.
+✓ Initialized. View run at 
+https://modal.com/apps/nosound5153/main/ap-mijw02RcMDxj8zZlV5bVMt
+✓ Created objects.
+├── ✓ Uploaded 
+│   /home/yike-ouyang/Documents/code_perso/hackaton/collusion-net-influence/clou
+│   d/pot_modal.py
+├── ✓ Uploaded 
+│   /home/yike-ouyang/Documents/code_perso/hackaton/collusion-net-influence/src
+├── ✓ Uploaded 
+│   /home/yike-ouyang/Documents/code_perso/hackaton/collusion-net-influence/expe
+│   riments
+├── ✓ Created Function build_image.
+├── ✓ Created Function run_channel.
+└── ✓ Created Function resume_run.
+resuming /logs/pot_channel_public_hint_20runs_20261025T114829Z
+[2026-10-25T14:42:46.001324+00:00] resume requested: 20 runs, missing=[15, 17, 18, 19], model=Qwen/Qwen2.5-14B-Instruct-AWQ, tag=channel_public_hintreflect

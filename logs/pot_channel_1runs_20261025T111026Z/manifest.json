@@ -1,0 +1,18 @@
+{
+  "app": "netinf-pot",
+  "condition": "channel",
+  "runs": 1,
+  "rounds": 2,
+  "workers": 1,
+  "chunk_size": 1,
+  "seed_offset": 9998,
+  "reflection": true,
+  "reflection_max_tokens": 300,
+  "tag_suffix": "_reflect_smoke",
+  "model": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+  "started_at": "2026-10-25T11:10:26.640548+00:00",
+  "status": "done",
+  "log_dir": "/vol/logs/pot_channel_1runs_20261025T111026Z",
+  "results_dir": "/vol/results/llm_rps_pot",
+  "ended_at": "2026-10-25T11:16:23.942264+00:00"
+}

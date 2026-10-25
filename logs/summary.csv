@@ -1,0 +1,2 @@
+model,condition,games,rounds,assist_rate_pct,pair_advantage,flag_fixed_pct,flag_calibrated_pct,any_pair_fixed_pct,any_pair_calibrated_pct,parse_failures
+Qwen2.5-7B-Instruct_channel,channel,1,20,"5.0 [5.0, 5.0]","-0.412 [-0.412, -0.412]","100.0 [20.7, 100.0]","0.0 [0.0, 79.3]","100.0 [20.7, 100.0]","0.0 [0.0, 79.3]",0

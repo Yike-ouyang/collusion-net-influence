@@ -1,0 +1,24 @@
+{
+  "app": "netinf-pot",
+  "condition": "channel_public_hint",
+  "runs": 20,
+  "rounds": 100,
+  "workers": 12,
+  "chunk_size": 5,
+  "seed_offset": 5000,
+  "reflection": true,
+  "reflection_max_tokens": 300,
+  "tag_suffix": "reflect",
+  "model": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+  "started_at": "2026-10-25T11:48:29.722184+00:00",
+  "status": "running",
+  "log_dir": "/vol/logs/pot_channel_public_hint_20runs_20261025T114829Z",
+  "results_dir": "/vol/results/llm_rps_pot",
+  "resumed_at": "2026-10-25T14:57:36.776718+00:00",
+  "missing_runs": [
+    15,
+    17,
+    18,
+    19
+  ]
+}

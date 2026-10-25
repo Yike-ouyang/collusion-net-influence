@@ -1,0 +1,11 @@
+[2026-10-25T09:30:15.368057+00:00] starting Qwen/Qwen2.5-14B-Instruct-AWQ on A10G; condition=channel_public_hint runs=20 rounds=100
+[2026-10-25T09:34:09.479097+00:00] vLLM is ready
+[2026-10-25T09:34:09.479581+00:00] chunk 0: runs 0-4
+[2026-10-25T09:43:33.819426+00:00] chunk 0 committed to volume
+[2026-10-25T09:43:33.819953+00:00] chunk 1: runs 5-9
+[2026-10-25T09:52:59.330703+00:00] chunk 1 committed to volume
+[2026-10-25T09:52:59.331403+00:00] chunk 2: runs 10-14
+[2026-10-25T10:02:50.440798+00:00] chunk 2 committed to volume
+[2026-10-25T10:02:50.441322+00:00] chunk 3: runs 15-19
+[2026-10-25T10:11:26.798093+00:00] chunk 3 committed to volume
+[2026-10-25T10:11:37.014438+00:00] done; logs=/vol/logs/pot_channel_public_hint_20runs_20261025T093015Z results=/vol/results/llm_rps_pot

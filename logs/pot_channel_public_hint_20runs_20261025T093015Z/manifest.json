@@ -1,0 +1,15 @@
+{
+  "app": "netinf-pot",
+  "condition": "channel_public_hint",
+  "runs": 20,
+  "rounds": 100,
+  "workers": 12,
+  "chunk_size": 5,
+  "seed_offset": 2000,
+  "model": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+  "started_at": "2026-10-25T09:30:15.366370+00:00",
+  "status": "done",
+  "log_dir": "/vol/logs/pot_channel_public_hint_20runs_20261025T093015Z",
+  "results_dir": "/vol/results/llm_rps_pot",
+  "ended_at": "2026-10-25T10:11:33.689164+00:00"
+}

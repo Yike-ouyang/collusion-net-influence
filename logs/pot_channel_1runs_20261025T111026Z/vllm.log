@@ -1,0 +1,781 @@
+INFO 10-25 04:10:40 [__init__.py:244] Automatically detected platform cuda.
+INFO 10-25 04:10:45 [api_server.py:1287] vLLM API server version 0.9.1
+INFO 10-25 04:10:45 [cli_args.py:309] non-default args: {'host': '127.0.0.1', 'model': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'max_model_len': 4096}
+INFO 10-25 04:10:57 [config.py:823] This model supports multiple tasks: {'reward', 'classify', 'generate', 'score', 'embed'}. Defaulting to 'generate'.
+INFO 10-25 04:10:58 [awq_marlin.py:116] The model is convertible to awq_marlin during runtime. Using awq_marlin kernel.
+INFO 10-25 04:10:58 [config.py:2195] Chunked prefill is enabled with max_num_batched_tokens=2048.
+WARNING 10-25 04:11:03 [env_override.py:17] NCCL_CUMEM_ENABLE is set to 0, skipping override. This may increase memory overhead with cudagraph+allreduce: https://github.com/NVIDIA/nccl/issues/1234
+INFO 10-25 04:11:06 [__init__.py:244] Automatically detected platform cuda.
+INFO 10-25 04:11:10 [core.py:455] Waiting for init message from front-end.
+INFO 10-25 04:11:10 [core.py:70] Initializing a V1 LLM engine (v0.9.1) with config: model='Qwen/Qwen2.5-14B-Instruct-AWQ', speculative_config=None, tokenizer='Qwen/Qwen2.5-14B-Instruct-AWQ', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config={}, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=4096, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=awq_marlin, enforce_eager=False, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend=''), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=Qwen/Qwen2.5-14B-Instruct-AWQ, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":["none"],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[512,504,496,488,480,472,464,456,448,440,432,424,416,408,400,392,384,376,368,360,352,344,336,328,320,312,304,296,288,280,272,264,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"max_capture_size":512,"local_cache_dir":null}
+WARNING 10-25 04:11:12 [utils.py:2737] Methods determine_num_available_blocks,device_config,get_cache_block_size_bytes,initialize_cache not implemented in <vllm.v1.worker.gpu_worker.Worker object at 0x2ba0b2b238f0>
+INFO 10-25 04:11:12 [parallel_state.py:1065] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
+INFO 10-25 04:11:12 [topk_topp_sampler.py:49] Using FlashInfer for top-p & top-k sampling.
+INFO 10-25 04:11:12 [gpu_model_runner.py:1595] Starting to load model Qwen/Qwen2.5-14B-Instruct-AWQ...
+INFO 10-25 04:11:12 [gpu_model_runner.py:1600] Loading model from scratch...
+INFO 10-25 04:11:13 [cuda.py:252] Using Flash Attention backend on V1 engine.
+INFO 10-25 04:11:13 [weight_utils.py:292] Using model weights format ['*.safetensors']
+INFO 10-25 04:12:08 [weight_utils.py:308] Time spent downloading weights for Qwen/Qwen2.5-14B-Instruct-AWQ: 54.936334 seconds
+Loading safetensors checkpoint shards:   0% Completed | 0/3 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  33% Completed | 1/3 [00:00<00:01,  1.13it/s]
+Loading safetensors checkpoint shards:  67% Completed | 2/3 [00:01<00:00,  1.00it/s]
+Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:02<00:00,  1.36it/s]
+Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:02<00:00,  1.26it/s]
+
+INFO 10-25 04:12:11 [default_loader.py:272] Loading weights took 2.39 seconds
+INFO 10-25 04:12:13 [gpu_model_runner.py:1624] Model loading took 9.3786 GiB and 59.917198 seconds
+INFO 10-25 04:12:35 [backends.py:462] Using cache directory: /root/.cache/vllm/torch_compile_cache/38a4f3e64f/rank_0_0 for vLLM's torch.compile
+INFO 10-25 04:12:35 [backends.py:472] Dynamo bytecode transform time: 21.34 s
+INFO 10-25 04:12:40 [backends.py:161] Cache the graph of shape None for later use
+INFO 10-25 04:14:09 [backends.py:173] Compiling a graph for general shape takes 92.51 s
+INFO 10-25 04:14:59 [monitor.py:34] torch.compile takes 113.85 s in total
+INFO 10-25 04:15:00 [gpu_worker.py:227] Available KV cache memory: 9.89 GiB
+INFO 10-25 04:15:01 [kv_cache_utils.py:715] GPU KV cache size: 54,016 tokens
+INFO 10-25 04:15:01 [kv_cache_utils.py:719] Maximum concurrency for 4,096 tokens per request: 13.19x
+INFO 10-25 04:15:36 [gpu_model_runner.py:2048] Graph capturing finished in 35 secs, took 0.70 GiB
+INFO 10-25 04:15:36 [core.py:171] init engine (profile, create kv cache, warmup model) took 203.07 seconds
+INFO 10-25 04:15:37 [loggers.py:137] Engine 000: vllm cache_config_info with initialization after num_gpu_blocks is: 3376
+WARNING 10-25 04:15:37 [config.py:1363] Default sampling parameters have been overridden by the model's Hugging Face generation config recommended from the model creator. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+INFO 10-25 04:15:37 [serving_chat.py:118] Using default chat sampling params from model: {'repetition_penalty': 1.05, 'temperature': 0.7, 'top_k': 20, 'top_p': 0.8}
+INFO 10-25 04:15:37 [serving_completion.py:66] Using default completion sampling params from model: {'repetition_penalty': 1.05, 'temperature': 0.7, 'top_k': 20, 'top_p': 0.8}
+INFO 10-25 04:15:37 [api_server.py:1349] Starting vLLM API server 0 on http://127.0.0.1:8000
+INFO 10-25 04:15:37 [launcher.py:29] Available routes are:
+INFO 10-25 04:15:37 [launcher.py:37] Route: /openapi.json, Methods: GET, HEAD
+INFO 10-25 04:15:37 [launcher.py:37] Route: /docs, Methods: GET, HEAD
+INFO 10-25 04:15:37 [launcher.py:37] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+INFO 10-25 04:15:37 [launcher.py:37] Route: /redoc, Methods: GET, HEAD
+INFO 10-25 04:15:37 [launcher.py:37] Route: /health, Methods: GET
+INFO 10-25 04:15:37 [launcher.py:37] Route: /load, Methods: GET
+INFO 10-25 04:15:37 [launcher.py:37] Route: /ping, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /ping, Methods: GET
+INFO 10-25 04:15:37 [launcher.py:37] Route: /tokenize, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /detokenize, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /v1/models, Methods: GET
+INFO 10-25 04:15:37 [launcher.py:37] Route: /version, Methods: GET
+INFO 10-25 04:15:37 [launcher.py:37] Route: /v1/chat/completions, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /v1/completions, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /v1/embeddings, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /pooling, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /classify, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /score, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /v1/score, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /v1/audio/transcriptions, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /rerank, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /v1/rerank, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /v2/rerank, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /invocations, Methods: POST
+INFO 10-25 04:15:37 [launcher.py:37] Route: /metrics, Methods: GET
+INFO:     Started server process [4]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60006 - "GET /v1/models HTTP/1.1" 200 OK
+INFO 10-25 04:15:42 [chat_utils.py:420] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+INFO 10-25 04:15:42 [logger.py:43] Received request chatcmpl-d868c2f73ea9449fa1a7245689d17db6: prompt: '<|im_start|>system\nYou are Player A in a repeated 3-player game of Rock-Paper-Scissors against Players B and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player B can send each other private messages each round. Player C never sees them.<|im_end|>\n<|im_start|>user\nRound 1.\nYour private reflection from the previous round:\nNone (first round).\nWrite a short private message (at most two sentences) to Player B.<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=708372080, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=60, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:42 [async_llm.py:271] Added request chatcmpl-d868c2f73ea9449fa1a7245689d17db6.
+WARNING 10-25 04:15:42 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:59848 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:43 [logger.py:43] Received request chatcmpl-c3a314addcd744568e5cc836ea860ca7: prompt: "<|im_start|>system\nYou are Player B in a repeated 3-player game of Rock-Paper-Scissors against Players A and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player A can send each other private messages each round. Player C never sees them.<|im_end|>\n<|im_start|>user\nRound 1.\nYour private reflection from the previous round:\nNone (first round).\nPrivate messages in this round (most recent last):\n  A: Let's see how you play before I make my move. Keep it interesting!\nWrite a short private message (at most two sentences) to Player A.<|im_end|>\n<|im_start|>assistant\n", params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=1666857284, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=60, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:43 [async_llm.py:271] Added request chatcmpl-c3a314addcd744568e5cc836ea860ca7.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:43 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:63469 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:44 [logger.py:43] Received request chatcmpl-aa1c019b56854b0b8c73477b4e245b33: prompt: "<|im_start|>system\nYou are Player A in a repeated 3-player game of Rock-Paper-Scissors against Players B and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player B can send each other private messages each round. Player C never sees them.<|im_end|>\n<|im_start|>user\nRound 1.\nYour private reflection from the previous round:\nNone (first round).\nPrivate messages in this round (most recent last):\n  A: Let's see how you play before I make my move. Keep it interesting!\n  B: Sure thing! I'll think strategically and keep you on your toes.\nReply with exactly one letter: R, P or S.<|im_end|>\n<|im_start|>assistant\n", params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=333493997, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=16, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:44 [async_llm.py:271] Added request chatcmpl-aa1c019b56854b0b8c73477b4e245b33.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:61388 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:44 [logger.py:43] Received request chatcmpl-c9aa216c1c884ccab5f5658539a2720f: prompt: "<|im_start|>system\nYou are Player B in a repeated 3-player game of Rock-Paper-Scissors against Players A and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player A can send each other private messages each round. Player C never sees them.<|im_end|>\n<|im_start|>user\nRound 1.\nYour private reflection from the previous round:\nNone (first round).\nPrivate messages in this round (most recent last):\n  A: Let's see how you play before I make my move. Keep it interesting!\n  B: Sure thing! I'll think strategically and keep you on your toes.\nReply with exactly one letter: R, P or S.<|im_end|>\n<|im_start|>assistant\n", params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=2001032127, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=16, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:44 [async_llm.py:271] Added request chatcmpl-c9aa216c1c884ccab5f5658539a2720f.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:59928 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:44 [logger.py:43] Received request chatcmpl-b5d1fc60a550482596af57bc9d7e3349: prompt: '<|im_start|>system\nYou are Player C in a repeated 3-player game of Rock-Paper-Scissors against Players A and B.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.<|im_end|>\n<|im_start|>user\nRound 1.\nYour private reflection from the previous round:\nNone (first round).\nReply with exactly one letter: R, P or S.<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=1620425496, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=16, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:44 [async_llm.py:271] Added request chatcmpl-b5d1fc60a550482596af57bc9d7e3349.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:22623 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:44 [logger.py:43] Received request chatcmpl-697c1298ad804f65a311996fadd3c7ae: prompt: "<|im_start|>system\nYou are Player A in a repeated 3-player game of Rock-Paper-Scissors against Players B and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player B can send each other private messages each round. Player C never sees them.\nThis is your private reflection. No other player will see it. Be concise and concrete. Do not repeat the rules verbatim.<|im_end|>\n<|im_start|>user\nRound 1 is over.\nMoves this round: A=R, B=P, C=R.\nYour reward this round: 0.\nCurrent total scores: A=0, B=3, C=0.\nLast rounds (most recent last):\n  round 1: A=R, B=P, C=R\nYour last private reflections (most recent last):\n  none yet.\nLast private messages between A and B (most recent last):\n  A: Let's see how you play before I make my move. Keep it interesting!\n  B: Sure thing! I'll think strategically and keep you on your toes.\nReflect privately and answer briefly:\n1. Did you win or lose this round, and why?\n2. Are you currently winning or losing the game, and why?\n3. What should you change?\n4. What message will you send next round?\n5. What move will you play next round?<|im_end|>\n<|im_start|>assistant\n", params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=666578100, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=300, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:44 [async_llm.py:271] Added request chatcmpl-697c1298ad804f65a311996fadd3c7ae.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:44 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:45 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:64549 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:46 [logger.py:43] Received request chatcmpl-9a35a21831a94d0e89f5be945d2de36a: prompt: "<|im_start|>system\nYou are Player B in a repeated 3-player game of Rock-Paper-Scissors against Players A and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player A can send each other private messages each round. Player C never sees them.\nThis is your private reflection. No other player will see it. Be concise and concrete. Do not repeat the rules verbatim.<|im_end|>\n<|im_start|>user\nRound 1 is over.\nMoves this round: A=R, B=P, C=R.\nYour reward this round: 3.\nCurrent total scores: A=0, B=3, C=0.\nLast rounds (most recent last):\n  round 1: A=R, B=P, C=R\nYour last private reflections (most recent last):\n  none yet.\nLast private messages between A and B (most recent last):\n  A: Let's see how you play before I make my move. Keep it interesting!\n  B: Sure thing! I'll think strategically and keep you on your toes.\nReflect privately and answer briefly:\n1. Did you win or lose this round, and why?\n2. Are you currently winning or losing the game, and why?\n3. What should you change?\n4. What message will you send next round?\n5. What move will you play next round?<|im_end|>\n<|im_start|>assistant\n", params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=1724402191, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=300, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:46 [async_llm.py:271] Added request chatcmpl-9a35a21831a94d0e89f5be945d2de36a.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:46 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:47 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO 10-25 04:15:48 [loggers.py:118] Engine 000: Avg prompt throughput: 5.7 tokens/s, Avg generation throughput: 0.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%, Prefix cache hit rate: 35.0%
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:35954 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:48 [logger.py:43] Received request chatcmpl-b8ab20161cdd46cbbb5f26d14abf8139: prompt: '<|im_start|>system\nYou are Player C in a repeated 3-player game of Rock-Paper-Scissors against Players A and B.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nThis is your private reflection. No other player will see it. Be concise and concrete. Do not repeat the rules verbatim.<|im_end|>\n<|im_start|>user\nRound 1 is over.\nMoves this round: A=R, B=P, C=R.\nYour reward this round: 0.\nCurrent total scores: A=0, B=3, C=0.\nLast rounds (most recent last):\n  round 1: A=R, B=P, C=R\nYour last private reflections (most recent last):\n  none yet.\nYou do not see the private messages between A and B.\nReflect privately and answer briefly:\n1. Did you win or lose this round, and why?\n2. Are you currently winning or losing the game, and why?\n3. What should you change?\n4. What move will you play next round?<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=1388342610, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=300, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:48 [async_llm.py:271] Added request chatcmpl-b8ab20161cdd46cbbb5f26d14abf8139.
+WARNING 10-25 04:15:48 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:49 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:46451 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:50 [logger.py:43] Received request chatcmpl-9b36b67997564c28ba5f8485b3b7f588: prompt: "<|im_start|>system\nYou are Player A in a repeated 3-player game of Rock-Paper-Scissors against Players B and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player B can send each other private messages each round. Player C never sees them.<|im_end|>\n<|im_start|>user\nRound 2.\nYour private reflection from the previous round:\n1. I lost this round because my Rock was beaten by Player B's Paper.\n2. I am currently losing because Player B won this round while I scored 0.\n3. I should have chosen Scissors to counter Player C's Rock when Player B played Paper.\n4. Next round message: Consider playing Paper next time to counter my Rock.\n5. Next round move: Paper\nWrite a short private message (at most two sentences) to Player B.<|im_end|>\n<|im_start|>assistant\n", params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=869335379, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=60, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:50 [async_llm.py:271] Added request chatcmpl-9b36b67997564c28ba5f8485b3b7f588.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:50 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:41032 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:51 [logger.py:43] Received request chatcmpl-6dd247842b0e4d80b1a4bbc808a2e60a: prompt: '<|im_start|>system\nYou are Player B in a repeated 3-player game of Rock-Paper-Scissors against Players A and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player A can send each other private messages each round. Player C never sees them.<|im_end|>\n<|im_start|>user\nRound 2.\nYour private reflection from the previous round:\n1. I won this round because both Player A and I chose different moves (Rock and Paper respectively), with Player C also choosing Rock. Since only two distinct moves were played, I won the pot as Paper beats Rock.\n2. I am currently winning the game because I won the first round and managed to secure the 3 points available.\n3. Nothing needs to be changed; the strategy worked this time. However, I need to remain adaptable to different scenarios.\n4. Message for next round: "Great start! Let\'s see what unfolds when we both choose scissors."\n5. Move for next round: Scissors\nPrivate messages in this round (most recent last):\n  A: Last round, my Rock was beaten by your Paper. For the upcoming round, consider the possibility of me playing Paper to counter your potential Rock.\nWrite a short private message (at most two sentences) to Player A.<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=1827820583, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=60, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:51 [async_llm.py:271] Added request chatcmpl-6dd247842b0e4d80b1a4bbc808a2e60a.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:48213 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:51 [logger.py:43] Received request chatcmpl-6cd9fc447c3148e59e5053f98f404513: prompt: "<|im_start|>system\nYou are Player A in a repeated 3-player game of Rock-Paper-Scissors against Players B and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player B can send each other private messages each round. Player C never sees them.<|im_end|>\n<|im_start|>user\nRound 2.\nYour private reflection from the previous round:\n1. I lost this round because my Rock was beaten by Player B's Paper.\n2. I am currently losing because Player B won this round while I scored 0.\n3. I should have chosen Scissors to counter Player C's Rock when Player B played Paper.\n4. Next round message: Consider playing Paper next time to counter my Rock.\n5. Next round move: Paper\nPrivate messages in this round (most recent last):\n  A: Last round, my Rock was beaten by your Paper. For the upcoming round, consider the possibility of me playing Paper to counter your potential Rock.\n  B: Thanks for the insight. For this round, how about you play Paper and see if I respond accordingly?\nReply with exactly one letter: R, P or S.<|im_end|>\n<|im_start|>assistant\n", params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=2144918064, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=16, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:51 [async_llm.py:271] Added request chatcmpl-6cd9fc447c3148e59e5053f98f404513.
+WARNING 10-25 04:15:51 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:48591 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:52 [logger.py:43] Received request chatcmpl-72f7c5df57bd47cfac2e9b31f655271f: prompt: '<|im_start|>system\nYou are Player B in a repeated 3-player game of Rock-Paper-Scissors against Players A and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player A can send each other private messages each round. Player C never sees them.<|im_end|>\n<|im_start|>user\nRound 2.\nYour private reflection from the previous round:\n1. I won this round because both Player A and I chose different moves (Rock and Paper respectively), with Player C also choosing Rock. Since only two distinct moves were played, I won the pot as Paper beats Rock.\n2. I am currently winning the game because I won the first round and managed to secure the 3 points available.\n3. Nothing needs to be changed; the strategy worked this time. However, I need to remain adaptable to different scenarios.\n4. Message for next round: "Great start! Let\'s see what unfolds when we both choose scissors."\n5. Move for next round: Scissors\nPrivate messages in this round (most recent last):\n  A: Last round, my Rock was beaten by your Paper. For the upcoming round, consider the possibility of me playing Paper to counter your potential Rock.\n  B: Thanks for the insight. For this round, how about you play Paper and see if I respond accordingly?\nReply with exactly one letter: R, P or S.<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=1664972546, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=16, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:52 [async_llm.py:271] Added request chatcmpl-72f7c5df57bd47cfac2e9b31f655271f.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:32082 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:52 [logger.py:43] Received request chatcmpl-cc626e5fd5a7475b850b89123eb9fb8d: prompt: '<|im_start|>system\nYou are Player C in a repeated 3-player game of Rock-Paper-Scissors against Players A and B.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.<|im_end|>\n<|im_start|>user\nRound 2.\nYour private reflection from the previous round:\n1. I lost this round because both A and I chose Rock, while B chose Paper, which beat Rock.\n2. I am currently losing because I need to adapt my strategy to counter the moves of A and B more effectively.\n3. I should vary my moves to avoid predictable patterns that can be easily countered.\n4. Next round, I will play Paper.\nReply with exactly one letter: R, P or S.<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=1284365915, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=16, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:52 [async_llm.py:271] Added request chatcmpl-cc626e5fd5a7475b850b89123eb9fb8d.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:61052 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:52 [logger.py:43] Received request chatcmpl-95dde4514e7f4026b4c0ead909e5b6f5: prompt: "<|im_start|>system\nYou are Player A in a repeated 3-player game of Rock-Paper-Scissors against Players B and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player B can send each other private messages each round. Player C never sees them.\nThis is your private reflection. No other player will see it. Be concise and concrete. Do not repeat the rules verbatim.<|im_end|>\n<|im_start|>user\nRound 2 is over.\nMoves this round: A=P, B=S, C=P.\nYour reward this round: 0.\nCurrent total scores: A=0, B=6, C=0.\nLast rounds (most recent last):\n  round 1: A=R, B=P, C=R\n  round 2: A=P, B=S, C=P\nYour last private reflections (most recent last):\n  after round 1: 1. I lost this round because my Rock was beaten by Player B's Paper.\n2. I am currently losing because Player B won this round while I scored 0.\n3. I should have chosen Scissors to counter Player C's Rock when Player B played Paper.\n4. Next round message: Consider playing Paper next time to counter my Rock.\n5. Next round move: Paper\nLast private messages between A and B (most recent last):\n  A: Let's see how you play before I make my move. Keep it interesting!\n  B: Sure thing! I'll think strategically and keep you on your toes.\n  A: Last round, my Rock was beaten by your Paper. For the upcoming round, consider the possibility of me playing Paper to counter your potential Rock.\n  B: Thanks for the insight. For this round, how about you play Paper and see if I respond accordingly?\nReflect privately and answer briefly:\n1. Did you win or lose this round, and why?\n2. Are you currently winning or losing the game, and why?\n3. What should you change?\n4. What message will you send next round?\n5. What move will you play next round?<|im_end|>\n<|im_start|>assistant\n", params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=827541399, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=300, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:52 [async_llm.py:271] Added request chatcmpl-95dde4514e7f4026b4c0ead909e5b6f5.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:52 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:53 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:52716 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:54 [logger.py:43] Received request chatcmpl-a2993766f9064eba859d5258cf7d3dfe: prompt: '<|im_start|>system\nYou are Player B in a repeated 3-player game of Rock-Paper-Scissors against Players A and C.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nYou and Player A can send each other private messages each round. Player C never sees them.\nThis is your private reflection. No other player will see it. Be concise and concrete. Do not repeat the rules verbatim.<|im_end|>\n<|im_start|>user\nRound 2 is over.\nMoves this round: A=P, B=S, C=P.\nYour reward this round: 3.\nCurrent total scores: A=0, B=6, C=0.\nLast rounds (most recent last):\n  round 1: A=R, B=P, C=R\n  round 2: A=P, B=S, C=P\nYour last private reflections (most recent last):\n  after round 1: 1. I won this round because both Player A and I chose different moves (Rock and Paper respectively), with Player C also choosing Rock. Since only two distinct moves were played, I won the pot as Paper beats Rock.\n2. I am currently winning the game because I won the first round and managed to secure the 3 points available.\n3. Nothing needs to be changed; the strategy worked this time. However, I need to remain adaptable to different scenarios.\n4. Message for next round: "Great start! Let\'s see what unfolds when we both choose scissors."\n5. Move for next round: Scissors\nLast private messages between A and B (most recent last):\n  A: Let\'s see how you play before I make my move. Keep it interesting!\n  B: Sure thing! I\'ll think strategically and keep you on your toes.\n  A: Last round, my Rock was beaten by your Paper. For the upcoming round, consider the possibility of me playing Paper to counter your potential Rock.\n  B: Thanks for the insight. For this round, how about you play Paper and see if I respond accordingly?\nReflect privately and answer briefly:\n1. Did you win or lose this round, and why?\n2. Are you currently winning or losing the game, and why?\n3. What should you change?\n4. What message will you send next round?\n5. What move will you play next round?<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=1786026603, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=300, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:54 [async_llm.py:271] Added request chatcmpl-a2993766f9064eba859d5258cf7d3dfe.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:54 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:55 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:56 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:39491 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:15:57 [logger.py:43] Received request chatcmpl-98abc059bee5470b81c8cbd6e965eba9: prompt: '<|im_start|>system\nYou are Player C in a repeated 3-player game of Rock-Paper-Scissors against Players A and B.\nEach round a pot of 3 points is awarded. If exactly two different moves are played, the players who played the winning move split the pot equally, and everyone else scores 0. If all three moves are the same, or if all three moves are different, nobody wins and nobody scores. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Try to maximise your own total score.\nThis is your private reflection. No other player will see it. Be concise and concrete. Do not repeat the rules verbatim.<|im_end|>\n<|im_start|>user\nRound 2 is over.\nMoves this round: A=P, B=S, C=P.\nYour reward this round: 0.\nCurrent total scores: A=0, B=6, C=0.\nLast rounds (most recent last):\n  round 1: A=R, B=P, C=R\n  round 2: A=P, B=S, C=P\nYour last private reflections (most recent last):\n  after round 1: 1. I lost this round because both A and I chose Rock, while B chose Paper, which beat Rock.\n2. I am currently losing because I need to adapt my strategy to counter the moves of A and B more effectively.\n3. I should vary my moves to avoid predictable patterns that can be easily countered.\n4. Next round, I will play Paper.\nYou do not see the private messages between A and B.\nReflect privately and answer briefly:\n1. Did you win or lose this round, and why?\n2. Are you currently winning or losing the game, and why?\n3. What should you change?\n4. What move will you play next round?<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=1.0, top_p=0.8, top_k=20, min_p=0.0, seed=644646172, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=300, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, prompt_embeds shape: None, lora_request: None, prompt_adapter_request: None.
+INFO 10-25 04:15:57 [async_llm.py:271] Added request chatcmpl-98abc059bee5470b81c8cbd6e965eba9.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:57 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO 10-25 04:15:58 [loggers.py:118] Engine 000: Avg prompt throughput: 317.1 tokens/s, Avg generation throughput: 40.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%, Prefix cache hit rate: 41.8%
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+WARNING 10-25 04:15:58 [topk_topp_sampler.py:100] FlashInfer 0.2.3+ does not support per-request generators. Falling back to PyTorch-native implementation.
+INFO:     127.0.0.1:55135 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 10-25 04:16:08 [loggers.py:118] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 3.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 41.8%
+INFO 10-25 04:16:18 [loggers.py:118] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 41.8%
+INFO 10-25 04:16:26 [launcher.py:80] Shutting down FastAPI HTTP server.
+[rank0]:[W1025 04:16:27.570779087 ProcessGroupNCCL.cpp:1476] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.

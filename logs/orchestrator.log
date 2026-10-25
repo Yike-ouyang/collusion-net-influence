@@ -1,0 +1,5 @@
+[2026-10-24T22:34:35.850194+00:00] starting Qwen/Qwen2.5-7B-Instruct on A10G; condition=channel runs=1 rounds=20
+[2026-10-24T22:38:18.006475+00:00] vLLM is ready
+[2026-10-24T22:38:18.007053+00:00] chunk 0: runs 0-0
+[2026-10-24T22:39:07.811785+00:00] chunk 0 committed to volume
+[2026-10-24T22:39:10.589951+00:00] done; logs=/vol/logs/pot_channel_1runs_20261024T223435Z results=/vol/results/llm_rps_pot

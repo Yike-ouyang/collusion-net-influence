@@ -1,0 +1,18 @@
+[2026-10-25T11:47:52.958836+00:00] starting Qwen/Qwen2.5-14B-Instruct-AWQ on A10G; condition=channel runs=20 rounds=100 reflection=True tag_suffix='reflect'
+[2026-10-25T11:51:43.068734+00:00] vLLM is ready
+[2026-10-25T11:51:43.069407+00:00] chunk 0: runs 0-4
+[2026-10-25T12:24:28.675373+00:00] chunk 0 committed to volume
+[2026-10-25T12:24:28.675728+00:00] chunk 1: runs 5-9
+[2026-10-25T12:57:08.454377+00:00] chunk 1 committed to volume
+[2026-10-25T12:57:08.455213+00:00] chunk 2: runs 10-14
+[2026-10-25T13:30:36.678709+00:00] chunk 2 committed to volume
+[2026-10-25T13:30:36.679064+00:00] chunk 3: runs 15-19
+[2026-10-25T14:35:23.743474+00:00] resume requested: 20 runs, missing=[15, 16, 19], model=Qwen/Qwen2.5-14B-Instruct-AWQ, tag=channelreflect
+[2026-10-25T14:40:09.656160+00:00] vLLM is ready
+[2026-10-25T14:40:09.656501+00:00] resume run 15
+[2026-10-25T14:40:30.206584+00:00] resume run 15 committed
+[2026-10-25T14:40:30.207051+00:00] resume run 16
+[2026-10-25T14:42:05.458590+00:00] resume run 16 committed
+[2026-10-25T14:42:05.459103+00:00] resume run 19
+[2026-10-25T14:42:29.966281+00:00] resume run 19 committed
+[2026-10-25T14:42:46.408218+00:00] resume done; logs=/vol/logs/pot_channel_20runs_20261025T114752Z

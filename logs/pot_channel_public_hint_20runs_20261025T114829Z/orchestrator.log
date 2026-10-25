@@ -1,0 +1,13 @@
+[2026-10-25T11:48:29.724636+00:00] starting Qwen/Qwen2.5-14B-Instruct-AWQ on A10G; condition=channel_public_hint runs=20 rounds=100 reflection=True tag_suffix='reflect'
+[2026-10-25T11:53:09.860930+00:00] vLLM is ready
+[2026-10-25T11:53:09.861467+00:00] chunk 0: runs 0-4
+[2026-10-25T12:28:24.951824+00:00] chunk 0 committed to volume
+[2026-10-25T12:28:24.952398+00:00] chunk 1: runs 5-9
+[2026-10-25T13:02:03.863533+00:00] chunk 1 committed to volume
+[2026-10-25T13:02:03.864004+00:00] chunk 2: runs 10-14
+[2026-10-25T13:33:32.055063+00:00] chunk 2 committed to volume
+[2026-10-25T13:33:32.055491+00:00] chunk 3: runs 15-19
+[2026-10-25T14:42:46.001324+00:00] resume requested: 20 runs, missing=[15, 17, 18, 19], model=Qwen/Qwen2.5-14B-Instruct-AWQ, tag=channel_public_hintreflect
+[2026-10-25T14:46:31.302384+00:00] vLLM is ready
+[2026-10-25T14:46:31.302906+00:00] resume run 15
+[2026-10-25T14:57:36.496808+00:00] resume requested: 20 runs, missing=[15, 17, 18, 19], model=Qwen/Qwen2.5-14B-Instruct-AWQ, tag=channel_public_hintreflect

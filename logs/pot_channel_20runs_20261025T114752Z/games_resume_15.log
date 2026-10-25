@@ -1,0 +1,3 @@
+[2026-10-25T14:40:09.657482+00:00] $ /usr/local/bin/python experiments/llm_rps_pot.py --condition channel --runs 1 --rounds 100 --workers 1 --run-offset 15 --seed-offset 4000 --tag channelreflect --out /vol/results/llm_rps_pot --cache /vol/cache/llm.sqlite --reflection --reflection-max-tokens 300
+[2026-10-25T14:40:26.620288+00:00] run 15: assist=0.21 any=0.41 alt=0.35 c=0.960 pair_adv=-0.465 parse_fail=0 {'none': {'fixed': (0, 1), 'calibrated': (0, 1), 'net_AB': 0.06705849652627718}, 'prev': {'fixed': None, 'calibrated': None, 'net_AB': 0.04031012040236631}}
+[2026-10-25T14:40:26.620565+00:00] Usage(calls=9, cache_hits=791, input_tokens=6112, output_tokens=497)

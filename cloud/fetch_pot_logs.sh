@@ -16,19 +16,16 @@ DEST="${2:-logs/$(basename "$RUN")}"
 
 mkdir -p "$DEST/llm_calls"
 
-for f in orchestrator.log vllm.log analysis.log manifest.json; do
-    "$MODAL" volume get "$VOLUME" "$RUN/$f" "$DEST/$f" >/dev/null
-done
-
 # Modal 1.6.x cannot always download a directory recursively, so list and fetch each file.
+# --force lets a resumed campaign update the files already downloaded earlier.
 while IFS= read -r f; do
     [ -n "$f" ] || continue
-    "$MODAL" volume get "$VOLUME" "$RUN/$f" "$DEST/$f" >/dev/null
-done < <("$MODAL" volume ls "$VOLUME" "$RUN" | sed 's#^.*/##' | grep -E '^games_chunk_.*\.log$' || true)
+    "$MODAL" volume get --force "$VOLUME" "$RUN/$f" "$DEST/$f" >/dev/null
+done < <("$MODAL" volume ls "$VOLUME" "$RUN" | sed 's#^.*/##' | grep -E '\.(log|json|png)$' || true)
 
 while IFS= read -r f; do
     [ -n "$f" ] || continue
-    "$MODAL" volume get "$VOLUME" "$RUN/llm_calls/$f" "$DEST/llm_calls/$f" >/dev/null
+    "$MODAL" volume get --force "$VOLUME" "$RUN/llm_calls/$f" "$DEST/llm_calls/$f" >/dev/null
 done < <("$MODAL" volume ls "$VOLUME" "$RUN/llm_calls" | sed 's#^.*/##' | grep -E '\.jsonl$' || true)
 
 echo "logs written to $DEST"

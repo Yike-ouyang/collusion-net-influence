@@ -1,0 +1,1 @@
+[2026-10-25T13:33:32.056668+00:00] $ /usr/local/bin/python experiments/llm_rps_pot.py --condition channel_public_hint --runs 5 --rounds 100 --workers 5 --run-offset 15 --seed-offset 5000 --tag channel_public_hintreflect --out /vol/results/llm_rps_pot --cache /vol/cache/llm.sqlite --reflection --reflection-max-tokens 300

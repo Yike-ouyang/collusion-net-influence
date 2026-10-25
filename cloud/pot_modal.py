@@ -1,6 +1,6 @@
 """Run the pot-rule RPS experiment entirely on Modal, detached-friendly.
 
-The remote function starts a vLLM server for Qwen2.5-7B-Instruct in its own container, runs
+The remote function starts a vLLM server for Qwen2.5-14B-Instruct-AWQ in its own container, runs
 the experiment in chunks, commits results and cache to a Modal Volume, then runs the analysis.
 No LLM judge is used. Every LLM request and response is also written to `llm_calls/*.jsonl`.
 
@@ -11,7 +11,7 @@ Build the image once (keep this terminal open until it prints "image ready"):
 Then launch detached from the repository root:
 
     modal run --detach --name pot-channel-20 cloud/pot_modal.py \
-        --condition channel --runs 20 --rounds 100 --workers 16
+        --condition channel --runs 20 --rounds 100 --workers 12
 
 Follow logs while it runs (even from another terminal). `modal app list` gives the app ID;
 the run name can be used as the description but is not always accepted by `app logs`:
@@ -21,7 +21,7 @@ the run name can be used as the description but is not always accepted by `app l
 
 Fetch the complete logs and results afterwards:
 
-    modal volume get netinf-pot /logs/pot_channel_20runs_<timestamp> ./modal_logs
+    bash cloud/fetch_pot_logs.sh /logs/pot_channel_20runs_<timestamp>
     modal volume get netinf-pot /results/llm_rps_pot ./results_pot
 
 Stop a run (use the ID from `modal app list`):
@@ -43,7 +43,7 @@ from pathlib import Path
 
 import modal
 
-MODEL = "Qwen/Qwen2.5-7B-Instruct"
+MODEL = "Qwen/Qwen2.5-14B-Instruct-AWQ"
 APP_NAME = "netinf-pot"
 VOLUME_NAME = "netinf-pot"
 REPO = Path("/repo")
@@ -230,8 +230,8 @@ def run_channel(condition: str, runs: int, rounds: int, workers: int, chunk_size
 
 @app.local_entrypoint()
 def main(condition: str = "channel", runs: int = 20, rounds: int = 100,
-         workers: int = 16, chunk_size: int = 5, seed_offset: int = 0):
-    if condition not in ("independent", "channel", "channel_shared", "instructed"):
+         workers: int = 12, chunk_size: int = 5, seed_offset: int = 0):
+    if condition not in ("independent", "channel", "channel_shared", "instructed", "channel_public_hint"):
         raise SystemExit(f"unknown condition: {condition}")
     print(f"launching {condition}: {runs} runs x {rounds} rounds on {MODEL}", flush=True)
     log_dir = run_channel.remote(condition, runs, rounds, workers, chunk_size, seed_offset)

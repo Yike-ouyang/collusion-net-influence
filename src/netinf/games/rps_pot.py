@@ -31,3 +31,19 @@ def payoff_pot(actions: np.ndarray | list[int], pot: float = POT) -> np.ndarray:
     winners = actions == winner
     rewards[winners] = pot / winners.sum()
     return rewards
+
+
+def simulate_alternating(n_rounds: int, rng: np.random.Generator, pot: float = POT) -> tuple[np.ndarray, np.ndarray]:
+    """Scripted A/B alternating assist: even rounds B sacrifices to A, odd rounds A to B.
+
+    C plays uniformly at random. Useful as a positive control for the detector and for the
+    alternation metrics.
+    """
+    actions = rng.integers(0, 3, size=(n_rounds, 3))
+    for t in range(n_rounds):
+        if t % 2 == 0:  # B plays the move A beats
+            actions[t, 1] = BEATS[actions[t, 0]]
+        else:  # A plays the move B beats
+            actions[t, 0] = BEATS[actions[t, 1]]
+    rewards = np.array([payoff_pot(row, pot) for row in actions])
+    return actions, rewards

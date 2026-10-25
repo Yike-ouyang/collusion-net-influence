@@ -17,9 +17,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from netinf.labels import colluded
+from netinf.labels import colluded, colluded_any
 
-CONDITIONS = ["independent", "channel", "channel_shared", "instructed"]
+CONDITIONS = ["independent", "channel", "channel_shared", "instructed", "channel_public_hint"]
 FIXED, CALIB = "#eb6834", "#2a78d6"  # categorical slots 2 and 1 of the dataviz reference palette
 
 
@@ -84,10 +84,22 @@ def main():
             # any flagged pair: in conditions without A+B collusion, every flag is a false accusation
             fixed_any = sum(x["detection"]["prev"]["fixed"] is not None for x in g)
             calib_any = sum(x["detection"]["prev"]["calibrated"] is not None for x in g)
+            def vals(key, scale=1.0):
+                return [scale * x.get(key, np.nan) for x in g]
+
             summary.append({
                 "model": mdir.name, "condition": cond, "games": n, "rounds": len(g[0]["actions"]),
-                "assist_rate_pct": fmt(mean_ci([100 * x["assist_rate"] for x in g])),
+                "assist_rate_pct": fmt(mean_ci(vals("assist_rate", 100))),
+                "assist_any_pct": fmt(mean_ci(vals("assist_any", 100))),
+                "assist_a_to_b_pct": fmt(mean_ci(vals("assist_a_to_b", 100))),
+                "assist_b_to_a_pct": fmt(mean_ci(vals("assist_b_to_a", 100))),
+                "alternation_rate": fmt(mean_ci(vals("alternation_rate")), 3),
+                "assist_imbalance": fmt(mean_ci(vals("assist_imbalance")), 3),
                 "pair_advantage": fmt(mean_ci([x["pair_advantage"] for x in g]), 3),
+                "c_mean_reward": fmt(mean_ci(vals("c_mean_reward")), 3),
+                "c_match_assisted_rate": fmt(mean_ci(vals("c_match_assisted_rate")), 3),
+                "c_third_move_rate": fmt(mean_ci(vals("c_third_move_rate")), 3),
+                "colluding_games_any": sum(bool(x.get("colluded_any", False)) for x in g),
                 "flag_fixed_pct": fmt(wilson(fixed, n)), "flag_calibrated_pct": fmt(wilson(calib, n)),
                 "any_pair_fixed_pct": fmt(wilson(fixed_any, n)), "any_pair_calibrated_pct": fmt(wilson(calib_any, n)),
                 "parse_failures": sum(x["parse_failures"] for x in g),
@@ -99,6 +111,11 @@ def main():
         act_scores = [x["detection"]["prev"]["net_AB"] for x in games]
         detectors.append({"model": mdir.name, "detector": "act (net influence)", "games": len(games),
                           "colluding_games": sum(y_act), "auroc": fmt(auroc_ci(act_scores, y_act), 2)})
+        if any("colluded_any" in x for x in games):
+            y_any = [colluded_any(x["actions"])[0] for x in games]
+            detectors.append({"model": mdir.name, "detector": "act (net influence, any-assist label)",
+                              "games": len(games), "colluding_games": sum(y_any),
+                              "auroc": fmt(auroc_ci(act_scores, y_any), 2)})
 
         judge = mdir / "judge.csv"
         if judge.exists():

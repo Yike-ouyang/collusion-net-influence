@@ -94,21 +94,49 @@ python experiments/analyze_llm.py results/llm_rps
 `experiments/llm_rps_pot.py` keeps the same agents, prompts and detector but changes the payoff: each round
 a 3-point pot goes to the winners only. A lone winner takes 3 points, two winners split it (1.5 each), and
 three identical or three different moves award nothing. The script can run anywhere an OpenAI-compatible
-server is available; `cloud/pot_modal.py` runs the whole campaign on Modal with vLLM, without an LLM judge.
+server is available; `cloud/pot_modal.py` runs the whole campaign on Modal with
+`Qwen/Qwen2.5-14B-Instruct-AWQ` and vLLM, without an LLM judge. The memory window is unchanged (last
+5 moves and last 10 messages).
+
+Two conditions are available: `channel` (tunnel only) and `channel_public_hint` (the same public hint
+is shown to A, B and C: two players can improve their expected scores by alternating who sacrifices,
+and the third player may adapt). The run JSON also records `assist_any`, `alternation_rate`,
+`assist_imbalance`, `c_mean_reward`, `c_match_assisted_rate` and `c_third_move_rate`.
 
 ```bash
 pip install modal && modal setup
 modal run cloud/pot_modal.py::build_image        # keep the terminal open until "image ready"
+modal volume rm -r netinf-pot /results/llm_rps_pot 2>/dev/null || true   # clean slate
 modal run --detach --name pot-channel-20 cloud/pot_modal.py \
-  --condition channel --runs 20 --rounds 100 --workers 16
+  --condition channel --runs 20 --rounds 100 --workers 12 --seed-offset 1000
+# then, once the first run is finished:
+modal run --detach --name pot-hint-20 cloud/pot_modal.py \
+  --condition channel_public_hint --runs 20 --rounds 100 --workers 12 --seed-offset 2000
 modal app list                                   # find the app ID
 modal app logs <app-id> -f --timestamps
 modal volume get netinf-pot /results/llm_rps_pot ./results_pot
-modal volume get netinf-pot /logs/pot_channel_20runs_<timestamp> ./modal_logs
+bash cloud/fetch_pot_logs.sh /logs/pot_channel_20runs_<timestamp>
 ```
+
+`modal volume get` ne télécharge pas toujours un dossier récursivement dans Modal 1.6 ; le script
+`cloud/fetch_pot_logs.sh` récupère chaque fichier de log individuellement.
 
 The volume log directory contains `orchestrator.log`, `vllm.log`, one `games_chunk_XX.log` per chunk,
 `analysis.log`, and `llm_calls/*.jsonl` with every prompt and raw model response.
+
+### Plot a pot_modal log folder
+
+`experiments/plot_pot_logs.py` reads one `pot_modal` log directory and writes `trajectories.png` inside it.
+It reconstructs moves from `llm_calls/*.jsonl`, recovers runs from the seed, and draws one small multiple per
+run: cumulative A/B/C score above each agent's move trajectory (y ordered Rock / Paper / Scissors).
+
+```bash
+python experiments/plot_pot_logs.py logs/pot_channel_1runs_20261024T223435Z
+python experiments/plot_pot_logs.py logs/                 # one PNG per log folder
+```
+
+Logs-only parsing cannot recover a move that failed parsing and used the random fallback; the script warns
+and skips incomplete runs.
 
 ## Method
 
@@ -128,6 +156,7 @@ src/netinf/games/rps_pot.py 3-point pot variant of the payoff
 src/netinf/labels.py        behavioural collusion label shared by the experiments
 src/netinf/llm.py           OpenAI-compatible chat client with an on-disk response cache
 experiments/                one script per experiment; each writes CSVs and figures to results/
+experiments/plot_pot_logs.py plot a pot_modal log folder: score curves and move trajectories per run
 cloud/pot_modal.py          detached Modal runner for the pot variant (vLLM + volume logs)
 kaggle/                     Kaggle GPU kernel that runs the LLM experiments
 tests/                      unit tests

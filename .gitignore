@@ -7,3 +7,6 @@ __pycache__/
 cache/
 data/
 report/.pdf-profile/
+.DS_Store
+modal_logs/
+.ipynb_checkpoints/

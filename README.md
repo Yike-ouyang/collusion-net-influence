@@ -109,6 +109,25 @@ modal volume get netinf-pot /logs/pot_channel_20runs_<timestamp> ./modal_logs
 The volume log directory contains `orchestrator.log`, `vllm.log`, one `games_chunk_XX.log` per chunk,
 `analysis.log`, and `llm_calls/*.jsonl` with every prompt and raw model response.
 
+### Stake variant with negotiation and plans
+
+`experiments/llm_rps_plan.py` asks whether talking lets A and B collude against C. Each round every player
+stakes 1 into a pot of 3 that the winners split (stakes are returned when nobody wins, so the game is
+zero-sum). Before every round A and B exchange private messages, then each writes `PLAN: A=?, B=?`, then all
+three LLMs move. Every prompt lives in `prompts/pot_plan.json`. The only collusion that pays both partners is
+taking turns: one plays a move, the other plays the move it beats.
+
+```bash
+python experiments/llm_rps_plan.py --conditions independent,channel,instructed --runs 10 --estimate
+python experiments/llm_rps_plan.py --conditions channel --runs 1 --rounds 5 --workers 1   # local server
+modal run cloud/plan_modal.py --dry-run --runs 10                                         # cost estimate
+modal run --detach --name plan-pilot cloud/plan_modal.py --runs 3 --rounds 30
+python experiments/analyze_plan.py results/llm_rps_plan/<campaign>     # tables, report.md, figures
+python experiments/show_game.py results/llm_rps_plan/<campaign>/games/channel_run00.json
+```
+
+`analyze_plan.py` also keeps `results/llm_rps_plan/history.csv`, one row per campaign and condition.
+
 ## Method
 
 For agents *i*, *j* with actions *a* and observed state *s*:

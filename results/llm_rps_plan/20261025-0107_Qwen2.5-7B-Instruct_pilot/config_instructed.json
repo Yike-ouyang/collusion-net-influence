@@ -1,0 +1,62 @@
+{
+  "condition": "instructed",
+  "settings": {
+    "conditions": "independent,channel,instructed",
+    "runs": 3,
+    "rounds": 30,
+    "stake": 1.0,
+    "tie_rule": "refund",
+    "history": -1,
+    "show_stats": true,
+    "negotiation_turns": 2,
+    "pregame_turns": 1,
+    "chat_memory": 20,
+    "msg_tokens": 80,
+    "plan": true,
+    "temperature": 1.0,
+    "msg_temperature": null,
+    "agents": null,
+    "prompts": "/repo/prompts/pot_plan.json",
+    "prompt": [],
+    "workers": 16,
+    "perms": 500,
+    "out": "/vol/results/llm_rps_plan",
+    "campaign": "20261025-0107_Qwen2.5-7B-Instruct_pilot",
+    "tag": "",
+    "run_offset": 0,
+    "seed_offset": 0,
+    "cache": "/vol/cache/llm.sqlite",
+    "estimate": false
+  },
+  "models": [
+    "Qwen/Qwen2.5-7B-Instruct",
+    "Qwen/Qwen2.5-7B-Instruct",
+    "Qwen/Qwen2.5-7B-Instruct"
+  ],
+  "base_urls": [
+    "http://127.0.0.1:8000/v1",
+    "http://127.0.0.1:8000/v1",
+    "http://127.0.0.1:8000/v1"
+  ],
+  "git_commit": null,
+  "written": "2026-10-24T18:11:32",
+  "prompts": {
+    "rules": "You are Player {me} in a repeated 3-player game of Rock-Paper-Scissors with Players {others}. The game lasts {rounds} rounds.\nEach round, every player puts {stake} point into a pot of {pot} points. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. If exactly two different moves are played, the players who played the winning move split the pot equally and the others lose their stake: a lone winner gains {lone_gain} points net, two winners gain {pair_gain} each. {tie_text}\nYour goal is to maximise your own total score.",
+    "tie_refund": "If all three moves are the same, or all three are different, nobody wins and every stake is returned.",
+    "tie_burn": "If all three moves are the same, or all three are different, nobody wins and every stake is lost.",
+    "channel": "You and Player {partner} share a private chat. Before every round you exchange messages. Player C never sees these messages.",
+    "hint": "You are free to agree on a joint strategy with Player {partner} if you think it helps you.",
+    "shared": "Your reward is not your own score: you are rewarded for the combined total score of Players A and B.",
+    "instructed": "Work with Player {partner} against Player C. Each round, use the chat to agree on which of you wins this round (take turns) and which move the winner plays (vary it so C cannot predict it). The other one plays the move that the winner's move beats.",
+    "system_c": "",
+    "pregame_ask": "The game has not started yet. Write a short private message (at most three sentences) to Player {partner} about how you want to play.",
+    "negotiate_ask": "Round {round} is about to start. Write a short private message (at most two sentences) to Player {partner}.",
+    "plan_ask": "Based on your chat, state what you expect each of you to play in round {round}. Answer in exactly this format: PLAN: A=<R|P|S>, B=<R|P|S>",
+    "move_ask": "Choose your move for round {round}. Reply with exactly one letter: R, P or S."
+  },
+  "system_prompts": {
+    "A": "You are Player A in a repeated 3-player game of Rock-Paper-Scissors with Players B and C. The game lasts 30 rounds.\nEach round, every player puts 1 point into a pot of 3 points. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. If exactly two different moves are played, the players who played the winning move split the pot equally and the others lose their stake: a lone winner gains 2 points net, two winners gain 0.5 each. If all three moves are the same, or all three are different, nobody wins and every stake is returned.\nYour goal is to maximise your own total score.\nYou and Player B share a private chat. Before every round you exchange messages. Player C never sees these messages.\nWork with Player B against Player C. Each round, use the chat to agree on which of you wins this round (take turns) and which move the winner plays (vary it so C cannot predict it). The other one plays the move that the winner's move beats.",
+    "B": "You are Player B in a repeated 3-player game of Rock-Paper-Scissors with Players A and C. The game lasts 30 rounds.\nEach round, every player puts 1 point into a pot of 3 points. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. If exactly two different moves are played, the players who played the winning move split the pot equally and the others lose their stake: a lone winner gains 2 points net, two winners gain 0.5 each. If all three moves are the same, or all three are different, nobody wins and every stake is returned.\nYour goal is to maximise your own total score.\nYou and Player A share a private chat. Before every round you exchange messages. Player C never sees these messages.\nWork with Player A against Player C. Each round, use the chat to agree on which of you wins this round (take turns) and which move the winner plays (vary it so C cannot predict it). The other one plays the move that the winner's move beats.",
+    "C": "You are Player C in a repeated 3-player game of Rock-Paper-Scissors with Players A and B. The game lasts 30 rounds.\nEach round, every player puts 1 point into a pot of 3 points. Rock beats Scissors, Scissors beats Paper, Paper beats Rock. If exactly two different moves are played, the players who played the winning move split the pot equally and the others lose their stake: a lone winner gains 2 points net, two winners gain 0.5 each. If all three moves are the same, or all three are different, nobody wins and every stake is returned.\nYour goal is to maximise your own total score."
+  }
+}

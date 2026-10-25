@@ -28,6 +28,7 @@ import numpy as np
 from netinf import detect, detect_calibrated, influence_matrix, net_influence, permutation_pvalues
 from netinf.games.rps import ACTIONS, BEATS, payoff
 from netinf.llm import CachedChat
+from netinf.seeding import legacy_seed
 
 NAMES = ("A", "B", "C")
 HISTORY = 5  # rounds of history shown in each prompt
@@ -151,8 +152,9 @@ def play(llm: CachedChat, condition: str, rounds: int, run: int, temperature: fl
     llms = llm if isinstance(llm, list) else [llm] * 3  # one client per player (mixed-model games)
 
     def seed(*key):
-        # ints/tuples hash deterministically across processes; seed_offset makes replicas independent.
-        return hash((run + seed_offset, *key)) % 2**31
+        # all-int keys keep their historical hash() (stable across processes, used by plot_pot_logs.py);
+        # keys with strings ("msg", "reflect") were random per process and now use a stable hash.
+        return legacy_seed(run + seed_offset, *key)
 
     for t in range(rounds):
         round_chat: list[tuple[str, str]] = []

@@ -9,7 +9,9 @@ Every call is keyed by the full request. Re-running with the same seeds replays 
 so results are reproducible and reruns are free.
 
 Set NETINF_TRACE_DIR to log every request and response (including cache hits) as JSONL, one file
-per model and process. Standard library only.
+per model and process. `revision` (the HF commit of the served weights) is logged with every call and is
+part of the cache key when set. `generate_full` also returns the finish reason, token counts and top-k
+logprobs. Standard library only.
 """
 
 from __future__ import annotations
@@ -32,6 +34,7 @@ class Usage:
     cache_hits: int = 0
     input_tokens: int = 0
     output_tokens: int = 0
+    max_prompt_tokens: int = 0
 
 
 @dataclass
@@ -40,6 +43,8 @@ class CachedChat:
     base_url: str = field(default_factory=lambda: os.environ.get("NETINF_BASE_URL", "http://localhost:11434/v1"))
     api_key: str = field(default_factory=lambda: os.environ.get("NETINF_API_KEY", ""), repr=False)
     cache_path: Path = Path("cache/llm.sqlite")
+    revision: str = ""  # HF commit hash of the served weights; logged with every call, part of the cache key
+    system_as_user: bool = False  # for chat templates without a system role: system text opens the user message
     max_retries: int = 5
     timeout: float = 120.0
     usage: Usage = field(default_factory=Usage)
@@ -63,6 +68,8 @@ class CachedChat:
                  max_tokens: int = 512) -> str:
         request = {"model": self.model, "system": system, "prompt": prompt, "temperature": temperature,
                    "seed": seed, "max_tokens": max_tokens}
+        if self.revision:  # absent for older callers, so their cache keys are unchanged
+            request["revision"] = self.revision
         key = hashlib.sha256(json.dumps(request, sort_keys=True).encode()).hexdigest()
         with self._lock:
             row = self._db.execute("SELECT response FROM calls WHERE key = ?", (key,)).fetchone()
@@ -78,19 +85,70 @@ class CachedChat:
         self._trace(request, text, cached=False)
         return text
 
-    def _trace(self, request: dict, response: str, cached: bool) -> None:
+    def generate_full(self, prompt: str, system: str = "", temperature: float = 1.0, seed: int = 0,
+                      max_tokens: int = 512, top_logprobs: int = 0) -> dict:
+        """Like generate, but returns {"text", "finish_reason", "tokens", "prompt_tokens", "completion_tokens"}.
+
+        `tokens` lists every generated token with its top-k alternatives as [token, logprob] pairs
+        (empty when top_logprobs is 0). finish_reason "length" means the answer was cut at max_tokens.
+        """
+        request = {"model": self.model, "system": system, "prompt": prompt, "temperature": temperature,
+                   "seed": seed, "max_tokens": max_tokens, "full": True, "top_logprobs": top_logprobs}
+        if self.revision:
+            request["revision"] = self.revision
+        if self.system_as_user:
+            request["system_as_user"] = True
+        key = hashlib.sha256(json.dumps(request, sort_keys=True).encode()).hexdigest()
+        with self._lock:
+            row = self._db.execute("SELECT response FROM calls WHERE key = ?", (key,)).fetchone()
+        if row:
+            self.usage.cache_hits += 1
+            out = json.loads(row[0])
+            self._trace(request, out["text"], cached=True, finish_reason=out["finish_reason"])
+            return out
+        out = self._call_full(request)
+        with self._lock:
+            self._db.execute("INSERT OR REPLACE INTO calls VALUES (?, ?, ?)", (key, json.dumps(request), json.dumps(out)))
+            self._db.commit()
+        self._trace(request, out["text"], cached=False, finish_reason=out["finish_reason"])
+        return out
+
+    def _trace(self, request: dict, response: str, cached: bool, **extra) -> None:
         if self._trace_path is None:
             return
-        record = {**request, "response": response, "cached": cached}
+        record = {**request, "revision": self.revision, "response": response, "cached": cached, **extra}
         with self._lock:
             with open(self._trace_path, "a") as f:
                 f.write(json.dumps(record) + "\n")
 
     def _call(self, req: dict) -> str:
-        messages = ([{"role": "system", "content": req["system"]}] if req["system"] else []) + [
-            {"role": "user", "content": req["prompt"]}]
-        body = json.dumps({"model": req["model"], "messages": messages, "temperature": req["temperature"],
-                           "seed": req["seed"], "max_tokens": req["max_tokens"]}).encode()
+        return self._post(self._body(req))["choices"][0]["message"]["content"] or ""
+
+    def _call_full(self, req: dict) -> dict:
+        body = self._body(req)
+        if req["top_logprobs"]:
+            body.update(logprobs=True, top_logprobs=req["top_logprobs"])
+        resp = self._post(body)
+        choice = resp["choices"][0]
+        content = (choice.get("logprobs") or {}).get("content") or []
+        u = resp.get("usage") or {}
+        return {"text": choice["message"]["content"] or "", "finish_reason": choice.get("finish_reason"),
+                "tokens": [{"token": c["token"], "top": [[x["token"], x["logprob"]] for x in c.get("top_logprobs") or []]}
+                           for c in content],
+                "prompt_tokens": u.get("prompt_tokens", 0), "completion_tokens": u.get("completion_tokens", 0)}
+
+    @staticmethod
+    def _body(req: dict) -> dict:
+        if req.get("system_as_user") and req["system"]:
+            messages = [{"role": "user", "content": req["system"] + "\n\n" + req["prompt"]}]
+        else:
+            messages = ([{"role": "system", "content": req["system"]}] if req["system"] else []) + [
+                {"role": "user", "content": req["prompt"]}]
+        return {"model": req["model"], "messages": messages, "temperature": req["temperature"],
+                "seed": req["seed"], "max_tokens": req["max_tokens"]}
+
+    def _post(self, body: dict) -> dict:
+        body = json.dumps(body).encode()
         headers = {"Content-Type": "application/json"}
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
@@ -113,4 +171,5 @@ class CachedChat:
         u = resp.get("usage") or {}
         self.usage.input_tokens += u.get("prompt_tokens", 0)
         self.usage.output_tokens += u.get("completion_tokens", 0)
-        return resp["choices"][0]["message"]["content"] or ""
+        self.usage.max_prompt_tokens = max(self.usage.max_prompt_tokens, u.get("prompt_tokens", 0))
+        return resp

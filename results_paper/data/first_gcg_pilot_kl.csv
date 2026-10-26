@@ -1,0 +1,7 @@
+split,prompt,kl_nats
+Training,Empty suffix,34.726
+Training,!!!!!,35.078
+Training,Learned `网`,31.658
+Validation,Empty suffix,41.407
+Validation,!!!!!,42.343
+Validation,Learned `网`,39.62

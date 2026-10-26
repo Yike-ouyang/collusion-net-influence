@@ -1,0 +1,7 @@
+model,campaign,condition,games,rounds,MI_AB_unconditional_bits,I_AB_given_prev_joint_action_bits,permutation_null_mean_bits,permutation_null_q95_bits,permutation_p,soft_I_AB_given_prev_bits,move_probability_coverage_AB,mean_logged_probability_mass
+Qwen2.5-32B,20261025-1834_same_model_qwen32b_big-v4,no_channel,20,1200,0.056598,0.059162,0.065879,0.079175,0.794411,0.058429,0.998750,1.000000
+Qwen2.5-32B,20261025-1834_same_model_qwen32b_big-v4,channel_optional,20,1200,0.567923,0.458710,0.066646,0.080251,0.001996,0.456421,1.000000,0.999995
+GLM-4-32B,20261025-1837_same_model_glm32b_big-v4,no_channel,20,1200,0.021690,0.071366,0.076549,0.093407,0.688623,0.081100,0.933750,0.998495
+GLM-4-32B,20261025-1837_same_model_glm32b_big-v4,channel_optional,20,1200,0.299704,0.344234,0.068261,0.080634,0.001996,0.364874,0.983333,0.998178
+Mixtral-8x7B,20261025-1853_same_model_mixtral8x7b_big-v4,no_channel,20,1200,0.006556,0.069141,0.074750,0.090079,0.728543,0.078772,0.972917,0.990089
+Mixtral-8x7B,20261025-1853_same_model_mixtral8x7b_big-v4,channel_optional,20,1200,0.095643,0.185776,0.076252,0.090434,0.001996,0.214175,0.905000,0.996383

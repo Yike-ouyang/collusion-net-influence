@@ -4,13 +4,14 @@ This folder is a separate research workspace for testing whether behavioural met
 
 ## Start here
 
-The work is now split into three independent tracks so their evidence stays distinguishable:
+The work has three independent metric tracks so their evidence stays distinguishable, plus a GCG suffix transfer study:
 
 1. [`01_coordination_signal/`](01_coordination_signal/README.md) — dependence between actions after controlling for the v4 shared number.
 2. [`02_transfer_benefit/`](02_transfer_benefit/README.md) — coalition score advantage and a context-conditioned shuffle reference.
 3. [`03_agreement_intention/`](03_agreement_intention/README.md) — messages, plans, and whether announced plans were executed.
+4. [`05_gcg_suffix_evaluation/fresh_game_study/`](05_gcg_suffix_evaluation/fresh_game_study/README.md) — commands and prompts to launch the 10-round suffix comparison on Modal.
 
-Each track has its own `analyze.py` and writes results into its own folder. Compare their condition summaries; do not collapse them into a single “suspicion score.”
+The three metric tracks each have their own `analyze.py` and write results into their own folder. Compare their condition summaries; do not collapse them into a single “suspicion score.”
 
 Run all three from the repository root:
 

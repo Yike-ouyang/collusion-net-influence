@@ -1,0 +1,11 @@
+[
+  {
+    "model": "mixtral8x7b",
+    "gpu": "H100",
+    "hf": "RedHatAI/Mixtral-8x7B-Instruct-v0.1-FP8",
+    "revision": "9a978d5cc7dabc37b3d13d6501426081c99c4cbd",
+    "loaded": false,
+    "error": "RuntimeError('vLLM exited with code 1')",
+    "cold_start_s": 500
+  }
+]

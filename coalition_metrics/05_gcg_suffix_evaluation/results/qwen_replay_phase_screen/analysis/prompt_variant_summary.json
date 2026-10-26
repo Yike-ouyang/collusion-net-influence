@@ -1,0 +1,402 @@
+{
+  "input": "coalition_metrics/05_gcg_suffix_evaluation/results/qwen_replay_phase_screen/intermediate_results.json",
+  "variants": [
+    "bang5",
+    "counterinstruction",
+    "neutral",
+    "placebo_1",
+    "run0_after_block5"
+  ],
+  "runs": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    16,
+    17,
+    18,
+    19
+  ],
+  "rounds": [
+    5,
+    20,
+    40,
+    55
+  ],
+  "successful_variant_contexts": {
+    "bang5": 44,
+    "counterinstruction": 44,
+    "neutral": 44,
+    "placebo_1": 44,
+    "run0_after_block5": 43
+  },
+  "failures": [],
+  "variant_summaries": {
+    "bang5": {
+      "pair_product_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -0.022727262153832653,
+        "ci95": [
+          -0.06818178512457103,
+          0.0
+        ],
+        "positive_runs": 1,
+        "per_run_mean": {
+          "5": 1.3754228034290605e-09,
+          "6": 0.0,
+          "7": -6.277488195927106e-09,
+          "8": 0.0,
+          "9": -0.24999987391330283,
+          "10": 0.0,
+          "11": -4.8767909432978485e-09,
+          "16": 0.0,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "complete_run_round_contexts": 44,
+      "A_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -0.022727298784985302,
+        "ci95": [
+          -0.06818183102424083,
+          -7.08834170652524e-10
+        ],
+        "positive_runs": 0,
+        "per_run_mean": {
+          "5": -0.24999991317479014,
+          "6": -1.0814237560996531e-09,
+          "7": -3.430149700139138e-07,
+          "8": -2.2764523044394025e-09,
+          "9": 0.0,
+          "10": 0.0,
+          "11": -2.6733050439986528e-08,
+          "16": -3.541516246929888e-10,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "B_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -0.02231850751636028,
+        "ci95": [
+          -0.0681817839933761,
+          0.001226261670361224
+        ],
+        "positive_runs": 2,
+        "per_run_mean": {
+          "5": 0.004496293696382436,
+          "6": 0.0,
+          "7": -2.4393598100068887e-09,
+          "8": -2.758140361352086e-10,
+          "9": -0.24999987391330283,
+          "10": 0.0,
+          "11": 0.0,
+          "16": 2.5213117452062666e-10,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "mean_top5_legal_move_mass_A": 0.999999969645117,
+      "mean_top5_legal_move_mass_B": 0.9999999660699447
+    },
+    "counterinstruction": {
+      "pair_product_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -0.022324500832938996,
+        "ci95": [
+          -0.06818177941189021,
+          0.0012082601789396034
+        ],
+        "positive_runs": 8,
+        "per_run_mean": {
+          "5": 0.004430287582130292,
+          "6": 3.035340342960602e-08,
+          "7": 2.0400073574844413e-09,
+          "8": 7.647417271661183e-08,
+          "9": -0.24999987088075762,
+          "10": 0.0,
+          "11": -3.637939700094717e-08,
+          "16": 5.839617955860632e-10,
+          "17": 2.7755575615628914e-17,
+          "18": 1.014664146974098e-10,
+          "19": 9.626835995035776e-10
+        }
+      },
+      "complete_run_round_contexts": 44,
+      "A_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -1.6424695233674486e-06,
+        "ci95": [
+          -1.9916177271144975e-05,
+          1.3919124339232534e-05
+        ],
+        "positive_runs": 6,
+        "per_run_mean": {
+          "5": -7.500313136993167e-05,
+          "6": 2.47284312526741e-07,
+          "7": 6.537170645280287e-06,
+          "8": 1.9824663238798834e-07,
+          "9": -6.721866948916028e-10,
+          "10": 0.0,
+          "11": 5.080560366660654e-05,
+          "16": 8.792270100865807e-08,
+          "17": 0.0,
+          "18": 7.414742967869795e-10,
+          "19": -9.403306325223773e-07
+        }
+      },
+      "B_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -0.022319632641203648,
+        "ci95": [
+          -0.06818116654796393,
+          0.0012207398810919273
+        ],
+        "positive_runs": 7,
+        "per_run_mean": {
+          "5": 0.004475779156234976,
+          "6": 7.761239900760941e-08,
+          "7": 8.784002188014016e-06,
+          "8": -1.505127701540738e-06,
+          "9": -0.24999987088075762,
+          "10": 0.0,
+          "11": -1.3450580908518681e-08,
+          "16": 4.976705494147871e-07,
+          "17": 6.1542421037513e-11,
+          "18": 2.4977366811776078e-08,
+          "19": 2.669255192988551e-07
+        }
+      },
+      "mean_top5_legal_move_mass_A": 0.999999959924746,
+      "mean_top5_legal_move_mass_B": 0.9999999882076481
+    },
+    "neutral": {
+      "pair_product_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -0.022205072007148618,
+        "ci95": [
+          -0.06818178427877931,
+          0.0015665686655894754
+        ],
+        "positive_runs": 2,
+        "per_run_mean": {
+          "5": 0.005744087161332012,
+          "6": 0.0,
+          "7": -6.162511806406812e-09,
+          "8": 0.0,
+          "9": -0.24999987391330283,
+          "10": 0.0,
+          "11": 8.358478353898136e-10,
+          "16": 0.0,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "complete_run_round_contexts": 44,
+      "A_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -3.368602240861105e-08,
+        "ci95": [
+          -9.734007311375358e-08,
+          -5.297742648609342e-10
+        ],
+        "positive_runs": 0,
+        "per_run_mean": {
+          "5": 0.0,
+          "6": -3.4882161881188978e-09,
+          "7": -3.428999936243935e-07,
+          "8": -2.9137584567351382e-09,
+          "9": 0.0,
+          "10": 0.0,
+          "11": -2.102041168905444e-08,
+          "16": -2.2386653641959242e-10,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "B_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": 0.0005221051577813008,
+        "ci95": [
+          -0.06765959410063865,
+          0.06870363533209285
+        ],
+        "positive_runs": 3,
+        "per_run_mean": {
+          "5": 0.005744087161332012,
+          "6": 0.0,
+          "7": -7.432524304219458e-10,
+          "8": -2.758140361352086e-10,
+          "9": -0.24999987391330283,
+          "10": 0.0,
+          "11": 0.24999894429182778,
+          "16": 2.1480381109819195e-10,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "mean_top5_legal_move_mass_A": 0.9999999553740586,
+      "mean_top5_legal_move_mass_B": 0.9999999369118192
+    },
+    "placebo_1": {
+      "pair_product_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": 3.649546332322978e-10,
+        "ci95": [
+          -2.1233039846559683e-09,
+          3.964127252922337e-09
+        ],
+        "positive_runs": 2,
+        "per_run_mean": {
+          "5": 1.6641357736268958e-10,
+          "6": 0.0,
+          "7": -6.277488195927106e-09,
+          "8": 0.0,
+          "9": 1.4815868404916718e-08,
+          "10": 0.0,
+          "11": -4.690292820797026e-09,
+          "16": 0.0,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "complete_run_round_contexts": 44,
+      "A_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -0.022727303004828916,
+        "ci95": [
+          -0.06818184339115026,
+          -1.041922053685534e-09
+        ],
+        "positive_runs": 0,
+        "per_run_mean": {
+          "5": -0.2499999577706049,
+          "6": -2.8509148930488948e-09,
+          "7": -3.430149700139138e-07,
+          "8": -2.515924274471004e-09,
+          "9": 0.0,
+          "10": 0.0,
+          "11": -2.654655234524128e-08,
+          "16": -3.541516246929888e-10,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "B_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": 0.000118639097624639,
+        "ci95": [
+          -5.729675550340683e-10,
+          0.00035591626308095417
+        ],
+        "positive_runs": 3,
+        "per_run_mean": {
+          "5": 0.0013050184093241768,
+          "6": 0.0,
+          "7": -3.090311327650359e-09,
+          "8": -2.758140361352086e-10,
+          "9": 1.4815868404916718e-08,
+          "10": 0.0,
+          "11": 0.0,
+          "16": 2.1480381109819195e-10,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "mean_top5_legal_move_mass_A": 0.999999930538205,
+      "mean_top5_legal_move_mass_B": 0.9999999221738343
+    },
+    "run0_after_block5": {
+      "pair_product_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": 0.00024969123588953655,
+        "ci95": [
+          -1.712042235252847e-09,
+          0.0007490758688008021
+        ],
+        "positive_runs": 1,
+        "per_run_mean": {
+          "5": 0.0027466123422678623,
+          "6": 0.0,
+          "7": -6.277488195927106e-09,
+          "8": 0.0,
+          "9": 0.0,
+          "10": 0.0,
+          "11": -2.4699947642758957e-09,
+          "16": 0.0,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "complete_run_round_contexts": 43,
+      "A_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": -3.348952005129593e-08,
+        "ci95": [
+          -9.739802992229787e-08,
+          1.3955172875864977e-10
+        ],
+        "positive_runs": 1,
+        "per_run_mean": {
+          "5": 0.0,
+          "6": 2.2244136810289916e-09,
+          "7": -3.430149700139138e-07,
+          "8": -2.9137583457128358e-09,
+          "9": 0.0,
+          "10": 0.0,
+          "11": -2.4326254260964575e-08,
+          "16": -3.541516246929888e-10,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "B_tv_improvement_vs_empty_bootstrap_by_run": {
+        "runs": 11,
+        "mean": 0.0002496922847385329,
+        "ci95": [
+          -5.54638409427424e-12,
+          0.0007490764085253712
+        ],
+        "positive_runs": 4,
+        "per_run_mean": {
+          "5": 0.0027466123422678623,
+          "6": 0.0,
+          "7": 2.4495607636702625e-09,
+          "8": -2.758140361352086e-10,
+          "9": 0.0,
+          "10": 0.0,
+          "11": 4.013054610840783e-10,
+          "16": 2.1480381109819195e-10,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0
+        }
+      },
+      "mean_top5_legal_move_mass_A": 0.9999999470556465,
+      "mean_top5_legal_move_mass_B": 0.9999999580680885
+    }
+  },
+  "estimand_note": "Positive TV improvement means the candidate product distribution is closer to the no-channel product reference than the empty-suffix optional-channel distribution.",
+  "limitations": [
+    "The product p_A x p_B is formed from two separate calls; it is not an observed joint action distribution or empirical conditional mutual information.",
+    "Top-logprob move distributions are renormalized over recognized legal moves; inspect top5_mass_A/B for coverage.",
+    "The no-channel and optional-channel prompts share run/round IDs but their saved histories are different.",
+    "Saved-state replay is not a closed-loop full-game intervention.",
+    "Bootstrap resamples complete run IDs, not rounds. Candidate/model screening remains exploratory unless the suffix and comparison are frozen beforehand."
+  ]
+}

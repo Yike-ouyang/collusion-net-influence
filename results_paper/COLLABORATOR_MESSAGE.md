@@ -1,0 +1,5 @@
+Salut, j’ai poussé sur `exp/coalition-metrics` une synthèse courte dans `results_paper/` : résultats des trois modèles, figures en anglais, données de synthèse, checkpoints GCG récupérés et prochaines expériences proposées.
+
+Le job GCG Modal est arrêté pour éviter d’autres frais. Les runs 0–7 sont complets ; le run 8 est partiel après quatre blocs. Le GCG donne quelques répétitions au début (`ない` au bloc 1, `ある` au bloc 2), mais les suffixes finaux varient. Le replay sur anciens prompts n’a pas montré de transfert fiable. Les nouveaux jeux complets préparés dans `coalition_metrics/05_gcg_suffix_evaluation/fresh_game_study/` ne sont pas encore lancés.
+
+Pour commencer, lis `results_paper/README.md`, puis `results_paper/FUTURE_TESTS.md` et `coalition_metrics/05_gcg_suffix_evaluation/fresh_game_study/README.md`. Les commandes y incluent une estimation locale avant toute requête Modal. Les comptes Modal et leurs volumes sont séparés : utilise ton profil, vérifie les crédits et récupère les résultats de chaque campagne.

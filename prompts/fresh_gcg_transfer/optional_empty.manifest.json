@@ -1,0 +1,8 @@
+{
+  "variant": "empty",
+  "base_prompts": "prompts/pot_plan_v4.json",
+  "suffix_utf8": "",
+  "suffix_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "counterinstruction": null,
+  "output_prompt_file": "prompts/fresh_gcg_transfer/optional_empty.json"
+}

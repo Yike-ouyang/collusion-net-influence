@@ -1,0 +1,19 @@
+block,suffix,distinct_complete_runs,complete_run_ids,partial_run_ids,complete_runs_available
+1,ない,5,0 1 4 6 7,,8
+1,网,2,2 3,,8
+1, EINVAL,1,5,,8
+1,令,0,,8,8
+2,ある,4,0 1 4 7,,8
+2, IllegalArgumentException,1,5,,8
+2,いい,1,6,,8
+2,在网络,1,2,,8
+3, quoi,3,0 4 7,,8
+3,オ,1,6,,8
+4, quoi,1,1,,8
+4,és,1,0,,8
+4,在网络,1,3,,8
+5, password,1,3,,8
+5,ú,1,1,,8
+5,ื่,1,0,,8
+6, passphrase,1,3,,8
+6, �,1,1,,8

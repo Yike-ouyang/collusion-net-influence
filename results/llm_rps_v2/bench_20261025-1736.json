@@ -1,0 +1,91 @@
+[
+  {
+    "model": "qwen32b",
+    "gpu": "H100",
+    "hf": "Qwen/Qwen2.5-32B-Instruct",
+    "revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "cold_start_s": 555,
+    "loaded": true,
+    "games": 5,
+    "wall_s": 96,
+    "output_tokens": 23917,
+    "tokens_per_s": 250.1,
+    "calls_failures": {
+      "truncated_move": 7,
+      "move_untagged": 6
+    },
+    "max_prompt_tokens": {
+      "msg": 931,
+      "plan": 1011,
+      "reflection": 1089,
+      "move": 1195,
+      "debrief": 2303
+    },
+    "projected_debrief_tokens_30_rounds": 9803,
+    "max_model_len": 12288,
+    "logprob_coverage": 0.92,
+    "usd_per_30_round_game": 0.1259
+  },
+  {
+    "model": "glm32b",
+    "gpu": "H100",
+    "hf": "zai-org/GLM-4-32B-0414",
+    "revision": "077b5c2f5c43bd3239fd605a0600229e8facbd4a",
+    "cold_start_s": 790,
+    "loaded": true,
+    "games": 5,
+    "wall_s": 100,
+    "output_tokens": 24362,
+    "tokens_per_s": 243.4,
+    "calls_failures": {
+      "truncated_plan": 1,
+      "plan": 1,
+      "truncated_move": 15,
+      "move_untagged": 10,
+      "move": 5
+    },
+    "max_prompt_tokens": {
+      "msg": 901,
+      "plan": 955,
+      "reflection": 1033,
+      "move": 1183,
+      "debrief": 2116
+    },
+    "projected_debrief_tokens_30_rounds": 8659,
+    "max_model_len": 11008,
+    "logprob_coverage": 0.813,
+    "usd_per_30_round_game": 0.1318
+  },
+  {
+    "model": "mixtral8x7b",
+    "gpu": "H100",
+    "hf": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "revision": "eba92302a2861cdc0098cc54bc9f17cb2c47eb61",
+    "cold_start_s": 785,
+    "loaded": true,
+    "games": 5,
+    "wall_s": 122,
+    "output_tokens": 37369,
+    "tokens_per_s": 305.3,
+    "calls_failures": {
+      "truncated_msg": 55,
+      "truncated_reflection": 19,
+      "truncated_move": 31,
+      "move_untagged": 17,
+      "move": 14,
+      "truncated_plan": 2,
+      "truncated_debrief": 2
+    },
+    "max_prompt_tokens": {
+      "msg": 1186,
+      "plan": 1308,
+      "reflection": 1394,
+      "move": 1574,
+      "debrief": 3467
+    },
+    "projected_debrief_tokens_30_rounds": 17006,
+    "max_model_len": 20992,
+    "logprob_coverage": 0.6,
+    "usd_per_30_round_game": 0.1612
+  }
+]

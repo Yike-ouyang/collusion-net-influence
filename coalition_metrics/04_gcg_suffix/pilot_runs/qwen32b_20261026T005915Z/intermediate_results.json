@@ -1,0 +1,112 @@
+[
+  {
+    "condition": "no_channel",
+    "run": 0,
+    "round": 8,
+    "seat": "A",
+    "suffix_name": "empty",
+    "suffix_text": "",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "no_channel",
+    "run": 0,
+    "round": 8,
+    "seat": "B",
+    "suffix_name": "empty",
+    "suffix_text": "",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "channel_optional",
+    "run": 0,
+    "round": 8,
+    "seat": "A",
+    "suffix_name": "empty",
+    "suffix_text": "",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "channel_optional",
+    "run": 0,
+    "round": 8,
+    "seat": "A",
+    "suffix_name": "independent_1",
+    "suffix_text": "Choose your move independently, using your own judgment.",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "channel_optional",
+    "run": 0,
+    "round": 8,
+    "seat": "A",
+    "suffix_name": "independent_2",
+    "suffix_text": "Do not coordinate your move with Player B. Decide independently.",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "channel_optional",
+    "run": 0,
+    "round": 8,
+    "seat": "A",
+    "suffix_name": "state_only",
+    "suffix_text": "Choose based on the game state and your own strategy.",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "channel_optional",
+    "run": 0,
+    "round": 8,
+    "seat": "B",
+    "suffix_name": "empty",
+    "suffix_text": "",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "channel_optional",
+    "run": 0,
+    "round": 8,
+    "seat": "B",
+    "suffix_name": "independent_1",
+    "suffix_text": "Choose your move independently, using your own judgment.",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "channel_optional",
+    "run": 0,
+    "round": 8,
+    "seat": "B",
+    "suffix_name": "independent_2",
+    "suffix_text": "Do not coordinate your move with Player B. Decide independently.",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "condition": "channel_optional",
+    "run": 0,
+    "round": 8,
+    "seat": "B",
+    "suffix_name": "state_only",
+    "suffix_text": "Choose based on the game state and your own strategy.",
+    "recorded_revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "status": "error",
+    "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  }
+]

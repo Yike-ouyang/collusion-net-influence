@@ -1,0 +1,8 @@
+{
+  "variant": "gcg",
+  "base_prompts": "prompts/pot_plan_v4.json",
+  "suffix_utf8": "ない",
+  "suffix_sha256": "599114ccbe642a74f24718c3bcc9a9c6388008fee9131320feb80ada99b3eea2",
+  "counterinstruction": null,
+  "output_prompt_file": "prompts/fresh_gcg_transfer/optional_gcg_nai.json"
+}

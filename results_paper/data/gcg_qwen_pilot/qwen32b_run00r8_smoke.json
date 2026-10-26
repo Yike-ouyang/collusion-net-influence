@@ -1,0 +1,269 @@
+{
+  "model": "Qwen/Qwen2.5-32B-Instruct",
+  "revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+  "weight_mode": "bitsandbytes 8-bit; model frozen, suffix embeddings trainable",
+  "train_run": 0,
+  "train_round": 8,
+  "candidate_count": 4,
+  "stages": [],
+  "warnings": [
+    "No-channel prompts are same run IDs but not identical public histories; this is a gradient smoke target, not a matched causal comparison.",
+    "Move probabilities are softmax-normalized over the three legal next-token choices after the assistant prefix MOVE:.",
+    "The validation block is intentionally tiny and is only a feasibility diagnostic."
+  ],
+  "model_load_s": 103.3732738494873,
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "stage0": {
+    "train_prompt_tokens_no_channel_A_B": [
+      974,
+      931
+    ],
+    "train_prompt_tokens_optional_A_B": [
+      1191,
+      1201
+    ],
+    "initial_suffix": "Think independently.",
+    "initial_suffix_token_ids": [
+      38687,
+      28135,
+      13
+    ],
+    "target_no_channel_probabilities_A_B": [
+      [
+        0.996812641620636,
+        0.003172636264935136,
+        1.469220660510473e-05
+      ],
+      [
+        0.017975816503167152,
+        0.0005778316408395767,
+        0.9814463257789612
+      ]
+    ],
+    "target_move_sequence_log_probs_A_B": [
+      [
+        -8.876837730407715,
+        -14.626837730407715,
+        -20.00183868408203
+      ],
+      [
+        -15.000194549560547,
+        -18.437694549560547,
+        -11.000194549560547
+      ]
+    ],
+    "status": "prompt tokenization and fixed-move logits recovered"
+  },
+  "stage1_gradient_smoke": {
+    "loss_before": 0.8103405833244324,
+    "optional_probabilities_A_B": [
+      [
+        1.0,
+        3.471549159250742e-10,
+        1.527589869648651e-14
+      ],
+      [
+        1.0,
+        3.581747953784742e-10,
+        9.357569379737571e-14
+      ]
+    ],
+    "gradient_norm": 5.020410753786564e-10,
+    "gradient_norm_by_suffix_position": [
+      2.580956004472057e-10,
+      2.8998256573764536e-10,
+      3.183113217453126e-10
+    ],
+    "cuda_peak_gb": 59.583327293395996,
+    "status": "PASS"
+  },
+  "stage2_candidates": [
+    {
+      "token_ids": [
+        38687,
+        28135,
+        555
+      ],
+      "token_text": "Think independently }\n\n",
+      "changed_position": 2,
+      "changed_token_id": 555,
+      "loss": 0.8103405833244324,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          6.092758519926633e-10,
+          7.757711844875309e-14
+        ],
+        [
+          1.0,
+          3.0941582629395725e-09,
+          1.498488182496982e-12
+        ]
+      ]
+    },
+    {
+      "token_ids": [
+        38687,
+        28135,
+        3623
+      ],
+      "token_text": "Think independently)\n\n\n",
+      "changed_position": 2,
+      "changed_token_id": 3623,
+      "loss": 0.8103405833244324,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          3.8127509482954736e-10,
+          4.854670742552962e-14
+        ],
+        [
+          1.0,
+          5.051074558615198e-10,
+          1.3722073336549373e-13
+        ]
+      ]
+    },
+    {
+      "token_ids": [
+        38687,
+        28135,
+        2278
+      ],
+      "token_text": "Think independently [\n",
+      "changed_position": 2,
+      "changed_token_id": 2278,
+      "loss": 0.8103405833244324,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          2.9693733583080473e-10,
+          3.442457432935482e-14
+        ],
+        [
+          1.0,
+          1.7456046330632802e-10,
+          6.331660049778767e-14
+        ]
+      ]
+    },
+    {
+      "token_ids": [
+        38687,
+        28135,
+        1326
+      ],
+      "token_text": "Think independently),\n",
+      "changed_position": 2,
+      "changed_token_id": 1326,
+      "loss": 0.8103405833244324,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          2.3859586528729437e-10,
+          5.948078807922405e-14
+        ],
+        [
+          1.0,
+          4.457557378767518e-10,
+          1.1199607864373351e-13
+        ]
+      ]
+    }
+  ],
+  "stage2_selection": {
+    "loss_before": 0.8103405833244324,
+    "best_candidate": {
+      "token_ids": [
+        38687,
+        28135,
+        555
+      ],
+      "token_text": "Think independently }\n\n",
+      "changed_position": 2,
+      "changed_token_id": 555,
+      "loss": 0.8103405833244324,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          6.092758519926633e-10,
+          7.757711844875309e-14
+        ],
+        [
+          1.0,
+          3.0941582629395725e-09,
+          1.498488182496982e-12
+        ]
+      ]
+    },
+    "selected_suffix": "Think independently.",
+    "selected_token_ids": [
+      38687,
+      28135,
+      13
+    ],
+    "improved_training_loss": false,
+    "status": "one coordinate; four candidates maximum"
+  },
+  "stage3_validation": [
+    {
+      "run": 12,
+      "loss": 1.0397181510925293,
+      "no_channel_probabilities_A_B": [
+        [
+          0.9999921321868896,
+          7.88926990935579e-06,
+          3.1923521603971494e-09
+        ],
+        [
+          5.771925316366833e-06,
+          0.999994158744812,
+          5.315754592061239e-08
+        ]
+      ],
+      "optional_suffix_probabilities_A_B": [
+        [
+          1.1365636964910664e-06,
+          3.326529451896931e-08,
+          0.9999988079071045
+        ],
+        [
+          2.510999053129126e-08,
+          1.571343233308653e-08,
+          1.0
+        ]
+      ]
+    },
+    {
+      "run": 13,
+      "loss": 1.0397021770477295,
+      "no_channel_probabilities_A_B": [
+        [
+          2.6995778057425923e-07,
+          0.9999997615814209,
+          2.072956251097935e-10
+        ],
+        [
+          1.1478778105811216e-05,
+          0.9999884366989136,
+          1.0571579167617529e-07
+        ]
+      ],
+      "optional_suffix_probabilities_A_B": [
+        [
+          1.0,
+          7.349269526280011e-10,
+          1.390881208357354e-14
+        ],
+        [
+          1.0,
+          1.493094675675266e-10,
+          1.11708441501439e-14
+        ]
+      ]
+    }
+  ],
+  "elapsed_s": 142.15067958831787,
+  "cuda_peak_gb": 59.583327293395996,
+  "status": "completed"
+}

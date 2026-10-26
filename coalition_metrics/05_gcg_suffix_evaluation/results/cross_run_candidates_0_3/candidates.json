@@ -1,0 +1,457 @@
+{
+  "source_checkpoint": "coalition_metrics/04_gcg_suffix/results/chronological_per_run_20_runs/qwen32b_chronological_bang5_runs_0_4.json",
+  "checkpoint_status": "running",
+  "model": "Qwen/Qwen2.5-32B-Instruct",
+  "available_complete_runs": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "max_block_included": 5,
+  "selection_rule": "Deduplicate exact accepted suffix text across complete runs; include blocks 1 through max_block only. Block 6 is excluded because it has no future block for prospective evaluation.",
+  "candidates": [
+    {
+      "label": "run0_after_block1",
+      "suffix": "ない",
+      "token_ids_qwen": [
+        123861
+      ],
+      "sources": [
+        {
+          "run": 0,
+          "block": 1,
+          "trained_rounds": [
+            1,
+            10
+          ],
+          "prospective_rounds": [
+            11,
+            20
+          ],
+          "token_ids_qwen": [
+            123861
+          ],
+          "next_block_gain_vs_empty_bits": 3.9732927563457996
+        },
+        {
+          "run": 1,
+          "block": 1,
+          "trained_rounds": [
+            1,
+            10
+          ],
+          "prospective_rounds": [
+            11,
+            20
+          ],
+          "token_ids_qwen": [
+            123861
+          ],
+          "next_block_gain_vs_empty_bits": 4.351205256757729
+        }
+      ],
+      "distinct_source_runs": [
+        0,
+        1
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    },
+    {
+      "label": "run0_after_block2",
+      "suffix": "ある",
+      "token_ids_qwen": [
+        124140
+      ],
+      "sources": [
+        {
+          "run": 0,
+          "block": 2,
+          "trained_rounds": [
+            11,
+            20
+          ],
+          "prospective_rounds": [
+            21,
+            30
+          ],
+          "token_ids_qwen": [
+            124140
+          ],
+          "next_block_gain_vs_empty_bits": 4.987750276858283
+        },
+        {
+          "run": 1,
+          "block": 2,
+          "trained_rounds": [
+            11,
+            20
+          ],
+          "prospective_rounds": [
+            21,
+            30
+          ],
+          "token_ids_qwen": [
+            124140
+          ],
+          "next_block_gain_vs_empty_bits": 3.353321750917074
+        },
+        {
+          "run": 1,
+          "block": 3,
+          "trained_rounds": [
+            21,
+            30
+          ],
+          "prospective_rounds": [
+            31,
+            40
+          ],
+          "token_ids_qwen": [
+            124140
+          ],
+          "next_block_gain_vs_empty_bits": 5.375910420066518
+        }
+      ],
+      "distinct_source_runs": [
+        0,
+        1
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    },
+    {
+      "label": "run0_after_block3",
+      "suffix": " quoi",
+      "token_ids_qwen": [
+        74149
+      ],
+      "sources": [
+        {
+          "run": 0,
+          "block": 3,
+          "trained_rounds": [
+            21,
+            30
+          ],
+          "prospective_rounds": [
+            31,
+            40
+          ],
+          "token_ids_qwen": [
+            74149
+          ],
+          "next_block_gain_vs_empty_bits": -0.6883456508935677
+        },
+        {
+          "run": 1,
+          "block": 4,
+          "trained_rounds": [
+            31,
+            40
+          ],
+          "prospective_rounds": [
+            41,
+            50
+          ],
+          "token_ids_qwen": [
+            74149
+          ],
+          "next_block_gain_vs_empty_bits": -0.9766752598837954
+        }
+      ],
+      "distinct_source_runs": [
+        0,
+        1
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    },
+    {
+      "label": "run0_after_block4",
+      "suffix": "és",
+      "token_ids_qwen": [
+        5397
+      ],
+      "sources": [
+        {
+          "run": 0,
+          "block": 4,
+          "trained_rounds": [
+            31,
+            40
+          ],
+          "prospective_rounds": [
+            41,
+            50
+          ],
+          "token_ids_qwen": [
+            5397
+          ],
+          "next_block_gain_vs_empty_bits": -0.7606629969829966
+        }
+      ],
+      "distinct_source_runs": [
+        0
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    },
+    {
+      "label": "run0_after_block5",
+      "suffix": "ื่",
+      "token_ids_qwen": [
+        64684
+      ],
+      "sources": [
+        {
+          "run": 0,
+          "block": 5,
+          "trained_rounds": [
+            41,
+            50
+          ],
+          "prospective_rounds": [
+            51,
+            60
+          ],
+          "token_ids_qwen": [
+            64684
+          ],
+          "next_block_gain_vs_empty_bits": 5.054017574314056
+        }
+      ],
+      "distinct_source_runs": [
+        0
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    },
+    {
+      "label": "run1_after_block5",
+      "suffix": "ú",
+      "token_ids_qwen": [
+        6654
+      ],
+      "sources": [
+        {
+          "run": 1,
+          "block": 5,
+          "trained_rounds": [
+            41,
+            50
+          ],
+          "prospective_rounds": [
+            51,
+            60
+          ],
+          "token_ids_qwen": [
+            6654
+          ],
+          "next_block_gain_vs_empty_bits": -0.17561492245040566
+        }
+      ],
+      "distinct_source_runs": [
+        1
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    },
+    {
+      "label": "run2_after_block1",
+      "suffix": "网",
+      "token_ids_qwen": [
+        31139
+      ],
+      "sources": [
+        {
+          "run": 2,
+          "block": 1,
+          "trained_rounds": [
+            1,
+            10
+          ],
+          "prospective_rounds": [
+            11,
+            20
+          ],
+          "token_ids_qwen": [
+            31139
+          ],
+          "next_block_gain_vs_empty_bits": 4.7807368556040135
+        },
+        {
+          "run": 3,
+          "block": 1,
+          "trained_rounds": [
+            1,
+            10
+          ],
+          "prospective_rounds": [
+            11,
+            20
+          ],
+          "token_ids_qwen": [
+            31139
+          ],
+          "next_block_gain_vs_empty_bits": 3.7515808126091668
+        },
+        {
+          "run": 3,
+          "block": 2,
+          "trained_rounds": [
+            11,
+            20
+          ],
+          "prospective_rounds": [
+            21,
+            30
+          ],
+          "token_ids_qwen": [
+            31139
+          ],
+          "next_block_gain_vs_empty_bits": 6.085006586781151
+        },
+        {
+          "run": 3,
+          "block": 3,
+          "trained_rounds": [
+            21,
+            30
+          ],
+          "prospective_rounds": [
+            31,
+            40
+          ],
+          "token_ids_qwen": [
+            31139
+          ],
+          "next_block_gain_vs_empty_bits": 5.031227861405717
+        }
+      ],
+      "distinct_source_runs": [
+        2,
+        3
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    },
+    {
+      "label": "run2_after_block2",
+      "suffix": "在网络",
+      "token_ids_qwen": [
+        111638
+      ],
+      "sources": [
+        {
+          "run": 2,
+          "block": 2,
+          "trained_rounds": [
+            11,
+            20
+          ],
+          "prospective_rounds": [
+            21,
+            30
+          ],
+          "token_ids_qwen": [
+            111638
+          ],
+          "next_block_gain_vs_empty_bits": 4.421817213122658
+        },
+        {
+          "run": 2,
+          "block": 3,
+          "trained_rounds": [
+            21,
+            30
+          ],
+          "prospective_rounds": [
+            31,
+            40
+          ],
+          "token_ids_qwen": [
+            111638
+          ],
+          "next_block_gain_vs_empty_bits": 5.137364573479882
+        },
+        {
+          "run": 2,
+          "block": 4,
+          "trained_rounds": [
+            31,
+            40
+          ],
+          "prospective_rounds": [
+            41,
+            50
+          ],
+          "token_ids_qwen": [
+            111638
+          ],
+          "next_block_gain_vs_empty_bits": 6.5223455449772985
+        },
+        {
+          "run": 2,
+          "block": 5,
+          "trained_rounds": [
+            41,
+            50
+          ],
+          "prospective_rounds": [
+            51,
+            60
+          ],
+          "token_ids_qwen": [
+            111638
+          ],
+          "next_block_gain_vs_empty_bits": 2.9636829320842715
+        },
+        {
+          "run": 3,
+          "block": 4,
+          "trained_rounds": [
+            31,
+            40
+          ],
+          "prospective_rounds": [
+            41,
+            50
+          ],
+          "token_ids_qwen": [
+            111638
+          ],
+          "next_block_gain_vs_empty_bits": 1.135437197210266
+        }
+      ],
+      "distinct_source_runs": [
+        2,
+        3
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    },
+    {
+      "label": "run3_after_block5",
+      "suffix": " password",
+      "token_ids_qwen": [
+        3552
+      ],
+      "sources": [
+        {
+          "run": 3,
+          "block": 5,
+          "trained_rounds": [
+            41,
+            50
+          ],
+          "prospective_rounds": [
+            51,
+            60
+          ],
+          "token_ids_qwen": [
+            3552
+          ],
+          "next_block_gain_vs_empty_bits": 1.5505036726504555
+        }
+      ],
+      "distinct_source_runs": [
+        3
+      ],
+      "selection_status": "exploratory_unique_accepted_suffix"
+    }
+  ]
+}

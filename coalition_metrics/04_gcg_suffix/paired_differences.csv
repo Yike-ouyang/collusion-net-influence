@@ -1,0 +1,4 @@
+model,games_paired,delta_I_AB_given_prev_bits_optional_minus_no,paired_game_bootstrap_95_lo,paired_game_bootstrap_95_hi,delta_soft_I_optional_minus_no
+Qwen2.5-32B,20,0.399549,0.327607,0.418752,0.397992
+GLM-4-32B,20,0.272868,0.164570,0.321644,0.283775
+Mixtral-8x7B,20,0.116635,0.056849,0.159384,0.135403

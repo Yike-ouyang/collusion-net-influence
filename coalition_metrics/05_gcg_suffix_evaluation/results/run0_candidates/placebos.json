@@ -1,0 +1,53 @@
+{
+  "model_tokenizer": "Qwen/Qwen2.5-32B-Instruct",
+  "seed": 20261026,
+  "token_count": 1,
+  "sampling": "uniform sample without replacement from printable, round-trip-stable, non-special tokens",
+  "placebos": [
+    {
+      "label": "placebo_1",
+      "suffix": " lined",
+      "token_ids": [
+        31293
+      ],
+      "token_piece": "Ġlined",
+      "utf8_sha256": "35e0d97f0ac984bcc08989e1f11b5c1f7cf89de0f5b3f5d4611507907401e0f7"
+    },
+    {
+      "label": "placebo_2",
+      "suffix": "/mp",
+      "token_ids": [
+        62483
+      ],
+      "token_piece": "/mp",
+      "utf8_sha256": "96100ca789bd061dcba7773173c684d561b553dd90c4494ac3f673c3d4559ffd"
+    },
+    {
+      "label": "placebo_3",
+      "suffix": " Prophet",
+      "token_ids": [
+        36628
+      ],
+      "token_piece": "ĠProphet",
+      "utf8_sha256": "5791818de1960483eee7d393696a0821c8259fc17c16ecada40df7900d95e133"
+    },
+    {
+      "label": "placebo_4",
+      "suffix": "казан",
+      "token_ids": [
+        133066
+      ],
+      "token_piece": "ÐºÐ°Ð·Ð°Ð½",
+      "utf8_sha256": "8e5c43c2d23e4ddf203ad67b18b60e663dc37ca73129e713d36db3a8bf6224c7"
+    },
+    {
+      "label": "placebo_5",
+      "suffix": "巧克力",
+      "token_ids": [
+        110548
+      ],
+      "token_piece": "å·§åħĭåĬĽ",
+      "utf8_sha256": "73b9e5c79733621338d99408f01880debfb4c44ac903d320552ae3fa7d6007e8"
+    }
+  ]
+}

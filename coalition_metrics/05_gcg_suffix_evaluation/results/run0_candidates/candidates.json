@@ -1,0 +1,109 @@
+{
+  "source_checkpoint": "coalition_metrics/04_gcg_suffix/results/chronological_per_run_20_runs/intermediate_batch_0_4/qwen32b_chronological_bang5_runs_0_4.json",
+  "checkpoint_status": "running",
+  "model": "Qwen/Qwen2.5-32B-Instruct",
+  "initial_suffix": "!!!!!",
+  "run": 0,
+  "candidates": [
+    {
+      "label": "run0_after_block1",
+      "suffix": "ない",
+      "token_ids_qwen": [
+        123861
+      ],
+      "trained_rounds": [
+        1,
+        10
+      ],
+      "prospective_rounds": [
+        11,
+        20
+      ],
+      "next_block_gain_vs_empty_bits": 3.9732927563457996,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run0_after_block2",
+      "suffix": "ある",
+      "token_ids_qwen": [
+        124140
+      ],
+      "trained_rounds": [
+        11,
+        20
+      ],
+      "prospective_rounds": [
+        21,
+        30
+      ],
+      "next_block_gain_vs_empty_bits": 4.987750276858283,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run0_after_block3",
+      "suffix": " quoi",
+      "token_ids_qwen": [
+        74149
+      ],
+      "trained_rounds": [
+        21,
+        30
+      ],
+      "prospective_rounds": [
+        31,
+        40
+      ],
+      "next_block_gain_vs_empty_bits": -0.6883456508935677,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run0_after_block4",
+      "suffix": "és",
+      "token_ids_qwen": [
+        5397
+      ],
+      "trained_rounds": [
+        31,
+        40
+      ],
+      "prospective_rounds": [
+        41,
+        50
+      ],
+      "next_block_gain_vs_empty_bits": -0.7606629969829966,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run0_after_block5",
+      "suffix": "ื่",
+      "token_ids_qwen": [
+        64684
+      ],
+      "trained_rounds": [
+        41,
+        50
+      ],
+      "prospective_rounds": [
+        51,
+        60
+      ],
+      "next_block_gain_vs_empty_bits": 5.054017574314056,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run0_after_block6",
+      "suffix": "ื่",
+      "token_ids_qwen": [
+        64684
+      ],
+      "trained_rounds": [
+        51,
+        60
+      ],
+      "prospective_rounds": null,
+      "next_block_gain_vs_empty_bits": null,
+      "selection_status": "exploratory_per_run_candidate"
+    }
+  ],
+  "note": "Candidate strings and token IDs are exact. A suffix after block 5 is tested prospectively on block 6; the block-6 suffix has no future block in this run."
+}

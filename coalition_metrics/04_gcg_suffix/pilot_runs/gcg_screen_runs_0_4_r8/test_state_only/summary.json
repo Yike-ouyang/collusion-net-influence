@@ -1,0 +1,15 @@
+{
+  "test": "state_only",
+  "game_runs": 5,
+  "round": 8,
+  "seat_rows": 10,
+  "mean_pair_tv_to_no_channel": 1.0,
+  "mean_pair_tv_to_optional_empty": 0.0,
+  "mean_player_tv_to_no_channel": 0.7999999923324833,
+  "mean_player_tv_to_optional_empty": 0.0,
+  "runs_pair_closer_to_no_channel_than_optional_empty": 0,
+  "runs_pair_unchanged_vs_optional_empty": 5,
+  "same_argmax_pair_as_no_channel_runs": 0,
+  "same_argmax_pair_as_optional_empty_runs": 5,
+  "interpretation": "Descriptive screen only. These are top-5 move-token probabilities renormalized over Rock/Paper/Scissors, not full logits. No CMI or causal effect can be estimated from one prompted response per context."
+}

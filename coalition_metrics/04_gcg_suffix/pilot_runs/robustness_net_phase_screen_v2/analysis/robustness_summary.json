@@ -1,0 +1,118 @@
+{
+  "candidate_key": "candidate",
+  "candidate_text": "网",
+  "runs": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    16,
+    17,
+    18,
+    19
+  ],
+  "rounds": [
+    5,
+    20,
+    40,
+    55
+  ],
+  "successful_contexts": 44,
+  "player_context_rows": 88,
+  "failed_requests": [],
+  "mean_player_tv_improvement_candidate_vs_empty": -4.648462687299006e-05,
+  "mean_pair_product_tv_improvement_candidate_vs_empty": 2.861548288417301e-09,
+  "pair_product_contexts_improved": 2,
+  "sampled_player_moves_changed_vs_empty": 2,
+  "sampled_player_move_changes": [
+    {
+      "run": 5,
+      "round": 40,
+      "unit": "B",
+      "generated_move_no_channel": "Rock",
+      "generated_move_empty": "Scissors",
+      "generated_move_candidate": "Rock",
+      "tv_empty_to_no_channel": 0.9999999827421729,
+      "tv_candidate_to_no_channel": 0.00409140819053506
+    },
+    {
+      "run": 11,
+      "round": 20,
+      "unit": "A",
+      "generated_move_no_channel": "Rock",
+      "generated_move_empty": "Rock",
+      "generated_move_candidate": "Paper",
+      "tv_empty_to_no_channel": 1.926135042928307e-07,
+      "tv_candidate_to_no_channel": 0.9999999226558738
+    }
+  ],
+  "mean_top5_move_mass": {
+    "no_channel": 0.9999997661762354,
+    "optional_empty": 0.999999964235342,
+    "optional_candidate": 0.999999951915944
+  },
+  "pair_product_run_cluster_bootstrap": {
+    "run_count": 11,
+    "mean_run_improvement": 2.861548288417301e-09,
+    "ci95": [
+      -5.368449119590547e-11,
+      7.867305326472408e-09
+    ],
+    "per_run_mean_improvement": {
+      "5": 2.7457847409008633e-08,
+      "6": -1.4763235078874004e-10,
+      "7": 0.0,
+      "8": -1.4763260058892058e-10,
+      "9": 0.0,
+      "10": 0.0,
+      "11": 4.31444871495934e-09,
+      "16": 0.0,
+      "17": 0.0,
+      "18": 0.0,
+      "19": 0.0
+    }
+  },
+  "round_summary": [
+    {
+      "round": 5,
+      "contexts": 11,
+      "mean_pair_product_tv_empty": 0.7274994493343558,
+      "mean_pair_product_tv_candidate": 0.7274994493343558,
+      "mean_pair_product_tv_improvement": 0.0,
+      "contexts_improved": 0
+    },
+    {
+      "round": 20,
+      "contexts": 11,
+      "mean_pair_product_tv_empty": 0.9090909090372247,
+      "mean_pair_product_tv_candidate": 0.9090909075220186,
+      "mean_pair_product_tv_improvement": 1.5152059506074909e-09,
+      "contexts_improved": 1
+    },
+    {
+      "round": 40,
+      "contexts": 11,
+      "mean_pair_product_tv_empty": 0.8181817563586917,
+      "mean_pair_product_tv_candidate": 0.8181817457555468,
+      "mean_pair_product_tv_improvement": 1.0603145008467797e-08,
+      "contexts_improved": 1
+    },
+    {
+      "round": 55,
+      "contexts": 11,
+      "mean_pair_product_tv_empty": 0.6363643182470078,
+      "mean_pair_product_tv_candidate": 0.6363643189191656,
+      "mean_pair_product_tv_improvement": -6.721578054060842e-10,
+      "contexts_improved": 0
+    }
+  ],
+  "limitations": [
+    "Top-five move log-probabilities are renormalized over the three legal moves; inspect the mass fields for coverage.",
+    "A+B_product is the product of two separately queried policy distributions, not the observed joint action distribution or conditional MI.",
+    "The no-channel and optional-channel contexts share run/round indices but their saved trajectories have different public histories.",
+    "This replays prompts from saved states; it is not a full game rollout with the candidate suffix."
+  ]
+}

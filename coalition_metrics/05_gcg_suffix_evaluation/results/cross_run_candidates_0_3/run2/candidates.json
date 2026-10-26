@@ -1,0 +1,109 @@
+{
+  "source_checkpoint": "coalition_metrics/04_gcg_suffix/results/chronological_per_run_20_runs/qwen32b_chronological_bang5_runs_0_4.json",
+  "checkpoint_status": "running",
+  "model": "Qwen/Qwen2.5-32B-Instruct",
+  "initial_suffix": "!!!!!",
+  "run": 2,
+  "candidates": [
+    {
+      "label": "run2_after_block1",
+      "suffix": "网",
+      "token_ids_qwen": [
+        31139
+      ],
+      "trained_rounds": [
+        1,
+        10
+      ],
+      "prospective_rounds": [
+        11,
+        20
+      ],
+      "next_block_gain_vs_empty_bits": 4.7807368556040135,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run2_after_block2",
+      "suffix": "在网络",
+      "token_ids_qwen": [
+        111638
+      ],
+      "trained_rounds": [
+        11,
+        20
+      ],
+      "prospective_rounds": [
+        21,
+        30
+      ],
+      "next_block_gain_vs_empty_bits": 4.421817213122658,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run2_after_block3",
+      "suffix": "在网络",
+      "token_ids_qwen": [
+        111638
+      ],
+      "trained_rounds": [
+        21,
+        30
+      ],
+      "prospective_rounds": [
+        31,
+        40
+      ],
+      "next_block_gain_vs_empty_bits": 5.137364573479882,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run2_after_block4",
+      "suffix": "在网络",
+      "token_ids_qwen": [
+        111638
+      ],
+      "trained_rounds": [
+        31,
+        40
+      ],
+      "prospective_rounds": [
+        41,
+        50
+      ],
+      "next_block_gain_vs_empty_bits": 6.5223455449772985,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run2_after_block5",
+      "suffix": "在网络",
+      "token_ids_qwen": [
+        111638
+      ],
+      "trained_rounds": [
+        41,
+        50
+      ],
+      "prospective_rounds": [
+        51,
+        60
+      ],
+      "next_block_gain_vs_empty_bits": 2.9636829320842715,
+      "selection_status": "exploratory_per_run_candidate"
+    },
+    {
+      "label": "run2_after_block6",
+      "suffix": "在网络",
+      "token_ids_qwen": [
+        111638
+      ],
+      "trained_rounds": [
+        51,
+        60
+      ],
+      "prospective_rounds": null,
+      "next_block_gain_vs_empty_bits": null,
+      "selection_status": "exploratory_per_run_candidate"
+    }
+  ],
+  "note": "Candidate strings and token IDs are exact. A suffix after block 5 is tested prospectively on block 6; the block-6 suffix has no future block in this run."
+}

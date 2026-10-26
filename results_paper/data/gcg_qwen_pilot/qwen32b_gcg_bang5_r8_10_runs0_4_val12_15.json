@@ -1,0 +1,3602 @@
+{
+  "status": "completed",
+  "model": "Qwen/Qwen2.5-32B-Instruct",
+  "revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+  "weight_mode": "frozen 8-bit Qwen weights; gradient only at suffix input embeddings",
+  "initial_suffix": "!!!!!",
+  "objective": "mean per-context KL(no-channel A×B || optional-channel A×B) + alpha times mean individual KLs",
+  "alpha_individual_kl": 0.25,
+  "aggregation": "Compute each prompt's probability distribution and each matched context's KL separately; average context losses. Never average raw logits.",
+  "hypotheses": [
+    "H1: a GCG token replacement lowers the mean matched-context KL on training games.",
+    "H2: the KL reduction persists on held-out complete games and rounds 8-10.",
+    "H3: both players' move distributions move toward the no-channel reference; the pair-law KL does not hide a one-player-only change.",
+    "H4: the selected suffix remains useful after round and run variation; this prompt-level result still needs full-game rollout validation."
+  ],
+  "stages": [
+    {
+      "step": 1,
+      "hypothesis": "Choose a gradient-sensitive suffix token; rank discrete replacements by mean KL over all training contexts, then inspect held-out behavior.",
+      "suffix_before": "!!!!!",
+      "suffix_token_ids_before": [
+        69800
+      ],
+      "training_loss_before_nats": 35.078448556078364,
+      "training_loss_before_bits": 50.607503773932876,
+      "gradient_norm": 7.5,
+      "gradient_norm_by_position": [
+        7.488470554351807
+      ],
+      "coordinate": 0,
+      "candidate_scores": [
+        {
+          "suffix": "ville",
+          "token_ids": [
+            7919
+          ],
+          "changed_position": 0,
+          "changed_token_id": 7919,
+          "train_mean_kl_nats": 36.57814030471782,
+          "train_mean_kl_bits": 52.77110162255712,
+          "train_gain_vs_empty": {
+            "gain_nats": -1.8525834438556004,
+            "gain_bits": -2.6727129472834723,
+            "relative_gain_percent": -5.3349279646644705
+          },
+          "validation_mean_kl_nats": 44.15677868326505,
+          "validation_mean_kl_bits": 63.704765627977984,
+          "validation_gain_vs_empty": {
+            "gain_nats": -2.7492910623550415,
+            "gain_bits": -3.9663885816199684,
+            "relative_gain_percent": -6.639598826968436
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": -2.7492910623550406,
+            "mean_gain_bits": -3.966388581619967,
+            "ci95_nats": [
+              -4.0940264860788975,
+              -1.4045556386311837
+            ],
+            "per_run_gain_nats": {
+              "12": -3.517898400624592,
+              "13": -1.3930002848307268,
+              "14": -4.670154571533203,
+              "15": -1.4161109924316406
+            }
+          }
+        },
+        {
+          "suffix": "员",
+          "token_ids": [
+            42223
+          ],
+          "changed_position": 0,
+          "changed_token_id": 42223,
+          "train_mean_kl_nats": 33.413298745268065,
+          "train_mean_kl_bits": 48.20520039953966,
+          "train_gain_vs_empty": {
+            "gain_nats": 1.3122581155941546,
+            "gain_bits": 1.893188275733983,
+            "relative_gain_percent": 3.7789404525666455
+          },
+          "validation_mean_kl_nats": 41.774477541446686,
+          "validation_mean_kl_bits": 60.26783158477251,
+          "validation_gain_vs_empty": {
+            "gain_nats": -0.3669899205366747,
+            "gain_bits": -0.5294545384144953,
+            "relative_gain_percent": -0.886288788869556
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": -0.36698992053667645,
+            "mean_gain_bits": -0.5294545384144979,
+            "ci95_nats": [
+              -1.807991007963814,
+              1.074011166890461
+            ],
+            "per_run_gain_nats": {
+              "12": -1.9402439991633074,
+              "13": 1.1692911783854143,
+              "14": -1.6757380167643205,
+              "15": 0.9787311553955078
+            }
+          }
+        },
+        {
+          "suffix": "网",
+          "token_ids": [
+            31139
+          ],
+          "changed_position": 0,
+          "changed_token_id": 31139,
+          "train_mean_kl_nats": 31.657902144665908,
+          "train_mean_kl_bits": 45.67269842905758,
+          "train_gain_vs_empty": {
+            "gain_nats": 3.067654716196312,
+            "gain_bits": 4.42569024621606,
+            "relative_gain_percent": 8.833997186820474
+          },
+          "validation_mean_kl_nats": 39.61981683969498,
+          "validation_mean_kl_bits": 57.15931327555699,
+          "validation_gain_vs_empty": {
+            "gain_nats": 1.7876707812150343,
+            "gain_bits": 2.5790637708010293,
+            "relative_gain_percent": 4.317264543025049
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": 1.7876707812150325,
+            "mean_gain_bits": 2.5790637708010267,
+            "ci95_nats": [
+              0.1470216413338985,
+              3.2709287007649763
+            ],
+            "per_run_gain_nats": {
+              "12": -0.6865144968032837,
+              "13": 3.8942273457845076,
+              "14": 1.2953402201334612,
+              "15": 2.647630055745445
+            }
+          }
+        },
+        {
+          "suffix": "qu",
+          "token_ids": [
+            446
+          ],
+          "changed_position": 0,
+          "changed_token_id": 446,
+          "train_mean_kl_nats": 36.18050818034389,
+          "train_mean_kl_bits": 52.19743972862471,
+          "train_gain_vs_empty": {
+            "gain_nats": -1.4549513194816726,
+            "gain_bits": -2.099051053351063,
+            "relative_gain_percent": -4.189857416286648
+          },
+          "validation_mean_kl_nats": 44.43915529052416,
+          "validation_mean_kl_bits": 64.11214895893376,
+          "validation_gain_vs_empty": {
+            "gain_nats": -3.0316676696141514,
+            "gain_bits": -4.373771912575736,
+            "relative_gain_percent": -7.3215445896389415
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": -3.031667669614155,
+            "mean_gain_bits": -4.373771912575742,
+            "ci95_nats": [
+              -4.545331637064615,
+              -1.7514603535334263
+            ],
+            "per_run_gain_nats": {
+              "12": -3.273310820261635,
+              "13": -2.323111216227211,
+              "14": -5.28607177734375,
+              "15": -1.2441768646240234
+            }
+          }
+        }
+      ],
+      "chosen_by_training_loss": {
+        "suffix": "网",
+        "token_ids": [
+          31139
+        ],
+        "changed_position": 0,
+        "changed_token_id": 31139,
+        "train_mean_kl_nats": 31.657902144665908,
+        "train_mean_kl_bits": 45.67269842905758,
+        "train_gain_vs_empty": {
+          "gain_nats": 3.067654716196312,
+          "gain_bits": 4.42569024621606,
+          "relative_gain_percent": 8.833997186820474
+        },
+        "validation_mean_kl_nats": 39.61981683969498,
+        "validation_mean_kl_bits": 57.15931327555699,
+        "validation_gain_vs_empty": {
+          "gain_nats": 1.7876707812150343,
+          "gain_bits": 2.5790637708010293,
+          "relative_gain_percent": 4.317264543025049
+        },
+        "validation_gain_bootstrap_by_game": {
+          "run_count": 4,
+          "mean_gain_nats": 1.7876707812150325,
+          "mean_gain_bits": 2.5790637708010267,
+          "ci95_nats": [
+            0.1470216413338985,
+            3.2709287007649763
+          ],
+          "per_run_gain_nats": {
+            "12": -0.6865144968032837,
+            "13": 3.8942273457845076,
+            "14": 1.2953402201334612,
+            "15": 2.647630055745445
+          }
+        }
+      },
+      "training_gain_this_step_nats": 3.420546411412456,
+      "training_gain_this_step_bits": 4.93480534487529,
+      "suffix_after": "网",
+      "suffix_token_ids_after": [
+        31139
+      ],
+      "new_validation_best": true,
+      "best_validation_suffix_so_far": "网",
+      "best_validation_kl_nats_so_far": 39.61981683969498,
+      "best_validation_gain_vs_empty": {
+        "gain_nats": 1.7876707812150343,
+        "gain_bits": 2.5790637708010293,
+        "relative_gain_percent": 4.317264543025049
+      },
+      "status": "completed"
+    },
+    {
+      "step": 2,
+      "hypothesis": "Choose a gradient-sensitive suffix token; rank discrete replacements by mean KL over all training contexts, then inspect held-out behavior.",
+      "suffix_before": "网",
+      "suffix_token_ids_before": [
+        31139
+      ],
+      "training_loss_before_nats": 31.657902144665908,
+      "training_loss_before_bits": 45.67269842905758,
+      "gradient_norm": 5.125,
+      "gradient_norm_by_position": [
+        5.140503883361816
+      ],
+      "coordinate": 0,
+      "candidate_scores": [
+        {
+          "suffix": "电网",
+          "token_ids": [
+            105102
+          ],
+          "changed_position": 0,
+          "changed_token_id": 105102,
+          "train_mean_kl_nats": 37.216126681516954,
+          "train_mean_kl_bits": 53.691521404519946,
+          "train_gain_vs_empty": {
+            "gain_nats": -2.490569820654734,
+            "gain_bits": -3.5931327292463,
+            "relative_gain_percent": -7.172152287244543
+          },
+          "validation_mean_kl_nats": 47.44196726878484,
+          "validation_mean_kl_bits": 68.44429090869241,
+          "validation_gain_vs_empty": {
+            "gain_nats": -6.034479647874832,
+            "gain_bits": -8.705913862334398,
+            "relative_gain_percent": -14.57340204535262
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": -6.0344796478748295,
+            "mean_gain_bits": -8.705913862334395,
+            "ci95_nats": [
+              -8.884005228678383,
+              -3.184954067071276
+            ],
+            "per_run_gain_nats": {
+              "12": -2.209290305773415,
+              "13": -9.022140502929688,
+              "14": -8.745869954427079,
+              "15": -4.160617828369137
+            }
+          }
+        },
+        {
+          "suffix": "网格",
+          "token_ids": [
+            111681
+          ],
+          "changed_position": 0,
+          "changed_token_id": 111681,
+          "train_mean_kl_nats": 33.523165934395124,
+          "train_mean_kl_bits": 48.363705248449676,
+          "train_gain_vs_empty": {
+            "gain_nats": 1.2023909264670962,
+            "gain_bits": 1.7346834268239661,
+            "relative_gain_percent": 3.4625533329380898
+          },
+          "validation_mean_kl_nats": 41.620121747255325,
+          "validation_mean_kl_bits": 60.04514324596016,
+          "validation_gain_vs_empty": {
+            "gain_nats": -0.2126341263453142,
+            "gain_bits": -0.3067661996021421,
+            "relative_gain_percent": -0.5135161260977783
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": -0.21263412634531598,
+            "mean_gain_bits": -0.30676619960214463,
+            "ci95_nats": [
+              -0.9228474299112968,
+              0.8338292042414359
+            ],
+            "per_run_gain_nats": {
+              "12": -0.6647556622823068,
+              "13": -0.4330126444498674,
+              "14": -1.0861256917317732,
+              "15": 1.3333574930826835
+            }
+          }
+        },
+        {
+          "suffix": " lưới",
+          "token_ids": [
+            141593
+          ],
+          "changed_position": 0,
+          "changed_token_id": 141593,
+          "train_mean_kl_nats": 32.330921855883204,
+          "train_mean_kl_bits": 46.6436606288513,
+          "train_gain_vs_empty": {
+            "gain_nats": 2.3946350049790155,
+            "gain_bits": 3.454728046422344,
+            "relative_gain_percent": 6.895886549994861
+          },
+          "validation_mean_kl_nats": 40.218074440956116,
+          "validation_mean_kl_bits": 58.02241655007056,
+          "validation_gain_vs_empty": {
+            "gain_nats": 1.1894131799538954,
+            "gain_bits": 1.715960496287457,
+            "relative_gain_percent": 2.872459181399994
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": 1.1894131799538927,
+            "mean_gain_bits": 1.7159604962874533,
+            "ci95_nats": [
+              0.26503341396649827,
+              2.3008715311686174
+            ],
+            "per_run_gain_nats": {
+              "12": -0.08741589387257775,
+              "13": 2.8403994242350237,
+              "14": 0.6822878519693987,
+              "15": 1.3223813374837263
+            }
+          }
+        },
+        {
+          "suffix": "在网上",
+          "token_ids": [
+            106633
+          ],
+          "changed_position": 0,
+          "changed_token_id": 106633,
+          "train_mean_kl_nats": 32.4616739393988,
+          "train_mean_kl_bits": 46.83229601132515,
+          "train_gain_vs_empty": {
+            "gain_nats": 2.26388292146342,
+            "gain_bits": 3.266092663948495,
+            "relative_gain_percent": 6.519356710489362
+          },
+          "validation_mean_kl_nats": 40.43971240520477,
+          "validation_mean_kl_bits": 58.34217254196482,
+          "validation_gain_vs_empty": {
+            "gain_nats": 0.9677752157052382,
+            "gain_bits": 1.396204504393194,
+            "relative_gain_percent": 2.33719858728287
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": 0.9677752157052364,
+            "mean_gain_bits": 1.3962045043931914,
+            "ci95_nats": [
+              0.6516151428222656,
+              1.452655792236329
+            ],
+            "per_run_gain_nats": {
+              "12": 0.8517082134882621,
+              "13": 0.6410942077636719,
+              "14": 0.6621360778808594,
+              "15": 1.7161623636881522
+            }
+          }
+        }
+      ],
+      "chosen_by_training_loss": {
+        "suffix": " lưới",
+        "token_ids": [
+          141593
+        ],
+        "changed_position": 0,
+        "changed_token_id": 141593,
+        "train_mean_kl_nats": 32.330921855883204,
+        "train_mean_kl_bits": 46.6436606288513,
+        "train_gain_vs_empty": {
+          "gain_nats": 2.3946350049790155,
+          "gain_bits": 3.454728046422344,
+          "relative_gain_percent": 6.895886549994861
+        },
+        "validation_mean_kl_nats": 40.218074440956116,
+        "validation_mean_kl_bits": 58.02241655007056,
+        "validation_gain_vs_empty": {
+          "gain_nats": 1.1894131799538954,
+          "gain_bits": 1.715960496287457,
+          "relative_gain_percent": 2.872459181399994
+        },
+        "validation_gain_bootstrap_by_game": {
+          "run_count": 4,
+          "mean_gain_nats": 1.1894131799538927,
+          "mean_gain_bits": 1.7159604962874533,
+          "ci95_nats": [
+            0.26503341396649827,
+            2.3008715311686174
+          ],
+          "per_run_gain_nats": {
+            "12": -0.08741589387257775,
+            "13": 2.8403994242350237,
+            "14": 0.6822878519693987,
+            "15": 1.3223813374837263
+          }
+        }
+      },
+      "training_gain_this_step_nats": -0.6730197112172966,
+      "training_gain_this_step_bits": -0.9709621997937161,
+      "suffix_after": "网",
+      "suffix_token_ids_after": [
+        31139
+      ],
+      "new_validation_best": false,
+      "best_validation_suffix_so_far": "网",
+      "best_validation_kl_nats_so_far": 39.61981683969498,
+      "best_validation_gain_vs_empty": {
+        "gain_nats": 1.7876707812150343,
+        "gain_bits": 2.5790637708010293,
+        "relative_gain_percent": 4.317264543025049
+      },
+      "status": "completed"
+    },
+    {
+      "step": 3,
+      "hypothesis": "Choose a gradient-sensitive suffix token; rank discrete replacements by mean KL over all training contexts, then inspect held-out behavior.",
+      "suffix_before": "网",
+      "suffix_token_ids_before": [
+        31139
+      ],
+      "training_loss_before_nats": 31.657902144665908,
+      "training_loss_before_bits": 45.67269842905758,
+      "gradient_norm": 5.125,
+      "gradient_norm_by_position": [
+        5.128846168518066
+      ],
+      "coordinate": 0,
+      "candidate_scores": [
+        {
+          "suffix": "电网",
+          "token_ids": [
+            105102
+          ],
+          "changed_position": 0,
+          "changed_token_id": 105102,
+          "train_mean_kl_nats": 37.216126681516954,
+          "train_mean_kl_bits": 53.691521404519946,
+          "train_gain_vs_empty": {
+            "gain_nats": -2.490569820654734,
+            "gain_bits": -3.5931327292463,
+            "relative_gain_percent": -7.172152287244543
+          },
+          "validation_mean_kl_nats": 47.44196726878484,
+          "validation_mean_kl_bits": 68.44429090869241,
+          "validation_gain_vs_empty": {
+            "gain_nats": -6.034479647874832,
+            "gain_bits": -8.705913862334398,
+            "relative_gain_percent": -14.57340204535262
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": -6.0344796478748295,
+            "mean_gain_bits": -8.705913862334395,
+            "ci95_nats": [
+              -8.884005228678383,
+              -3.184954067071276
+            ],
+            "per_run_gain_nats": {
+              "12": -2.209290305773415,
+              "13": -9.022140502929688,
+              "14": -8.745869954427079,
+              "15": -4.160617828369137
+            }
+          }
+        },
+        {
+          "suffix": "网格",
+          "token_ids": [
+            111681
+          ],
+          "changed_position": 0,
+          "changed_token_id": 111681,
+          "train_mean_kl_nats": 33.523165934395124,
+          "train_mean_kl_bits": 48.363705248449676,
+          "train_gain_vs_empty": {
+            "gain_nats": 1.2023909264670962,
+            "gain_bits": 1.7346834268239661,
+            "relative_gain_percent": 3.4625533329380898
+          },
+          "validation_mean_kl_nats": 41.620121747255325,
+          "validation_mean_kl_bits": 60.04514324596016,
+          "validation_gain_vs_empty": {
+            "gain_nats": -0.2126341263453142,
+            "gain_bits": -0.3067661996021421,
+            "relative_gain_percent": -0.5135161260977783
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": -0.21263412634531598,
+            "mean_gain_bits": -0.30676619960214463,
+            "ci95_nats": [
+              -0.9228474299112968,
+              0.8338292042414359
+            ],
+            "per_run_gain_nats": {
+              "12": -0.6647556622823068,
+              "13": -0.4330126444498674,
+              "14": -1.0861256917317732,
+              "15": 1.3333574930826835
+            }
+          }
+        },
+        {
+          "suffix": " lưới",
+          "token_ids": [
+            141593
+          ],
+          "changed_position": 0,
+          "changed_token_id": 141593,
+          "train_mean_kl_nats": 32.330921855883204,
+          "train_mean_kl_bits": 46.6436606288513,
+          "train_gain_vs_empty": {
+            "gain_nats": 2.3946350049790155,
+            "gain_bits": 3.454728046422344,
+            "relative_gain_percent": 6.895886549994861
+          },
+          "validation_mean_kl_nats": 40.218074440956116,
+          "validation_mean_kl_bits": 58.02241655007056,
+          "validation_gain_vs_empty": {
+            "gain_nats": 1.1894131799538954,
+            "gain_bits": 1.715960496287457,
+            "relative_gain_percent": 2.872459181399994
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": 1.1894131799538927,
+            "mean_gain_bits": 1.7159604962874533,
+            "ci95_nats": [
+              0.26503341396649827,
+              2.3008715311686174
+            ],
+            "per_run_gain_nats": {
+              "12": -0.08741589387257775,
+              "13": 2.8403994242350237,
+              "14": 0.6822878519693987,
+              "15": 1.3223813374837263
+            }
+          }
+        },
+        {
+          "suffix": "在网上",
+          "token_ids": [
+            106633
+          ],
+          "changed_position": 0,
+          "changed_token_id": 106633,
+          "train_mean_kl_nats": 32.4616739393988,
+          "train_mean_kl_bits": 46.83229601132515,
+          "train_gain_vs_empty": {
+            "gain_nats": 2.26388292146342,
+            "gain_bits": 3.266092663948495,
+            "relative_gain_percent": 6.519356710489362
+          },
+          "validation_mean_kl_nats": 40.43971240520477,
+          "validation_mean_kl_bits": 58.34217254196482,
+          "validation_gain_vs_empty": {
+            "gain_nats": 0.9677752157052382,
+            "gain_bits": 1.396204504393194,
+            "relative_gain_percent": 2.33719858728287
+          },
+          "validation_gain_bootstrap_by_game": {
+            "run_count": 4,
+            "mean_gain_nats": 0.9677752157052364,
+            "mean_gain_bits": 1.3962045043931914,
+            "ci95_nats": [
+              0.6516151428222656,
+              1.452655792236329
+            ],
+            "per_run_gain_nats": {
+              "12": 0.8517082134882621,
+              "13": 0.6410942077636719,
+              "14": 0.6621360778808594,
+              "15": 1.7161623636881522
+            }
+          }
+        }
+      ],
+      "chosen_by_training_loss": {
+        "suffix": " lưới",
+        "token_ids": [
+          141593
+        ],
+        "changed_position": 0,
+        "changed_token_id": 141593,
+        "train_mean_kl_nats": 32.330921855883204,
+        "train_mean_kl_bits": 46.6436606288513,
+        "train_gain_vs_empty": {
+          "gain_nats": 2.3946350049790155,
+          "gain_bits": 3.454728046422344,
+          "relative_gain_percent": 6.895886549994861
+        },
+        "validation_mean_kl_nats": 40.218074440956116,
+        "validation_mean_kl_bits": 58.02241655007056,
+        "validation_gain_vs_empty": {
+          "gain_nats": 1.1894131799538954,
+          "gain_bits": 1.715960496287457,
+          "relative_gain_percent": 2.872459181399994
+        },
+        "validation_gain_bootstrap_by_game": {
+          "run_count": 4,
+          "mean_gain_nats": 1.1894131799538927,
+          "mean_gain_bits": 1.7159604962874533,
+          "ci95_nats": [
+            0.26503341396649827,
+            2.3008715311686174
+          ],
+          "per_run_gain_nats": {
+            "12": -0.08741589387257775,
+            "13": 2.8403994242350237,
+            "14": 0.6822878519693987,
+            "15": 1.3223813374837263
+          }
+        }
+      },
+      "training_gain_this_step_nats": -0.6730197112172966,
+      "training_gain_this_step_bits": -0.9709621997937161,
+      "suffix_after": "网",
+      "suffix_token_ids_after": [
+        31139
+      ],
+      "new_validation_best": false,
+      "best_validation_suffix_so_far": "网",
+      "best_validation_kl_nats_so_far": 39.61981683969498,
+      "best_validation_gain_vs_empty": {
+        "gain_nats": 1.7876707812150343,
+        "gain_bits": 2.5790637708010293,
+        "relative_gain_percent": 4.317264543025049
+      },
+      "status": "completed"
+    }
+  ],
+  "warnings": [
+    "No-channel and optional-channel contexts share run IDs and round numbers but come from separate trajectories, not identical public states.",
+    "The pair law is a product of the two independently queried policies given the same context; this is a distribution-matching surrogate, not observed CMI or a causal effect.",
+    "Validation is used for early stopping/model selection. Reserve fresh game IDs for a final unbiased experiment.",
+    "Qwen legal-move probabilities are normalized over Rock/Paper/Scissors sequence probabilities; the assistant prefix is MOVE: ."
+  ],
+  "split": {
+    "training_run_ids": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "validation_run_ids": [
+      12,
+      13,
+      14,
+      15
+    ],
+    "training_rounds": [
+      8,
+      9,
+      10
+    ],
+    "validation_rounds": [
+      8,
+      9,
+      10
+    ],
+    "training_contexts": 15,
+    "validation_contexts": 12
+  },
+  "search": {
+    "max_coordinate_steps": 4,
+    "candidate_count_per_step": 4,
+    "validation_patience": 2,
+    "max_wall_seconds": 2400,
+    "stop_rule": "stop after patience steps without a new best validation KL, or wall-time limit"
+  },
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "model_load_seconds": 171.4843180179596,
+  "move_token_sequences": {
+    "Rock": [
+      35052
+    ],
+    "Paper": [
+      30898
+    ],
+    "Scissors": [
+      3326,
+      41622
+    ]
+  },
+  "suffix_initial_token_ids": [
+    69800
+  ],
+  "initial_suffix_token_count": 1,
+  "train_prompt_tokens": [
+    {
+      "run": 0,
+      "round": 8,
+      "no_channel_A_B": [
+        974,
+        931
+      ],
+      "optional_A_B": [
+        1189,
+        1199
+      ]
+    },
+    {
+      "run": 0,
+      "round": 9,
+      "no_channel_A_B": [
+        967,
+        999
+      ],
+      "optional_A_B": [
+        1325,
+        1293
+      ]
+    },
+    {
+      "run": 0,
+      "round": 10,
+      "no_channel_A_B": [
+        961,
+        967
+      ],
+      "optional_A_B": [
+        1413,
+        1443
+      ]
+    },
+    {
+      "run": 1,
+      "round": 8,
+      "no_channel_A_B": [
+        951,
+        965
+      ],
+      "optional_A_B": [
+        1288,
+        1274
+      ]
+    },
+    {
+      "run": 1,
+      "round": 9,
+      "no_channel_A_B": [
+        971,
+        941
+      ],
+      "optional_A_B": [
+        1227,
+        1203
+      ]
+    },
+    {
+      "run": 1,
+      "round": 10,
+      "no_channel_A_B": [
+        950,
+        954
+      ],
+      "optional_A_B": [
+        1297,
+        1309
+      ]
+    },
+    {
+      "run": 2,
+      "round": 8,
+      "no_channel_A_B": [
+        985,
+        978
+      ],
+      "optional_A_B": [
+        1206,
+        1175
+      ]
+    },
+    {
+      "run": 2,
+      "round": 9,
+      "no_channel_A_B": [
+        924,
+        946
+      ],
+      "optional_A_B": [
+        1183,
+        1261
+      ]
+    },
+    {
+      "run": 2,
+      "round": 10,
+      "no_channel_A_B": [
+        927,
+        958
+      ],
+      "optional_A_B": [
+        1337,
+        1320
+      ]
+    },
+    {
+      "run": 3,
+      "round": 8,
+      "no_channel_A_B": [
+        1004,
+        977
+      ],
+      "optional_A_B": [
+        1389,
+        1363
+      ]
+    },
+    {
+      "run": 3,
+      "round": 9,
+      "no_channel_A_B": [
+        963,
+        974
+      ],
+      "optional_A_B": [
+        1273,
+        1274
+      ]
+    },
+    {
+      "run": 3,
+      "round": 10,
+      "no_channel_A_B": [
+        954,
+        953
+      ],
+      "optional_A_B": [
+        1372,
+        1381
+      ]
+    },
+    {
+      "run": 4,
+      "round": 8,
+      "no_channel_A_B": [
+        982,
+        969
+      ],
+      "optional_A_B": [
+        1273,
+        1254
+      ]
+    },
+    {
+      "run": 4,
+      "round": 9,
+      "no_channel_A_B": [
+        1003,
+        986
+      ],
+      "optional_A_B": [
+        1319,
+        1303
+      ]
+    },
+    {
+      "run": 4,
+      "round": 10,
+      "no_channel_A_B": [
+        936,
+        987
+      ],
+      "optional_A_B": [
+        1279,
+        1261
+      ]
+    }
+  ],
+  "stage0_baselines": {
+    "hypothesis": "H0: the empty optional-channel prompt is the fixed reference for measuring suffix gain.",
+    "empty_suffix_train": {
+      "context_rows": [
+        {
+          "run": 0,
+          "round": 8,
+          "loss_nats": 35.760284423828125,
+          "pair_kl_nats": 28.608226776123047,
+          "individual_kl_nats": 28.60822868347168,
+          "target_probabilities_A_B": [
+            [
+              0.996812641620636,
+              0.003172636264935136,
+              1.469220660510473e-05
+            ],
+            [
+              0.017975816503167152,
+              0.0005778316408395767,
+              0.9814463257789612
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              8.071593948777434e-10,
+              8.929072352380565e-14
+            ],
+            [
+              1.0,
+              1.1032560420787263e-09,
+              2.108760892684594e-13
+            ]
+          ]
+        },
+        {
+          "run": 0,
+          "round": 9,
+          "loss_nats": 0.00014559176634065807,
+          "pair_kl_nats": 0.00011647340579656884,
+          "individual_kl_nats": 0.00011647341307252645,
+          "target_probabilities_A_B": [
+            [
+              1.6373753908283106e-07,
+              0.9999998807907104,
+              1.8727601414081363e-10
+            ],
+            [
+              1.38460145535646e-05,
+              0.999985933303833,
+              2.1024062846208835e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.335593052293916e-09,
+              1.0,
+              1.7519068877883126e-12
+            ],
+            [
+              1.3946462873448695e-09,
+              1.0,
+              1.213494257336356e-12
+            ]
+          ]
+        },
+        {
+          "run": 0,
+          "round": 10,
+          "loss_nats": 20.263463973999023,
+          "pair_kl_nats": 16.210771560668945,
+          "individual_kl_nats": 16.210771560668945,
+          "target_probabilities_A_B": [
+            [
+              0.2940675616264343,
+              0.7054314017295837,
+              0.000500979833304882
+            ],
+            [
+              0.0015976824797689915,
+              0.00010213641508016735,
+              0.9983002543449402
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.3287786941873492e-06,
+              1.262608062546633e-08,
+              0.9999986886978149
+            ],
+            [
+              7.811490263520682e-07,
+              3.850738838906409e-09,
+              0.9999991655349731
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 8,
+          "loss_nats": 48.74991989135742,
+          "pair_kl_nats": 38.999935150146484,
+          "individual_kl_nats": 38.999935150146484,
+          "target_probabilities_A_B": [
+            [
+              1.370957193103095e-06,
+              0.9999985694885254,
+              1.1382754738775702e-09
+            ],
+            [
+              7.338210252783028e-07,
+              0.9999992847442627,
+              2.9356531427993104e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              8.864910472361487e-10,
+              1.6944206996695466e-13
+            ],
+            [
+              2.3823690753488336e-07,
+              1.3026889789102825e-08,
+              0.9999997615814209
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 9,
+          "loss_nats": 36.253143310546875,
+          "pair_kl_nats": 29.00251579284668,
+          "individual_kl_nats": 29.002517700195312,
+          "target_probabilities_A_B": [
+            [
+              0.000969746324699372,
+              5.766322374256561e-06,
+              0.999024510383606
+            ],
+            [
+              0.053371671587228775,
+              0.9460354447364807,
+              0.0005929062608629465
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.4615767485182118e-09,
+              1.0,
+              6.495453046956312e-13
+            ],
+            [
+              4.2534309407926685e-10,
+              1.0,
+              3.165600648367267e-13
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 10,
+          "loss_nats": 38.35758590698242,
+          "pair_kl_nats": 30.68606948852539,
+          "individual_kl_nats": 30.68606948852539,
+          "target_probabilities_A_B": [
+            [
+              2.7535717890714295e-05,
+              0.9999724626541138,
+              3.224097966381123e-08
+            ],
+            [
+              2.5867428121273406e-05,
+              0.9999740123748779,
+              1.538133602707603e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              0.9999990463256836,
+              1.0030132671090541e-06,
+              3.364737377609117e-10
+            ],
+            [
+              1.0,
+              4.691164434689199e-08,
+              3.752511756188737e-12
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 8,
+          "loss_nats": 16.953140258789062,
+          "pair_kl_nats": 13.562512397766113,
+          "individual_kl_nats": 13.562512397766113,
+          "target_probabilities_A_B": [
+            [
+              0.9999983310699463,
+              1.6536896509933285e-06,
+              1.7015836656364414e-11
+            ],
+            [
+              0.9999998807907104,
+              1.5381733931008057e-07,
+              2.7305846472813755e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              2.8780153260576924e-10,
+              1.668176637407634e-13
+            ],
+            [
+              1.287894065171713e-06,
+              4.139932485713871e-08,
+              0.9999986886978149
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 9,
+          "loss_nats": 45.3248405456543,
+          "pair_kl_nats": 36.25987243652344,
+          "individual_kl_nats": 36.25987243652344,
+          "target_probabilities_A_B": [
+            [
+              0.4069707989692688,
+              0.5921390056610107,
+              0.0008902442059479654
+            ],
+            [
+              0.00017949574976228178,
+              0.00017949574976228178,
+              0.9996410608291626
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              3.7536396213511125e-10,
+              1.0,
+              3.1655946852553185e-13
+            ],
+            [
+              3.364740708278191e-10,
+              1.0,
+              6.295633502365061e-13
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 10,
+          "loss_nats": 0.36723899841308594,
+          "pair_kl_nats": 0.2937912046909332,
+          "individual_kl_nats": 0.2937912046909332,
+          "target_probabilities_A_B": [
+            [
+              0.985612154006958,
+              0.005860663950443268,
+              0.00852721557021141
+            ],
+            [
+              1.0,
+              2.6729447100137804e-08,
+              2.646573848963385e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              6.691586174056852e-10,
+              1.0277318411447758e-13
+            ],
+            [
+              1.0,
+              2.105601110136135e-10,
+              1.604269831128463e-13
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 8,
+          "loss_nats": 53.21818542480469,
+          "pair_kl_nats": 42.574546813964844,
+          "individual_kl_nats": 42.574546813964844,
+          "target_probabilities_A_B": [
+            [
+              0.7978760004043579,
+              0.024093767628073692,
+              0.17803020775318146
+            ],
+            [
+              0.996208906173706,
+              0.002469355007633567,
+              0.0013217504601925611
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              9.791954053151031e-11,
+              1.0,
+              1.6944402153086513e-13
+            ],
+            [
+              3.0941582629395725e-09,
+              1.0,
+              1.6329629705727489e-12
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 9,
+          "loss_nats": 26.678808212280273,
+          "pair_kl_nats": 21.343046188354492,
+          "individual_kl_nats": 21.343048095703125,
+          "target_probabilities_A_B": [
+            [
+              0.9999990463256836,
+              1.003014176603756e-06,
+              5.40762538914219e-11
+            ],
+            [
+              2.1444966478156857e-05,
+              0.9999784231185913,
+              7.734254836577747e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              4.3204126387585973e-10,
+              1.3196313887551409e-13
+            ],
+            [
+              1.0,
+              5.37684063939281e-10,
+              1.299174797689956e-13
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 10,
+          "loss_nats": 46.90536880493164,
+          "pair_kl_nats": 37.524295806884766,
+          "individual_kl_nats": 37.5242919921875,
+          "target_probabilities_A_B": [
+            [
+              0.00048679328756406903,
+              0.0021816561929881573,
+              0.9973316192626953
+            ],
+            [
+              8.481110126012936e-05,
+              0.9999148845672607,
+              3.2560390650360205e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.1142490485838152e-08,
+              1.0,
+              4.3204126387585973e-10
+            ],
+            [
+              1.1365635828042286e-06,
+              1.0907268688242766e-07,
+              0.9999986886978149
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 8,
+          "loss_nats": 46.51746368408203,
+          "pair_kl_nats": 37.21397018432617,
+          "individual_kl_nats": 37.21397399902344,
+          "target_probabilities_A_B": [
+            [
+              0.9579105973243713,
+              0.042087655514478683,
+              1.6862527445482556e-06
+            ],
+            [
+              0.00359360221773386,
+              0.9964062571525574,
+              7.239705723804946e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              4.792325647429152e-09,
+              1.7629980808564483e-09,
+              1.0
+            ],
+            [
+              4.546832244045618e-08,
+              1.223763312907522e-08,
+              1.0
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 9,
+          "loss_nats": 63.0263786315918,
+          "pair_kl_nats": 50.421104431152344,
+          "individual_kl_nats": 50.42110061645508,
+          "target_probabilities_A_B": [
+            [
+              0.0007553691393695772,
+              4.828913733945228e-05,
+              0.9991963505744934
+            ],
+            [
+              0.0028001973405480385,
+              0.00026045890990644693,
+              0.9969393014907837
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              7.811490263520682e-07,
+              0.9999991655349731,
+              5.060189767203127e-11
+            ],
+            [
+              1.0,
+              7.658115031006218e-09,
+              2.2319958381533667e-12
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 10,
+          "loss_nats": 42.50738525390625,
+          "pair_kl_nats": 34.00590896606445,
+          "individual_kl_nats": 34.00591278076172,
+          "target_probabilities_A_B": [
+            [
+              0.005911067593842745,
+              0.9940887689590454,
+              2.0900058927963983e-07
+            ],
+            [
+              0.9999966621398926,
+              3.288748985141865e-06,
+              9.23741882985496e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              3.466329587809014e-07,
+              1.1142486933124474e-08,
+              0.9999996423721313
+            ],
+            [
+              1.444981450049454e-07,
+              1.6726858120819088e-08,
+              0.9999998807907104
+            ]
+          ]
+        }
+      ],
+      "summary": {
+        "mean_context_kl_nats": 34.72555686086222,
+        "mean_context_kl_bits": 50.09838867527365,
+        "per_run_mean_kl_nats": {
+          "0": 18.674631329864496,
+          "1": 41.120216369628906,
+          "2": 20.88173993428548,
+          "3": 42.26745414733887,
+          "4": 50.68374252319336
+        },
+        "per_round_mean_kl_nats": {
+          "8": 40.23979873657227,
+          "9": 34.256663258367915,
+          "10": 29.680208587646483
+        },
+        "context_count": 15
+      },
+      "pooled_soft_mi_bits_secondary": 0.6976243257522583
+    },
+    "empty_suffix_validation": {
+      "context_rows": [
+        {
+          "run": 12,
+          "round": 8,
+          "loss_nats": 41.24980926513672,
+          "pair_kl_nats": 32.999847412109375,
+          "individual_kl_nats": 32.99985122680664,
+          "target_probabilities_A_B": [
+            [
+              0.9999921321868896,
+              7.88926990935579e-06,
+              3.1923521603971494e-09
+            ],
+            [
+              5.771925316366833e-06,
+              0.999994158744812,
+              5.315754592061239e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              4.4508547603072657e-07,
+              5.101401967522179e-09,
+              0.9999995231628418
+            ],
+            [
+              3.124988978697729e-08,
+              1.0467402056235642e-08,
+              1.0
+            ]
+          ]
+        },
+        {
+          "run": 12,
+          "round": 9,
+          "loss_nats": 1.5964840650558472,
+          "pair_kl_nats": 1.2771872282028198,
+          "individual_kl_nats": 1.2771872282028198,
+          "target_probabilities_A_B": [
+            [
+              0.06008509173989296,
+              0.9398890137672424,
+              2.5881230612867512e-05
+            ],
+            [
+              0.9847995042800903,
+              0.01404741033911705,
+              0.0011530816555023193
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              9.43664812957934e-10,
+              1.0,
+              1.6202550369090463e-12
+            ],
+            [
+              1.0,
+              4.05865202557365e-10,
+              1.1375998071067733e-13
+            ]
+          ]
+        },
+        {
+          "run": 12,
+          "round": 10,
+          "loss_nats": 27.119857788085938,
+          "pair_kl_nats": 21.695886611938477,
+          "individual_kl_nats": 21.69588851928711,
+          "target_probabilities_A_B": [
+            [
+              0.005219627171754837,
+              9.560080798109993e-05,
+              0.9946848750114441
+            ],
+            [
+              0.00013982102973386645,
+              6.539516562042991e-06,
+              0.9998536109924316
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              4.94445018262013e-09,
+              3.2612185174585306e-10
+            ],
+            [
+              7.96729582361877e-05,
+              5.368322035792517e-07,
+              0.9999197721481323
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 8,
+          "loss_nats": 53.47605895996094,
+          "pair_kl_nats": 42.78084945678711,
+          "individual_kl_nats": 42.780845642089844,
+          "target_probabilities_A_B": [
+            [
+              2.6995778057425923e-07,
+              0.9999997615814209,
+              2.072956251097935e-10
+            ],
+            [
+              1.1478778105811216e-05,
+              0.9999884366989136,
+              1.0571579167617529e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              7.582560135332983e-10,
+              3.664427837774334e-14
+            ],
+            [
+              1.0,
+              3.471549159250742e-10,
+              1.8119417099539403e-14
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 9,
+          "loss_nats": 56.44596481323242,
+          "pair_kl_nats": 45.15677261352539,
+          "individual_kl_nats": 45.15677261352539,
+          "target_probabilities_A_B": [
+            [
+              0.09336312860250473,
+              0.020832130685448647,
+              0.8858047127723694
+            ],
+            [
+              0.9999810457229614,
+              1.8925147742265835e-05,
+              4.993623647919776e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.029198364894569e-09,
+              1.0,
+              6.295608565715094e-13
+            ],
+            [
+              6.758262394157555e-09,
+              1.0,
+              1.0543100680687756e-12
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 10,
+          "loss_nats": 51.48435974121094,
+          "pair_kl_nats": 41.1874885559082,
+          "individual_kl_nats": 41.1874885559082,
+          "target_probabilities_A_B": [
+            [
+              2.6995752477887436e-07,
+              0.9999997615814209,
+              5.829936533530145e-11
+            ],
+            [
+              1.1979317093846475e-07,
+              0.9999998807907104,
+              1.3594780856607258e-10
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              3.192377251437506e-09,
+              7.519032868118919e-14
+            ],
+            [
+              1.0,
+              4.05865202557365e-10,
+              1.457636637260118e-14
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 8,
+          "loss_nats": 64.57670593261719,
+          "pair_kl_nats": 51.66136169433594,
+          "individual_kl_nats": 51.6613655090332,
+          "target_probabilities_A_B": [
+            [
+              0.01792273297905922,
+              0.003529198467731476,
+              0.9785480499267578
+            ],
+            [
+              6.893603767821332e-07,
+              0.9999992847442627,
+              8.152014174811484e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              3.9337808011019604e-10,
+              8.520147884742355e-14
+            ],
+            [
+              1.0,
+              2.1724398668876432e-10,
+              9.202044643852672e-14
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 9,
+          "loss_nats": 55.175315856933594,
+          "pair_kl_nats": 44.140254974365234,
+          "individual_kl_nats": 44.14025115966797,
+          "target_probabilities_A_B": [
+            [
+              0.9999892711639404,
+              1.0783312973217107e-05,
+              1.2116767589276378e-09
+            ],
+            [
+              0.9999997615814209,
+              2.6995778057425923e-07,
+              8.864908251915438e-10
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              6.485707526593387e-10,
+              1.0,
+              2.707718218478844e-13
+            ],
+            [
+              1.0423480828469778e-10,
+              1.0,
+              1.5428111533547645e-13
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 10,
+          "loss_nats": 60.02117919921875,
+          "pair_kl_nats": 48.016944885253906,
+          "individual_kl_nats": 48.016944885253906,
+          "target_probabilities_A_B": [
+            [
+              0.0003150061529595405,
+              0.00010226753511233255,
+              0.9995827078819275
+            ],
+            [
+              1.300712665397441e-05,
+              0.9999868869781494,
+              9.931064681723001e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              7.901209464478143e-09,
+              4.0647509230024026e-13
+            ],
+            [
+              1.0,
+              3.3982678893096363e-09,
+              3.42286989767418e-13
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 8,
+          "loss_nats": 25.995346069335938,
+          "pair_kl_nats": 20.79627799987793,
+          "individual_kl_nats": 20.796276092529297,
+          "target_probabilities_A_B": [
+            [
+              1.855389228921922e-07,
+              0.9999997615814209,
+              6.153466625136161e-09
+            ],
+            [
+              0.9731782674789429,
+              0.02593432180583477,
+              0.0008874237537384033
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.4615767485182118e-09,
+              5.765064125954136e-14
+            ],
+            [
+              1.0,
+              5.905304023556823e-10,
+              7.681175980640484e-15
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 9,
+          "loss_nats": 23.470861434936523,
+          "pair_kl_nats": 18.776689529418945,
+          "individual_kl_nats": 18.776689529418945,
+          "target_probabilities_A_B": [
+            [
+              0.1639566421508789,
+              0.8326405882835388,
+              0.0034028117079287767
+            ],
+            [
+              1.3845996363670565e-05,
+              6.4758592088765e-07,
+              0.9999855756759644
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.4761402766794163e-08,
+              3.192377251437506e-09,
+              1.0
+            ],
+            [
+              2.029198364894569e-09,
+              8.198702827755255e-10,
+              1.0
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 10,
+          "loss_nats": 36.27790832519531,
+          "pair_kl_nats": 29.022327423095703,
+          "individual_kl_nats": 29.02233123779297,
+          "target_probabilities_A_B": [
+            [
+              0.00013982206291984767,
+              0.9998600482940674,
+              6.824648579595305e-08
+            ],
+            [
+              0.5254471898078918,
+              0.1933012306690216,
+              0.28125160932540894
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              4.737905499041517e-07,
+              1.8370853283045108e-08,
+              0.9999995231628418
+            ],
+            [
+              7.979938487778782e-08,
+              6.758261505979135e-09,
+              0.9999998807907104
+            ]
+          ]
+        }
+      ],
+      "summary": {
+        "mean_context_kl_nats": 41.40748762091001,
+        "mean_context_kl_bits": 59.73837704635802,
+        "per_run_mean_kl_nats": {
+          "12": 23.322050372759502,
+          "13": 53.802127838134766,
+          "14": 59.924400329589844,
+          "15": 28.581371943155926
+        },
+        "per_round_mean_kl_nats": {
+          "8": 46.324480056762695,
+          "9": 34.1721565425396,
+          "10": 43.725826263427734
+        },
+        "context_count": 12
+      },
+      "pooled_soft_mi_bits_secondary": 0.9045726656913757
+    },
+    "initial_suffix_train": {
+      "context_rows": [
+        {
+          "run": 0,
+          "round": 8,
+          "loss_nats": 35.58221435546875,
+          "pair_kl_nats": 28.46577262878418,
+          "individual_kl_nats": 28.465774536132812,
+          "target_probabilities_A_B": [
+            [
+              0.996812641620636,
+              0.003172636264935136,
+              1.469220660510473e-05
+            ],
+            [
+              0.017975816503167152,
+              0.0005778316408395767,
+              0.9814463257789612
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              3.581747953784742e-10,
+              5.765042441910687e-14
+            ],
+            [
+              1.0,
+              3.581747953784742e-10,
+              2.446214617587289e-13
+            ]
+          ]
+        },
+        {
+          "run": 0,
+          "round": 9,
+          "loss_nats": 0.00012299735681153834,
+          "pair_kl_nats": 9.839788981480524e-05,
+          "individual_kl_nats": 9.839789709076285e-05,
+          "target_probabilities_A_B": [
+            [
+              1.6373753908283106e-07,
+              0.9999998807907104,
+              1.8727601414081363e-10
+            ],
+            [
+              1.38460145535646e-05,
+              0.999985933303833,
+              2.1024062846208835e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.9977384191349756e-09,
+              1.0,
+              1.7934624054957715e-12
+            ],
+            [
+              5.101404187968228e-09,
+              1.0,
+              2.4133306030654778e-12
+            ]
+          ]
+        },
+        {
+          "run": 0,
+          "round": 10,
+          "loss_nats": 21.78672981262207,
+          "pair_kl_nats": 17.429384231567383,
+          "individual_kl_nats": 17.429384231567383,
+          "target_probabilities_A_B": [
+            [
+              0.2940675616264343,
+              0.7054314017295837,
+              0.000500979833304882
+            ],
+            [
+              0.0015976824797689915,
+              0.00010213641508016735,
+              0.9983002543449402
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              3.156125956138567e-07,
+              4.099092176801378e-09,
+              0.9999996423721313
+            ],
+            [
+              1.9750534363538463e-07,
+              1.682264105795639e-09,
+              0.9999997615814209
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 8,
+          "loss_nats": 49.60929489135742,
+          "pair_kl_nats": 39.687435150146484,
+          "individual_kl_nats": 39.687435150146484,
+          "target_probabilities_A_B": [
+            [
+              1.370957193103095e-06,
+              0.9999985694885254,
+              1.1382754738775702e-09
+            ],
+            [
+              7.338210252783028e-07,
+              0.9999992847442627,
+              2.9356531427993104e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              3.9337808011019604e-10,
+              1.707729958963164e-13
+            ],
+            [
+              6.083590733396704e-07,
+              1.4761393885009966e-08,
+              0.9999994039535522
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 9,
+          "loss_nats": 33.738746643066406,
+          "pair_kl_nats": 26.990997314453125,
+          "individual_kl_nats": 26.990999221801758,
+          "target_probabilities_A_B": [
+            [
+              0.000969746324699372,
+              5.766322374256561e-06,
+              0.999024510383606
+            ],
+            [
+              0.053371671587228775,
+              0.9460354447364807,
+              0.0005929062608629465
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.5229980832032197e-08,
+              1.0,
+              5.189535867006212e-12
+            ],
+            [
+              1.2186283926407526e-10,
+              1.0,
+              2.5042107601978836e-13
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 10,
+          "loss_nats": 43.123085021972656,
+          "pair_kl_nats": 34.49846649169922,
+          "individual_kl_nats": 34.49846649169922,
+          "target_probabilities_A_B": [
+            [
+              2.7535717890714295e-05,
+              0.9999724626541138,
+              3.224097966381123e-08
+            ],
+            [
+              2.5867428121273406e-05,
+              0.9999740123748779,
+              1.538133602707603e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              0.9999998807907104,
+              1.5381733931008057e-07,
+              1.6918978718027944e-10
+            ],
+            [
+              1.0,
+              6.758262394157555e-09,
+              5.098339285469766e-13
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 8,
+          "loss_nats": 17.656265258789062,
+          "pair_kl_nats": 14.125012397766113,
+          "individual_kl_nats": 14.125012397766113,
+          "target_probabilities_A_B": [
+            [
+              0.9999983310699463,
+              1.6536896509933285e-06,
+              1.7015836656364414e-11
+            ],
+            [
+              0.9999998807907104,
+              1.5381733931008057e-07,
+              2.7305846472813755e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.8010158642223217e-10,
+              9.212529556486965e-14
+            ],
+            [
+              7.338210252783028e-07,
+              1.3026883571853887e-08,
+              0.9999992847442627
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 9,
+          "loss_nats": 42.965335845947266,
+          "pair_kl_nats": 34.37226867675781,
+          "individual_kl_nats": 34.37226867675781,
+          "target_probabilities_A_B": [
+            [
+              0.4069707989692688,
+              0.5921390056610107,
+              0.0008902442059479654
+            ],
+            [
+              0.00017949574976228178,
+              0.00017949574976228178,
+              0.9996410608291626
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.093611950471086e-09,
+              1.0,
+              8.60496190361465e-13
+            ],
+            [
+              8.198702827755255e-10,
+              1.0,
+              2.0642545832394443e-12
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 10,
+          "loss_nats": 0.3493577241897583,
+          "pair_kl_nats": 0.27948617935180664,
+          "individual_kl_nats": 0.27948617935180664,
+          "target_probabilities_A_B": [
+            [
+              0.985612154006958,
+              0.005860663950443268,
+              0.00852721557021141
+            ],
+            [
+              1.0,
+              2.6729447100137804e-08,
+              2.646573848963385e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.4615767485182118e-09,
+              3.2154945481428776e-13
+            ],
+            [
+              1.0,
+              3.364740708278191e-10,
+              3.6722171527572844e-13
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 8,
+          "loss_nats": 54.00212860107422,
+          "pair_kl_nats": 43.20170211791992,
+          "individual_kl_nats": 43.20170211791992,
+          "target_probabilities_A_B": [
+            [
+              0.7978760004043579,
+              0.024093767628073692,
+              0.17803020775318146
+            ],
+            [
+              0.996208906173706,
+              0.002469355007633567,
+              0.0013217504601925611
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.312550151373216e-10,
+              1.0,
+              1.8037256258908452e-13
+            ],
+            [
+              8.198702827755255e-10,
+              1.0,
+              8.471716167121612e-13
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 9,
+          "loss_nats": 28.319398880004883,
+          "pair_kl_nats": 22.655519485473633,
+          "individual_kl_nats": 22.655519485473633,
+          "target_probabilities_A_B": [
+            [
+              0.9999990463256836,
+              1.003014176603756e-06,
+              5.40762538914219e-11
+            ],
+            [
+              2.1444966478156857e-05,
+              0.9999784231185913,
+              7.734254836577747e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              7.99195987166712e-11,
+              6.233401517391837e-14
+            ],
+            [
+              1.0,
+              1.447156977585351e-10,
+              7.757711844875309e-14
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 10,
+          "loss_nats": 47.54805374145508,
+          "pair_kl_nats": 38.03844451904297,
+          "individual_kl_nats": 38.03843688964844,
+          "target_probabilities_A_B": [
+            [
+              0.00048679328756406903,
+              0.0021816561929881573,
+              0.9973316192626953
+            ],
+            [
+              8.481110126012936e-05,
+              0.9999148845672607,
+              3.2560390650360205e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              8.953242591758226e-09,
+              1.0,
+              2.423531930695333e-10
+            ],
+            [
+              2.1233781808405183e-06,
+              1.1610715944243566e-07,
+              0.9999977350234985
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 8,
+          "loss_nats": 46.76723861694336,
+          "pair_kl_nats": 37.41379165649414,
+          "individual_kl_nats": 37.41379165649414,
+          "target_probabilities_A_B": [
+            [
+              0.9579105973243713,
+              0.042087655514478683,
+              1.6862527445482556e-06
+            ],
+            [
+              0.00359360221773386,
+              0.9964062571525574,
+              7.239705723804946e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              8.67778116031559e-09,
+              8.327813993957989e-10,
+              1.0
+            ],
+            [
+              1.0467402056235642e-08,
+              5.8716804751668406e-09,
+              1.0
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 9,
+          "loss_nats": 61.68697738647461,
+          "pair_kl_nats": 49.34958267211914,
+          "individual_kl_nats": 49.349578857421875,
+          "target_probabilities_A_B": [
+            [
+              0.0007553691393695772,
+              4.828913733945228e-05,
+              0.9991963505744934
+            ],
+            [
+              0.0028001973405480385,
+              0.00026045890990644693,
+              0.9969393014907837
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.9023121896898374e-06,
+              0.9999971389770508,
+              9.849469156941737e-11
+            ],
+            [
+              1.0,
+              9.23744991609965e-09,
+              3.3506220801365894e-12
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 10,
+          "loss_nats": 43.041778564453125,
+          "pair_kl_nats": 34.43342208862305,
+          "individual_kl_nats": 34.43342208862305,
+          "target_probabilities_A_B": [
+            [
+              0.005911067593842745,
+              0.9940887689590454,
+              2.0900058927963983e-07
+            ],
+            [
+              0.9999966621398926,
+              3.288748985141865e-06,
+              9.23741882985496e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.2751893052609375e-07,
+              1.0632239089147788e-08,
+              0.9999998807907104
+            ],
+            [
+              9.931193289958173e-08,
+              8.280395924487038e-09,
+              0.9999998807907104
+            ]
+          ]
+        }
+      ],
+      "summary": {
+        "mean_context_kl_nats": 35.078448556078364,
+        "mean_context_kl_bits": 50.607503773932876,
+        "per_run_mean_kl_nats": {
+          "0": 19.123022388482543,
+          "1": 42.15704218546549,
+          "2": 20.32365294297536,
+          "3": 43.28986040751139,
+          "4": 50.49866485595703
+        },
+        "per_round_mean_kl_nats": {
+          "8": 40.723428344726564,
+          "9": 33.342116350569995,
+          "10": 31.16980097293854
+        },
+        "context_count": 15
+      },
+      "pooled_soft_mi_bits_secondary": 0.6976260542869568
+    },
+    "initial_suffix_validation": {
+      "context_rows": [
+        {
+          "run": 12,
+          "round": 8,
+          "loss_nats": 43.78887176513672,
+          "pair_kl_nats": 35.031097412109375,
+          "individual_kl_nats": 35.03110122680664,
+          "target_probabilities_A_B": [
+            [
+              0.9999921321868896,
+              7.88926990935579e-06,
+              3.1923521603971494e-09
+            ],
+            [
+              5.771925316366833e-06,
+              0.999994158744812,
+              5.315754592061239e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.1979305725162703e-07,
+              1.4166084971733994e-09,
+              0.9999998807907104
+            ],
+            [
+              1.7257828943684217e-08,
+              5.101404187968228e-09,
+              1.0
+            ]
+          ]
+        },
+        {
+          "run": 12,
+          "round": 9,
+          "loss_nats": 1.3524044752120972,
+          "pair_kl_nats": 1.0819236040115356,
+          "individual_kl_nats": 1.0819236040115356,
+          "target_probabilities_A_B": [
+            [
+              0.06008509173989296,
+              0.9398890137672424,
+              2.5881230612867512e-05
+            ],
+            [
+              0.9847995042800903,
+              0.01404741033911705,
+              0.0011530816555023193
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.9555681518568235e-08,
+              1.0,
+              1.2546711933292265e-11
+            ],
+            [
+              1.0,
+              9.43664812957934e-10,
+              3.2917543473995337e-13
+            ]
+          ]
+        },
+        {
+          "run": 12,
+          "round": 10,
+          "loss_nats": 28.790924072265625,
+          "pair_kl_nats": 23.032739639282227,
+          "individual_kl_nats": 23.03274154663086,
+          "target_probabilities_A_B": [
+            [
+              0.005219627171754837,
+              9.560080798109993e-05,
+              0.9946848750114441
+            ],
+            [
+              0.00013982102973386645,
+              6.539516562042991e-06,
+              0.9998536109924316
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              8.071593948777434e-10,
+              8.507396870305328e-11
+            ],
+            [
+              3.763647691812366e-05,
+              1.1610315198140597e-07,
+              0.9999622106552124
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 8,
+          "loss_nats": 55.155731201171875,
+          "pair_kl_nats": 44.12458419799805,
+          "individual_kl_nats": 44.12458419799805,
+          "target_probabilities_A_B": [
+            [
+              2.6995778057425923e-07,
+              0.9999997615814209,
+              2.072956251097935e-10
+            ],
+            [
+              1.1478778105811216e-05,
+              0.9999884366989136,
+              1.0571579167617529e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              6.286163256596922e-10,
+              7.174669929346789e-14
+            ],
+            [
+              1.0,
+              1.0923714710564525e-10,
+              1.7287854362033755e-14
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 9,
+          "loss_nats": 55.984580993652344,
+          "pair_kl_nats": 44.787662506103516,
+          "individual_kl_nats": 44.78766632080078,
+          "target_probabilities_A_B": [
+            [
+              0.09336312860250473,
+              0.020832130685448647,
+              0.8858047127723694
+            ],
+            [
+              0.9999810457229614,
+              1.8925147742265835e-05,
+              4.993623647919776e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.6052279505629485e-09,
+              1.0,
+              3.165631006028097e-13
+            ],
+            [
+              1.8370862164829305e-08,
+              1.0,
+              2.413358141800659e-12
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 10,
+          "loss_nats": 51.87498474121094,
+          "pair_kl_nats": 41.4999885559082,
+          "individual_kl_nats": 41.49998474121094,
+          "target_probabilities_A_B": [
+            [
+              2.6995752477887436e-07,
+              0.9999997615814209,
+              5.829936533530145e-11
+            ],
+            [
+              1.1979317093846475e-07,
+              0.9999998807907104,
+              1.3594780856607258e-10
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              7.123156509081241e-10,
+              3.134399342722208e-14
+            ],
+            [
+              1.0,
+              1.3307807078533074e-09,
+              6.953994807290878e-14
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 8,
+          "loss_nats": 65.60525512695312,
+          "pair_kl_nats": 52.48419952392578,
+          "individual_kl_nats": 52.48420715332031,
+          "target_probabilities_A_B": [
+            [
+              0.01792273297905922,
+              0.003529198467731476,
+              0.9785480499267578
+            ],
+            [
+              6.893603767821332e-07,
+              0.9999992847442627,
+              8.152014174811484e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.359478224438604e-10,
+              5.587563628472493e-14
+            ],
+            [
+              1.0,
+              1.447156977585351e-10,
+              1.5169495434091962e-13
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 9,
+          "loss_nats": 55.81983184814453,
+          "pair_kl_nats": 44.65586853027344,
+          "individual_kl_nats": 44.655860900878906,
+          "target_probabilities_A_B": [
+            [
+              0.9999892711639404,
+              1.0783312973217107e-05,
+              1.2116767589276378e-09
+            ],
+            [
+              0.9999997615814209,
+              2.6995778057425923e-07,
+              8.864908251915438e-10
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.4699463868339535e-10,
+              1.0,
+              1.4953439690917197e-13
+            ],
+            [
+              2.7462213059159524e-10,
+              1.0,
+              4.8270204023107e-13
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 10,
+          "loss_nats": 65.60604858398438,
+          "pair_kl_nats": 52.484840393066406,
+          "individual_kl_nats": 52.48483657836914,
+          "target_probabilities_A_B": [
+            [
+              0.0003150061529595405,
+              0.00010226753511233255,
+              0.9995827078819275
+            ],
+            [
+              1.300712665397441e-05,
+              0.9999868869781494,
+              9.931064681723001e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.9977384191349756e-09,
+              4.024663496351652e-14
+            ],
+            [
+              1.0,
+              3.9337808011019604e-10,
+              6.331684444327648e-14
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 8,
+          "loss_nats": 25.969003677368164,
+          "pair_kl_nats": 20.775203704833984,
+          "individual_kl_nats": 20.77520179748535,
+          "target_probabilities_A_B": [
+            [
+              1.855389228921922e-07,
+              0.9999997615814209,
+              6.153466625136161e-09
+            ],
+            [
+              0.9731782674789429,
+              0.02593432180583477,
+              0.0008874237537384033
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.50797219156118e-09,
+              4.632359152842956e-14
+            ],
+            [
+              1.0,
+              3.9337808011019604e-10,
+              1.1530766237124145e-14
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 9,
+          "loss_nats": 22.232494354248047,
+          "pair_kl_nats": 17.785995483398438,
+          "individual_kl_nats": 17.785995483398438,
+          "target_probabilities_A_B": [
+            [
+              0.1639566421508789,
+              0.8326405882835388,
+              0.0034028117079287767
+            ],
+            [
+              1.3845996363670565e-05,
+              6.4758592088765e-07,
+              0.9999855756759644
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              5.315785500670245e-08,
+              8.152020392060422e-09,
+              1.0
+            ],
+            [
+              1.1861120086109622e-08,
+              1.9362746961348876e-09,
+              1.0
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 10,
+          "loss_nats": 35.93428039550781,
+          "pair_kl_nats": 28.747425079345703,
+          "individual_kl_nats": 28.747426986694336,
+          "target_probabilities_A_B": [
+            [
+              0.00013982206291984767,
+              0.9998600482940674,
+              6.824648579595305e-08
+            ],
+            [
+              0.5254471898078918,
+              0.1933012306690216,
+              0.28125160932540894
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0246443338246536e-07,
+              9.530677580471547e-09,
+              0.9999998807907104
+            ],
+            [
+              2.9649035582224315e-07,
+              2.358864925611215e-08,
+              0.9999997615814209
+            ]
+          ]
+        }
+      ],
+      "summary": {
+        "mean_context_kl_nats": 42.34286760290464,
+        "mean_context_kl_bits": 61.08784510772848,
+        "per_run_mean_kl_nats": {
+          "12": 24.64406677087148,
+          "13": 54.33843231201172,
+          "14": 62.343711853027344,
+          "15": 28.045259475708008
+        },
+        "per_round_mean_kl_nats": {
+          "8": 47.62971544265747,
+          "9": 33.847327917814255,
+          "10": 45.55155944824219
+        },
+        "context_count": 12
+      },
+      "pooled_soft_mi_bits_secondary": 0.9045671820640564
+    },
+    "initial_suffix_gain_vs_empty_train": {
+      "gain_nats": -0.35289169521614383,
+      "gain_bits": -0.5091150986592302,
+      "relative_gain_percent": -1.0162304858928666
+    },
+    "initial_suffix_gain_vs_empty_validation": {
+      "gain_nats": -0.9353799819946289,
+      "gain_bits": -1.349468061370459,
+      "relative_gain_percent": -2.2589633801454774
+    }
+  },
+  "elapsed_seconds": 1086.3611843585968,
+  "current_suffix": "网",
+  "best_validation_suffix": "网",
+  "best_validation_loss_nats": 39.61981683969498,
+  "stop_reason": "validation_patience",
+  "final": {
+    "selected_suffix": "网",
+    "selected_suffix_token_ids": [
+      31139
+    ],
+    "selection_rule": "lowest validation mean-context KL among evaluated candidates; empty suffix retained unless a candidate improves validation KL",
+    "training": {
+      "context_rows": [
+        {
+          "run": 0,
+          "round": 8,
+          "loss_nats": 35.162559509277344,
+          "pair_kl_nats": 28.130048751831055,
+          "individual_kl_nats": 28.130046844482422,
+          "target_probabilities_A_B": [
+            [
+              0.996812641620636,
+              0.003172636264935136,
+              1.469220660510473e-05
+            ],
+            [
+              0.017975816503167152,
+              0.0005778316408395767,
+              0.9814463257789612
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.9362746961348876e-09,
+              2.1927560678661195e-13
+            ],
+            [
+              1.0,
+              1.1032560420787263e-09,
+              3.422863392461145e-13
+            ]
+          ]
+        },
+        {
+          "run": 0,
+          "round": 9,
+          "loss_nats": 0.00014101379201747477,
+          "pair_kl_nats": 0.00011281103070359677,
+          "individual_kl_nats": 0.00011281103070359677,
+          "target_probabilities_A_B": [
+            [
+              1.6373753908283106e-07,
+              0.9999998807907104,
+              1.8727601414081363e-10
+            ],
+            [
+              1.38460145535646e-05,
+              0.999985933303833,
+              2.1024062846208835e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.43072416136647e-08,
+              1.0,
+              3.045272367607765e-11
+            ],
+            [
+              1.7629980808564483e-09,
+              1.0,
+              2.146456406712516e-12
+            ]
+          ]
+        },
+        {
+          "run": 0,
+          "round": 10,
+          "loss_nats": 18.164894104003906,
+          "pair_kl_nats": 14.531915664672852,
+          "individual_kl_nats": 14.531916618347168,
+          "target_probabilities_A_B": [
+            [
+              0.2940675616264343,
+              0.7054314017295837,
+              0.000500979833304882
+            ],
+            [
+              0.0015976824797689915,
+              0.00010213641508016735,
+              0.9983002543449402
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              5.093699201097479e-06,
+              7.734381313184713e-08,
+              0.9999947547912598
+            ],
+            [
+              1.56895475811325e-05,
+              1.0246282045045518e-07,
+              0.9999841451644897
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 8,
+          "loss_nats": 45.23430252075195,
+          "pair_kl_nats": 36.187442779541016,
+          "individual_kl_nats": 36.18743896484375,
+          "target_probabilities_A_B": [
+            [
+              1.370957193103095e-06,
+              0.9999985694885254,
+              1.1382754738775702e-09
+            ],
+            [
+              7.338210252783028e-07,
+              0.9999992847442627,
+              2.9356531427993104e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              2.7305848693259804e-09,
+              1.3858671155109192e-12
+            ],
+            [
+              3.7266354411258362e-06,
+              7.042244476451742e-08,
+              0.9999961853027344
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 9,
+          "loss_nats": 30.634784698486328,
+          "pair_kl_nats": 24.507827758789062,
+          "individual_kl_nats": 24.507829666137695,
+          "target_probabilities_A_B": [
+            [
+              0.000969746324699372,
+              5.766322374256561e-06,
+              0.999024510383606
+            ],
+            [
+              0.053371671587228775,
+              0.9460354447364807,
+              0.0005929062608629465
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              9.931193289958173e-08,
+              0.9999998807907104,
+              5.020766441488078e-11
+            ],
+            [
+              6.550332720678398e-09,
+              1.0,
+              2.609457355057243e-12
+            ]
+          ]
+        },
+        {
+          "run": 1,
+          "round": 10,
+          "loss_nats": 39.998165130615234,
+          "pair_kl_nats": 31.998531341552734,
+          "individual_kl_nats": 31.998531341552734,
+          "target_probabilities_A_B": [
+            [
+              2.7535717890714295e-05,
+              0.9999724626541138,
+              3.224097966381123e-08
+            ],
+            [
+              2.5867428121273406e-05,
+              0.9999740123748779,
+              1.538133602707603e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              0.9999997615814209,
+              2.2380264397270366e-07,
+              1.8581859662081257e-10
+            ],
+            [
+              1.0,
+              5.6586241470313325e-08,
+              4.1698853571470185e-12
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 8,
+          "loss_nats": 16.250015258789062,
+          "pair_kl_nats": 13.000012397766113,
+          "individual_kl_nats": 13.000011444091797,
+          "target_probabilities_A_B": [
+            [
+              0.9999983310699463,
+              1.6536896509933285e-06,
+              1.7015836656364414e-11
+            ],
+            [
+              0.9999998807907104,
+              1.5381733931008057e-07,
+              2.7305846472813755e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              4.745044912546348e-10,
+              4.827029618029166e-13
+            ],
+            [
+              2.2603262550546788e-06,
+              4.546821941175949e-08,
+              0.9999977350234985
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 9,
+          "loss_nats": 39.808841705322266,
+          "pair_kl_nats": 31.847074508666992,
+          "individual_kl_nats": 31.84707260131836,
+          "target_probabilities_A_B": [
+            [
+              0.4069707989692688,
+              0.5921390056610107,
+              0.0008902442059479654
+            ],
+            [
+              0.00017949574976228178,
+              0.00017949574976228178,
+              0.9996410608291626
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0145353890322895e-08,
+              1.0,
+              1.2520121658171623e-12
+            ],
+            [
+              1.1496191554272173e-08,
+              1.0,
+              1.3566229736805546e-11
+            ]
+          ]
+        },
+        {
+          "run": 2,
+          "round": 10,
+          "loss_nats": 0.3661996126174927,
+          "pair_kl_nats": 0.29295969009399414,
+          "individual_kl_nats": 0.29295969009399414,
+          "target_probabilities_A_B": [
+            [
+              0.985612154006958,
+              0.005860663950443268,
+              0.00852721557021141
+            ],
+            [
+              1.0,
+              2.6729447100137804e-08,
+              2.646573848963385e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.3307807078533074e-09,
+              7.063463990141308e-14
+            ],
+            [
+              1.0,
+              2.1265815774995644e-09,
+              8.020829009650066e-13
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 8,
+          "loss_nats": 45.12247848510742,
+          "pair_kl_nats": 36.097984313964844,
+          "individual_kl_nats": 36.09798049926758,
+          "target_probabilities_A_B": [
+            [
+              0.7978760004043579,
+              0.024093767628073692,
+              0.17803020775318146
+            ],
+            [
+              0.996208906173706,
+              0.002469355007633567,
+              0.0013217504601925611
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0145353890322895e-08,
+              1.0,
+              1.3967473011522458e-12
+            ],
+            [
+              3.432128892200126e-08,
+              1.0,
+              4.23558367199095e-12
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 9,
+          "loss_nats": 26.952238082885742,
+          "pair_kl_nats": 21.561790466308594,
+          "individual_kl_nats": 21.561792373657227,
+          "target_probabilities_A_B": [
+            [
+              0.9999990463256836,
+              1.003014176603756e-06,
+              5.40762538914219e-11
+            ],
+            [
+              2.1444966478156857e-05,
+              0.9999784231185913,
+              7.734254836577747e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              3.6954450610693357e-10,
+              6.482741860686092e-13
+            ],
+            [
+              1.0,
+              4.3204126387585973e-10,
+              1.2396694456552615e-13
+            ]
+          ]
+        },
+        {
+          "run": 3,
+          "round": 10,
+          "loss_nats": 43.17768859863281,
+          "pair_kl_nats": 34.542152404785156,
+          "individual_kl_nats": 34.54214859008789,
+          "target_probabilities_A_B": [
+            [
+              0.00048679328756406903,
+              0.0021816561929881573,
+              0.9973316192626953
+            ],
+            [
+              8.481110126012936e-05,
+              0.9999148845672607,
+              3.2560390650360205e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              7.979938487778782e-08,
+              0.9999998807907104,
+              1.394646176322567e-09
+            ],
+            [
+              3.5008522445423296e-06,
+              6.681493118776416e-07,
+              0.9999958276748657
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 8,
+          "loss_nats": 38.72559356689453,
+          "pair_kl_nats": 30.98047637939453,
+          "individual_kl_nats": 30.98047637939453,
+          "target_probabilities_A_B": [
+            [
+              0.9579105973243713,
+              0.042087655514478683,
+              1.6862527445482556e-06
+            ],
+            [
+              0.00359360221773386,
+              0.9964062571525574,
+              7.239705723804946e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.536018826049258e-07,
+              1.3867050618898702e-08,
+              0.9999997615814209
+            ],
+            [
+              6.681515287709772e-07,
+              1.2751895894780318e-07,
+              0.9999991655349731
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 9,
+          "loss_nats": 60.217933654785156,
+          "pair_kl_nats": 48.174346923828125,
+          "individual_kl_nats": 48.174346923828125,
+          "target_probabilities_A_B": [
+            [
+              0.0007553691393695772,
+              4.828913733945228e-05,
+              0.9991963505744934
+            ],
+            [
+              0.0028001973405480385,
+              0.00026045890990644693,
+              0.9969393014907837
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.561282371971174e-06,
+              0.9999974966049194,
+              1.4872698905765702e-10
+            ],
+            [
+              1.0,
+              2.510999053129126e-08,
+              7.204984005249049e-12
+            ]
+          ]
+        },
+        {
+          "run": 4,
+          "round": 10,
+          "loss_nats": 35.052696228027344,
+          "pair_kl_nats": 28.042158126831055,
+          "individual_kl_nats": 28.042160034179688,
+          "target_probabilities_A_B": [
+            [
+              0.005911067593842745,
+              0.9940887689590454,
+              2.0900058927963983e-07
+            ],
+            [
+              0.9999966621398926,
+              3.288748985141865e-06,
+              9.23741882985496e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.328777102571621e-06,
+              9.93118050018893e-08,
+              0.9999985694885254
+            ],
+            [
+              6.3392071751877666e-06,
+              5.539137077903433e-07,
+              0.999993085861206
+            ]
+          ]
+        }
+      ],
+      "summary": {
+        "mean_context_kl_nats": 31.657902144665908,
+        "mean_context_kl_bits": 45.67269842905758,
+        "per_run_mean_kl_nats": {
+          "0": 17.775864875691088,
+          "1": 38.62241744995117,
+          "2": 18.80835219224294,
+          "3": 38.41746838887533,
+          "4": 44.66540781656901
+        },
+        "per_round_mean_kl_nats": {
+          "8": 36.09898986816406,
+          "9": 31.522787831054302,
+          "10": 27.351928734779356
+        },
+        "context_count": 15
+      },
+      "pooled_soft_mi_bits_secondary": 0.6975973844528198
+    },
+    "validation": {
+      "context_rows": [
+        {
+          "run": 12,
+          "round": 8,
+          "loss_nats": 42.65605926513672,
+          "pair_kl_nats": 34.124847412109375,
+          "individual_kl_nats": 34.124847412109375,
+          "target_probabilities_A_B": [
+            [
+              0.9999921321868896,
+              7.88926990935579e-06,
+              3.1923521603971494e-09
+            ],
+            [
+              5.771925316366833e-06,
+              0.999994158744812,
+              5.315754592061239e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.1979305725162703e-07,
+              1.9362744740902826e-09,
+              0.9999998807907104
+            ],
+            [
+              3.124988978697729e-08,
+              1.2626097500856304e-08,
+              1.0
+            ]
+          ]
+        },
+        {
+          "run": 12,
+          "round": 9,
+          "loss_nats": 1.317009687423706,
+          "pair_kl_nats": 1.0536078214645386,
+          "individual_kl_nats": 1.053607702255249,
+          "target_probabilities_A_B": [
+            [
+              0.06008509173989296,
+              0.9398890137672424,
+              2.5881230612867512e-05
+            ],
+            [
+              0.9847995042800903,
+              0.01404741033911705,
+              0.0011530816555023193
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.757793104990469e-08,
+              1.0,
+              1.0858273481739733e-11
+            ],
+            [
+              1.0,
+              1.6052279505629485e-09,
+              3.9243396943514086e-13
+            ]
+          ]
+        },
+        {
+          "run": 12,
+          "round": 10,
+          "loss_nats": 28.05262565612793,
+          "pair_kl_nats": 22.442100524902344,
+          "individual_kl_nats": 22.442102432250977,
+          "target_probabilities_A_B": [
+            [
+              0.005219627171754837,
+              9.560080798109993e-05,
+              0.9946848750114441
+            ],
+            [
+              0.00013982102973386645,
+              6.539516562042991e-06,
+              0.9998536109924316
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              5.547519665860534e-10,
+              1.5404906517080263e-10
+            ],
+            [
+              9.610237611923367e-05,
+              4.450422466106829e-07,
+              0.9999034404754639
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 8,
+          "loss_nats": 52.49950408935547,
+          "pair_kl_nats": 41.999603271484375,
+          "individual_kl_nats": 41.999603271484375,
+          "target_probabilities_A_B": [
+            [
+              2.6995778057425923e-07,
+              0.9999997615814209,
+              2.072956251097935e-10
+            ],
+            [
+              1.1478778105811216e-05,
+              0.9999884366989136,
+              1.0571579167617529e-07
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.1382771392121072e-09,
+              4.2173767055659825e-14
+            ],
+            [
+              1.0,
+              5.051074558615198e-10,
+              3.603256473576344e-14
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 9,
+          "loss_nats": 49.45077896118164,
+          "pair_kl_nats": 39.56062316894531,
+          "individual_kl_nats": 39.56062316894531,
+          "target_probabilities_A_B": [
+            [
+              0.09336312860250473,
+              0.020832130685448647,
+              0.8858047127723694
+            ],
+            [
+              0.9999810457229614,
+              1.8925147742265835e-05,
+              4.993623647919776e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.7983066413762572e-07,
+              0.9999997615814209,
+              1.598476906394808e-11
+            ],
+            [
+              6.825602838489431e-08,
+              0.9999998807907104,
+              2.4899520379567663e-12
+            ]
+          ]
+        },
+        {
+          "run": 13,
+          "round": 10,
+          "loss_nats": 47.77341842651367,
+          "pair_kl_nats": 38.21873474121094,
+          "individual_kl_nats": 38.2187385559082,
+          "target_probabilities_A_B": [
+            [
+              2.6995752477887436e-07,
+              0.9999997615814209,
+              5.829936533530145e-11
+            ],
+            [
+              1.1979317093846475e-07,
+              0.9999998807907104,
+              1.3594780856607258e-10
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              7.901209464478143e-09,
+              6.331635655229886e-14
+            ],
+            [
+              1.0,
+              3.192377251437506e-09,
+              2.380236849633399e-13
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 8,
+          "loss_nats": 61.00391387939453,
+          "pair_kl_nats": 48.803131103515625,
+          "individual_kl_nats": 48.803131103515625,
+          "target_probabilities_A_B": [
+            [
+              0.01792273297905922,
+              0.003529198467731476,
+              0.9785480499267578
+            ],
+            [
+              6.893603767821332e-07,
+              0.9999992847442627,
+              8.152014174811484e-09
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              9.43664812957934e-10,
+              3.0922400057198374e-13
+            ],
+            [
+              1.0,
+              1.0693124163907441e-09,
+              3.8178970618654717e-13
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 9,
+          "loss_nats": 51.288604736328125,
+          "pair_kl_nats": 41.0308837890625,
+          "individual_kl_nats": 41.0308837890625,
+          "target_probabilities_A_B": [
+            [
+              0.9999892711639404,
+              1.0783312973217107e-05,
+              1.2116767589276378e-09
+            ],
+            [
+              0.9999997615814209,
+              2.6995778057425923e-07,
+              8.864908251915438e-10
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0693124163907441e-09,
+              1.0,
+              3.4767455299282435e-13
+            ],
+            [
+              1.4166087192180044e-09,
+              1.0,
+              7.477365081276499e-12
+            ]
+          ]
+        },
+        {
+          "run": 14,
+          "round": 10,
+          "loss_nats": 63.594661712646484,
+          "pair_kl_nats": 50.875728607177734,
+          "individual_kl_nats": 50.875728607177734,
+          "target_probabilities_A_B": [
+            [
+              0.0003150061529595405,
+              0.00010226753511233255,
+              0.9995827078819275
+            ],
+            [
+              1.300712665397441e-05,
+              0.9999868869781494,
+              9.931064681723001e-08
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.3307807078533074e-09,
+              6.532623698712534e-14
+            ],
+            [
+              1.0,
+              1.211689748537026e-09,
+              1.3829696665201147e-13
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 8,
+          "loss_nats": 25.895065307617188,
+          "pair_kl_nats": 20.716053009033203,
+          "individual_kl_nats": 20.716049194335938,
+          "target_probabilities_A_B": [
+            [
+              1.855389228921922e-07,
+              0.9999997615814209,
+              6.153466625136161e-09
+            ],
+            [
+              0.9731782674789429,
+              0.02593432180583477,
+              0.0008874237537384033
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              1.0,
+              1.5558403454463132e-09,
+              8.929106233698456e-14
+            ],
+            [
+              1.0,
+              1.1382771392121072e-09,
+              1.7041432148886745e-14
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 9,
+          "loss_nats": 20.058837890625,
+          "pair_kl_nats": 16.04707145690918,
+          "individual_kl_nats": 16.047069549560547,
+          "target_probabilities_A_B": [
+            [
+              0.1639566421508789,
+              0.8326405882835388,
+              0.0034028117079287767
+            ],
+            [
+              1.3845996363670565e-05,
+              6.4758592088765e-07,
+              0.9999855756759644
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.96490611617628e-07,
+              4.691163368875095e-08,
+              0.9999997615814209
+            ],
+            [
+              1.386705417161238e-08,
+              2.565146983712907e-09,
+              1.0
+            ]
+          ]
+        },
+        {
+          "run": 15,
+          "round": 10,
+          "loss_nats": 31.847322463989258,
+          "pair_kl_nats": 25.47785758972168,
+          "individual_kl_nats": 25.477859497070312,
+          "target_probabilities_A_B": [
+            [
+              0.00013982206291984767,
+              0.9998600482940674,
+              6.824648579595305e-08
+            ],
+            [
+              0.5254471898078918,
+              0.1933012306690216,
+              0.28125160932540894
+            ]
+          ],
+          "candidate_probabilities_A_B": [
+            [
+              2.902309006458381e-06,
+              9.04242796195831e-08,
+              0.9999970197677612
+            ],
+            [
+              1.2878963389084674e-06,
+              8.494588854546237e-08,
+              0.9999985694885254
+            ]
+          ]
+        }
+      ],
+      "summary": {
+        "mean_context_kl_nats": 39.61981683969498,
+        "mean_context_kl_bits": 57.15931327555699,
+        "per_run_mean_kl_nats": {
+          "12": 24.008564869562786,
+          "13": 49.90790049235026,
+          "14": 58.62906010945638,
+          "15": 25.93374188741048
+        },
+        "per_round_mean_kl_nats": {
+          "8": 45.51363563537598,
+          "9": 30.528807818889618,
+          "10": 42.817007064819336
+        },
+        "context_count": 12
+      },
+      "pooled_soft_mi_bits_secondary": 0.9045716524124146
+    },
+    "training_gain_vs_empty": {
+      "gain_nats": 3.067654716196312,
+      "gain_bits": 4.42569024621606,
+      "relative_gain_percent": 8.833997186820474
+    },
+    "validation_gain_vs_empty": {
+      "gain_nats": 1.7876707812150343,
+      "gain_bits": 2.5790637708010293,
+      "relative_gain_percent": 4.317264543025049
+    },
+    "validation_gain_bootstrap_by_complete_run": {
+      "run_count": 4,
+      "mean_gain_nats": 1.7876707812150325,
+      "mean_gain_bits": 2.5790637708010267,
+      "ci95_nats": [
+        0.1470216413338985,
+        3.2709287007649763
+      ],
+      "per_run_gain_nats": {
+        "12": -0.6865144968032837,
+        "13": 3.8942273457845076,
+        "14": 1.2953402201334612,
+        "15": 2.647630055745445
+      }
+    },
+    "pooled_soft_mi_bits_secondary": 0.9045716524124146,
+    "pooled_soft_mi_empty_bits_secondary": 0.9045726656913757,
+    "cuda_peak_gb": 64.88277816772461
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "variant": "gcg",
+  "base_prompts": "prompts/pot_plan_v4.json",
+  "suffix_utf8": "ื่",
+  "suffix_sha256": "f886ecbdb8810aef97238413a3c158c5341b67e078ddc10753d2e66a2592a51b",
+  "counterinstruction": null,
+  "output_prompt_file": "coalition_metrics/05_gcg_suffix_evaluation/prompts/qwen_run0_block5_gcg.json"
+}

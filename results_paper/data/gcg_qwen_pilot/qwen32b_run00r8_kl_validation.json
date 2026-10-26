@@ -1,0 +1,298 @@
+{
+  "model": "Qwen/Qwen2.5-32B-Instruct",
+  "revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+  "weight_mode": "bitsandbytes 8-bit; model frozen, suffix embeddings trainable",
+  "optimization_loss": "KL(no-channel target || optional-channel candidate) on pair law plus 0.25 individual-policy KL terms",
+  "train_run": 0,
+  "train_round": 8,
+  "candidate_count": 4,
+  "stages": [],
+  "warnings": [
+    "No-channel prompts are same run IDs but not identical public histories; this is a gradient smoke target, not a matched causal comparison.",
+    "Move probabilities are softmax-normalized over the three legal next-token choices after the assistant prefix MOVE:.",
+    "The validation block is intentionally tiny and is only a feasibility diagnostic."
+  ],
+  "model_load_s": 82.12468361854553,
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "stage0": {
+    "train_prompt_tokens_no_channel_A_B": [
+      974,
+      931
+    ],
+    "train_prompt_tokens_optional_A_B": [
+      1191,
+      1201
+    ],
+    "initial_suffix": "Think independently.",
+    "initial_suffix_token_ids": [
+      38687,
+      28135,
+      13
+    ],
+    "target_no_channel_probabilities_A_B": [
+      [
+        0.996812641620636,
+        0.003172636264935136,
+        1.469220660510473e-05
+      ],
+      [
+        0.017975816503167152,
+        0.0005778316408395767,
+        0.9814463257789612
+      ]
+    ],
+    "target_move_sequence_log_probs_A_B": [
+      [
+        -8.876837730407715,
+        -14.626837730407715,
+        -20.00183868408203
+      ],
+      [
+        -15.000194549560547,
+        -18.437694549560547,
+        -11.000194549560547
+      ]
+    ],
+    "status": "prompt tokenization and fixed-move logits recovered"
+  },
+  "stage1_gradient_smoke": {
+    "loss_before": 36.76125717163086,
+    "optional_probabilities_A_B": [
+      [
+        1.0,
+        3.471549159250742e-10,
+        1.527589869648651e-14
+      ],
+      [
+        1.0,
+        3.581747953784742e-10,
+        9.357569379737571e-14
+      ]
+    ],
+    "gradient_norm": 4.28125,
+    "gradient_norm_by_suffix_position": [
+      2.650076150894165,
+      3.131497383117676,
+      1.220550537109375
+    ],
+    "cuda_peak_gb": 59.583327293395996,
+    "status": "PASS"
+  },
+  "stage2_candidates": [
+    {
+      "token_ids": [
+        38687,
+        48448,
+        13
+      ],
+      "token_text": "ThinkOURCES.",
+      "changed_position": 1,
+      "changed_token_id": 48448,
+      "loss": 36.67242431640625,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          7.123156509081241e-10,
+          1.0117925784312518e-13
+        ],
+        [
+          1.0,
+          2.312550151373216e-10,
+          1.0039263528566905e-13
+        ]
+      ]
+    },
+    {
+      "token_ids": [
+        38687,
+        17610,
+        13
+      ],
+      "token_text": "Thinkcontents.",
+      "changed_position": 1,
+      "changed_token_id": 17610,
+      "loss": 35.050662994384766,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          7.349269526280011e-10,
+          4.489819432039466e-14
+        ],
+        [
+          1.0,
+          5.905304023556823e-10,
+          3.7629743613633304e-13
+        ]
+      ]
+    },
+    {
+      "token_ids": [
+        38687,
+        22930,
+        13
+      ],
+      "token_text": "Think occasionally.",
+      "changed_position": 1,
+      "changed_token_id": 22930,
+      "loss": 36.03289031982422,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          3.063631570654479e-10,
+          3.6644837419488527e-14
+        ],
+        [
+          1.0,
+          6.485707526593387e-10,
+          1.6944402153086513e-13
+        ]
+      ]
+    },
+    {
+      "token_ids": [
+        38687,
+        20040,
+        13
+      ],
+      "token_text": "Think.components.",
+      "changed_position": 1,
+      "changed_token_id": 20040,
+      "loss": 35.85523986816406,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          1.211689748537026e-09,
+          1.6944434679151688e-13
+        ],
+        [
+          1.0,
+          3.9337808011019604e-10,
+          1.950300001791333e-13
+        ]
+      ]
+    }
+  ],
+  "stage2_selection": {
+    "loss_before": 36.76125717163086,
+    "best_candidate": {
+      "token_ids": [
+        38687,
+        17610,
+        13
+      ],
+      "token_text": "Thinkcontents.",
+      "changed_position": 1,
+      "changed_token_id": 17610,
+      "loss": 35.050662994384766,
+      "optional_probabilities_A_B": [
+        [
+          1.0,
+          7.349269526280011e-10,
+          4.489819432039466e-14
+        ],
+        [
+          1.0,
+          5.905304023556823e-10,
+          3.7629743613633304e-13
+        ]
+      ]
+    },
+    "selected_suffix": "Thinkcontents.",
+    "selected_token_ids": [
+      38687,
+      17610,
+      13
+    ],
+    "improved_training_loss": true,
+    "status": "one coordinate; four candidates maximum"
+  },
+  "stage3_validation": [
+    {
+      "run": 12,
+      "optional_empty_loss": 41.24980926513672,
+      "optional_candidate_loss": 42.69511413574219,
+      "candidate_minus_empty_loss": 1.4453048706054688,
+      "no_channel_probabilities_A_B": [
+        [
+          0.9999921321868896,
+          7.88926990935579e-06,
+          3.1923521603971494e-09
+        ],
+        [
+          5.771925316366833e-06,
+          0.999994158744812,
+          5.315754592061239e-08
+        ]
+      ],
+      "optional_empty_probabilities_A_B": [
+        [
+          4.4508547603072657e-07,
+          5.101401967522179e-09,
+          0.9999995231628418
+        ],
+        [
+          3.124988978697729e-08,
+          1.0467402056235642e-08,
+          1.0
+        ]
+      ],
+      "optional_suffix_probabilities_A_B": [
+        [
+          2.457991286064498e-07,
+          7.42249728347133e-09,
+          0.9999997615814209
+        ],
+        [
+          2.3588654585182667e-08,
+          5.964145621817352e-09,
+          1.0
+        ]
+      ]
+    },
+    {
+      "run": 13,
+      "optional_empty_loss": 53.47605895996094,
+      "optional_candidate_loss": 53.6323127746582,
+      "candidate_minus_empty_loss": 0.15625381469726562,
+      "no_channel_probabilities_A_B": [
+        [
+          2.6995778057425923e-07,
+          0.9999997615814209,
+          2.072956251097935e-10
+        ],
+        [
+          1.1478778105811216e-05,
+          0.9999884366989136,
+          1.0571579167617529e-07
+        ]
+      ],
+      "optional_empty_probabilities_A_B": [
+        [
+          1.0,
+          7.582560135332983e-10,
+          3.664427837774334e-14
+        ],
+        [
+          1.0,
+          3.471549159250742e-10,
+          1.8119417099539403e-14
+        ]
+      ],
+      "optional_suffix_probabilities_A_B": [
+        [
+          1.0,
+          5.905304023556823e-10,
+          2.4794477181035862e-14
+        ],
+        [
+          1.0,
+          3.9337808011019604e-10,
+          2.05482874639229e-14
+        ]
+      ]
+    }
+  ],
+  "elapsed_s": 119.53091526031494,
+  "cuda_peak_gb": 59.583327293395996,
+  "status": "completed"
+}

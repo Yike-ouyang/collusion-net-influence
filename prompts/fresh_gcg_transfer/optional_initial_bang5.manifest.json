@@ -1,0 +1,8 @@
+{
+  "variant": "bang5",
+  "base_prompts": "prompts/pot_plan_v4.json",
+  "suffix_utf8": "!!!!!",
+  "suffix_sha256": "aa4a235a84e55afea8c7f11203ede0a62bc374f7154839acaa3f7a1007ddcc57",
+  "counterinstruction": null,
+  "output_prompt_file": "prompts/fresh_gcg_transfer/optional_initial_bang5.json"
+}

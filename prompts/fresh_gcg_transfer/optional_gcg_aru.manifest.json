@@ -1,0 +1,8 @@
+{
+  "variant": "gcg",
+  "base_prompts": "prompts/pot_plan_v4.json",
+  "suffix_utf8": "ある",
+  "suffix_sha256": "82b6cc40ee9a47a969e6d3e72eb864d739e023931c2f1fa8f04f1c94acc558cc",
+  "counterinstruction": null,
+  "output_prompt_file": "prompts/fresh_gcg_transfer/optional_gcg_aru.json"
+}

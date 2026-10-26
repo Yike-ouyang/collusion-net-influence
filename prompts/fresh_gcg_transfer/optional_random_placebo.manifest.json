@@ -1,0 +1,8 @@
+{
+  "variant": "placebo",
+  "base_prompts": "prompts/pot_plan_v4.json",
+  "suffix_utf8": "/mp",
+  "suffix_sha256": "96100ca789bd061dcba7773173c684d561b553dd90c4494ac3f673c3d4559ffd",
+  "counterinstruction": null,
+  "output_prompt_file": "prompts/fresh_gcg_transfer/optional_random_placebo.json"
+}

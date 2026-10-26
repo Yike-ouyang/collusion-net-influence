@@ -62,7 +62,7 @@ NO_SYSTEM_ROLE = {"mistralai/Mixtral-8x7B-Instruct-v0.1", "RedHatAI/Mixtral-8x7B
 SEATINGS = list(itertools.permutations(range(3)))  # the 6 ways to seat a 3-model line-up in A, B, C
 DEFAULT_PROMPTS = Path(__file__).resolve().parents[1] / "prompts" / "pot_plan_v2.json"
 STATE_VARS = {"round", "score_A", "score_B", "score_C", "history", "scoreboard", "chat", "chat_section", "your_plan_line",
-              "your_reflection_line", "speaking_order", "skip_clause", "debrief_history", "debrief_chat"}
+              "your_reflection_line", "speaking_order", "skip_clause", "debrief_history", "debrief_chat", "move_suffix"}
 BASE_VARS = {"me", "others", "partner", "outsider", "msg_tokens", "role_line", "shared_die"}
 
 
@@ -116,6 +116,9 @@ class Protocol:
         v["your_reflection_line"] = f"Your reflection: {refl}" if refl else ""
         v["speaking_order"] = st.get("speaking_order", "")
         v["skip_clause"] = self.p["skip_clause"] if self.c["channel"] == "optional" else ""
+        # Research treatment suffixes are appended to the move request for partners A/B only.
+        # The counter-player C and all no-channel conditions receive an empty value.
+        v["move_suffix"] = self.p.get("_move_suffix_ab", "") if k < 2 and self.c["channel"] else ""
         return v
 
     def user(self, key: str, k: int, st: dict) -> str:

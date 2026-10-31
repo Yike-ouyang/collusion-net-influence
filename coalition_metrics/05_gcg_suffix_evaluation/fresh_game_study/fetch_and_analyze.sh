@@ -26,7 +26,7 @@ for model in "${models[@]}"; do
     campaign="${study_prefix}_${model}_${arm}"
     echo "Fetching ${campaign}"
     "${modal_cli[@]}" volume get --force netinf-v2 \
-      "/results/llm_rps_v2/${campaign}" "results/llm_rps_v2/${campaign}"
+      "/results/llm_rps_v2/${campaign}" "results/llm_rps_v2"
   done
 done
 

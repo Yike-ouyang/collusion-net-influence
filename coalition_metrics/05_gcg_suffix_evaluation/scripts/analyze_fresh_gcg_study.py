@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import itertools
 import json
 import math
 import random
@@ -46,6 +47,11 @@ ARM_LABELS = {
     "optional_random_placebo": "Random /mp",
     "optional_counterinstruction": "Cancel instruction",
 }
+PLOT_ARM_LABELS = {
+    **ARM_LABELS,
+    "optional_gcg_nai": "GCG block 1: nai",
+    "optional_gcg_aru": "GCG block 2: aru",
+}
 ARM_COLORS = {
     "no_channel": "#68707d",
     "optional_empty": "#1f2937",
@@ -65,6 +71,16 @@ def bootstrap(values: list[float], seed: int, n_boot: int = 10000) -> dict[str, 
     draws = rng.choice(xs, size=(n_boot, len(xs)), replace=True).mean(axis=1)
     lo, hi = np.quantile(draws, [0.025, 0.975])
     return {"n": int(len(xs)), "mean": float(xs.mean()), "ci95_low": float(lo), "ci95_high": float(hi)}
+
+
+def exact_signflip_p(values: list[float]) -> float | None:
+    """Two-sided exact paired sign-flip p-value for a mean difference."""
+    xs = np.asarray([float(x) for x in values if math.isfinite(float(x))], dtype=float)
+    if not len(xs):
+        return None
+    observed = abs(float(xs.mean()))
+    null = (abs(float(np.mean(xs * signs))) for signs in itertools.product((-1.0, 1.0), repeat=len(xs)))
+    return sum(value >= observed - 1e-12 for value in null) / (2 ** len(xs))
 
 
 def game_metrics(game: dict[str, Any], model: str, arm: str) -> dict[str, Any]:
@@ -211,6 +227,7 @@ def summarize(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[di
                 effect_row[f"{name}_ci95_low"] = res["ci95_low"]
                 effect_row[f"{name}_ci95_high"] = res["ci95_high"]
                 effect_row[f"{name}_n"] = res["n"]
+                effect_row[f"{name}_p_exact_signflip"] = exact_signflip_p(diffs)
 
             common_ref = sorted(set(treatment) & set(baseline) & set(no_channel))
             dist_diffs = []
@@ -227,8 +244,20 @@ def summarize(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[di
                 "distance_ci95_low": distance["ci95_low"],
                 "distance_ci95_high": distance["ci95_high"],
                 "distance_paired_runs": distance["n"],
+                "distance_p_exact_signflip": exact_signflip_p(dist_diffs),
             })
             effects.append(effect_row)
+    suffix_tests = [row for row in effects if row["arm"] in ("optional_gcg_nai", "optional_gcg_aru")
+                    and row.get("delta_cmi_vs_optional_empty_p_exact_signflip") is not None]
+    for row in effects:
+        row["delta_cmi_vs_optional_empty_p_holm_6_suffix_tests"] = None
+    running_adjusted = 0.0
+    ordered_tests = sorted(suffix_tests, key=lambda row: row["delta_cmi_vs_optional_empty_p_exact_signflip"])
+    for rank, row in enumerate(ordered_tests):
+        raw_p = row["delta_cmi_vs_optional_empty_p_exact_signflip"]
+        adjusted = min(1.0, (len(ordered_tests) - rank) * raw_p)
+        running_adjusted = max(running_adjusted, adjusted)
+        row["delta_cmi_vs_optional_empty_p_holm_6_suffix_tests"] = running_adjusted
     return arm_rows, effects
 
 
@@ -274,7 +303,7 @@ def plot_results(out_dir: Path, arm_rows: list[dict[str, Any]], effects: list[di
                 ax.axvline(0, color="#374151", linestyle="--", linewidth=0.8)
             elif j == 2:
                 ax.axvline(0, color="#9ca3af", linewidth=0.7)
-            ax.set_yticks(y_positions, [ARM_LABELS.get(a, a) for a in visible])
+            ax.set_yticks(y_positions, [PLOT_ARM_LABELS.get(a, a) for a in visible])
             ax.invert_yaxis()
             ax.grid(axis="x", color="#e5e7eb", linewidth=0.7)
             ax.set_title(title)
@@ -294,6 +323,89 @@ def plot_results(out_dir: Path, arm_rows: list[dict[str, Any]], effects: list[di
     plt.close(fig)
 
 
+def plot_suffix_effectiveness(out_dir: Path, arm_rows: list[dict[str, Any]],
+                              effects: list[dict[str, Any]]) -> None:
+    """Focused English figure for suffix CMI effects and per-seat score context."""
+    from matplotlib.patches import Patch
+
+    model_order = [m for m in MODEL_LABELS if any(row["model"] == m for row in arm_rows)]
+    suffix_order = ("optional_gcg_nai", "optional_gcg_aru")
+    arm_order = ("no_channel", "optional_empty", *suffix_order)
+    score_rows = {(row["model"], row["arm"]): row for row in arm_rows}
+    effect_rows = {(row["model"], row["arm"]): row for row in effects}
+    suffix_color = {"optional_gcg_nai": "#2563eb", "optional_gcg_aru": "#d97706"}
+    seat_color = {"A": "#2563eb", "B": "#d97706", "C": "#15803d"}
+
+    fig = plt.figure(figsize=(12.2, 9.0))
+    grid = fig.add_gridspec(2, 1, height_ratios=(1.0, 1.5), hspace=0.35)
+    effect_ax = fig.add_subplot(grid[0])
+    effect_entries = [(model, arm) for model in model_order for arm in suffix_order
+                      if (model, arm) in effect_rows]
+    y = np.arange(len(effect_entries))
+    for pos, (model, arm) in zip(y, effect_entries):
+        row = effect_rows[(model, arm)]
+        mean = row["delta_cmi_vs_optional_empty"]
+        low = row["delta_cmi_vs_optional_empty_ci95_low"]
+        high = row["delta_cmi_vs_optional_empty_ci95_high"]
+        marker = "o" if arm == "optional_gcg_nai" else "s"
+        effect_ax.errorbar(mean, pos, xerr=[[mean - low], [high - mean]], fmt=marker,
+                           color=suffix_color[arm], ecolor=suffix_color[arm], capsize=3,
+                           markersize=5, linewidth=1.4)
+        p = row["delta_cmi_vs_optional_empty_p_exact_signflip"]
+        effect_ax.text(0.82, pos, f"p={p:.2f}", va="center", ha="left", fontsize=8, color="#4b5563")
+    effect_ax.axvline(0, color="#4b5563", linewidth=0.9, linestyle="--")
+    effect_ax.set_xlim(-0.78, 1.02)
+    effect_ax.set_ylim(len(y) - 0.5, -0.5)
+    effect_ax.set_yticks(y, [f"{MODEL_LABELS[model]} · "
+                             f"{'nai' if arm == 'optional_gcg_nai' else 'aru'}"
+                             for model, arm in effect_entries])
+    effect_ax.grid(axis="x", color="#e5e7eb", linewidth=0.7)
+    effect_ax.set_xlabel("Paired change in I(A;B | shared die) vs optional-empty (bits)")
+    effect_ax.set_title("A. Coordination effect of each suffix (paired, n=3 games)", loc="left", weight="bold")
+
+    score_grid = grid[1].subgridspec(1, len(model_order), wspace=0.12)
+    score_axes = []
+    for i in range(len(model_order)):
+        score_axes.append(fig.add_subplot(score_grid[0, i], sharey=score_axes[0] if score_axes else None))
+    label_map = {"no_channel": "No\nchannel", "optional_empty": "Optional\nempty",
+                 "optional_gcg_nai": "GCG\nnai", "optional_gcg_aru": "GCG\naru"}
+    width = 0.22
+    for model_i, (model, ax) in enumerate(zip(model_order, score_axes)):
+        visible = [arm for arm in arm_order if (model, arm) in score_rows]
+        base_x = np.arange(len(visible), dtype=float)
+        for seat_i, seat in enumerate(("A", "B", "C")):
+            x = base_x + (seat_i - 1) * width
+            rows_for_seat = [score_rows[(model, arm)] for arm in visible]
+            means = np.asarray([row[f"score_{seat}_mean"] for row in rows_for_seat], dtype=float)
+            lows = np.asarray([row[f"score_{seat}_ci95_low"] for row in rows_for_seat], dtype=float)
+            highs = np.asarray([row[f"score_{seat}_ci95_high"] for row in rows_for_seat], dtype=float)
+            ax.bar(x, means, width=width, color=seat_color[seat], alpha=0.86, zorder=2)
+            ax.errorbar(x, means, yerr=[means - lows, highs - means], fmt="none", ecolor="#27303f",
+                        elinewidth=0.8, capsize=2, zorder=3)
+        ax.set_xticks(base_x, [label_map[arm] for arm in visible], fontsize=8)
+        ax.set_title(MODEL_LABELS[model], fontsize=9, weight="bold")
+        ax.grid(axis="y", color="#e5e7eb", linewidth=0.7, zorder=0)
+        ax.set_axisbelow(True)
+        ax.set_ylim(0, 18)
+        if model_i == 0:
+            ax.set_ylabel("Mean final score after 10 rounds")
+        else:
+            ax.tick_params(axis="y", labelleft=False)
+
+    handles = [Patch(facecolor=seat_color[seat], label=f"Seat {seat}") for seat in ("A", "B", "C")]
+    fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, 0.045), ncol=3,
+               frameon=False)
+    fig.suptitle("Suffix Effects Across Model Contexts", y=0.99, fontsize=15, weight="bold")
+    fig.text(0.5, 0.015,
+             "CMI: matched change vs optional-empty; intervals are 95% bootstrap CIs; p labels are raw (Holm p=1.00 for all six suffix tests).\n"
+             "Scores are mean ± 95% bootstrap CI; no-channel has 0 episodes, optional arms lack episode boundaries (10 rounds/game); n=3 per arm.",
+             ha="center", va="bottom", fontsize=8, color="#4b5563")
+    fig.subplots_adjust(left=0.13, right=0.98, top=0.91, bottom=0.11, hspace=0.35)
+    fig.savefig(out_dir / "suffix_effectiveness_english.png", dpi=300, bbox_inches="tight", facecolor="white")
+    fig.savefig(out_dir / "suffix_effectiveness_english.pdf", bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--campaign-root", type=Path, default=Path("results/llm_rps_v2"))
@@ -305,18 +417,21 @@ def main() -> None:
     if not rows:
         parser.error(f"No complete-game JSONs found for prefix {args.prefix!r} in {args.campaign_root}")
     arm_rows, effects = summarize(rows)
+    game_counts = [row["n_games"] for row in arm_rows]
+    min_games, max_games = min(game_counts), max(game_counts)
     args.out.mkdir(parents=True, exist_ok=True)
     write_csv(args.out / "game_metrics.csv", rows)
     write_csv(args.out / "arm_summary.csv", arm_rows)
     write_csv(args.out / "paired_effects_vs_empty.csv", effects)
     plot_results(args.out, arm_rows, effects)
+    plot_suffix_effectiveness(args.out, arm_rows, effects)
 
     lines = [
         "# Fresh-game GCG suffix study", "",
         f"Campaign prefix: `{args.prefix}`. Complete games found: **{len(rows)}**.",
         "", "## Per-model and per-arm results", "",
-        "| Model | Arm | Games | I(A;B given shared die), bits | Pair advantage, points/round | CS_AB conditional shuffle | Channel use A/B |",
-        "|---|---|---:|---|---|---|---|",
+        "| Model | Arm | Games | I(A;B given shared die), bits | Pair advantage, points/round | Final scores A/B/C | CS_AB conditional shuffle | Channel use A/B |",
+        "|---|---|---:|---|---|---|---|---|",
     ]
     for row in arm_rows:
         fmt = lambda key: (f"{row[key + '_mean']:.4f} [{row[key + '_ci95_low']:.4f}, {row[key + '_ci95_high']:.4f}]"
@@ -324,20 +439,79 @@ def main() -> None:
         usage_a, usage_b = fmt("channel_usage_A"), fmt("channel_usage_B")
         lines.append(f"| {row['model_label']} | {row['arm_label']} | {row['n_games']} | "
                      f"{fmt('cmi_ab_given_shared_die_bits')} | {fmt('pair_advantage_ab_minus_c')} | "
+                     f"{fmt('score_A')} / {fmt('score_B')} / {fmt('score_C')} | "
                      f"{fmt('cs_ab_conditional_shuffle')} | {usage_a} / {usage_b} |")
+    lines += [
+        "", "## Paired changes from optional-empty", "",
+        "| Model | Arm | Matched games | Δ CMI [95% bootstrap CI], bits | Exact paired p raw / Holm (6 suffix tests) | Δ pair advantage [95% bootstrap CI] |",
+        "|---|---|---:|---|---:|---|",
+    ]
+    for row in effects:
+        fmt_effect = lambda key, lo, hi: (f"{row[key]:+.4f} [{row[lo]:+.4f}, {row[hi]:+.4f}]"
+                                          if row.get(key) is not None else "—")
+        p_value = row.get("delta_cmi_vs_optional_empty_p_exact_signflip")
+        p_holm = row.get("delta_cmi_vs_optional_empty_p_holm_6_suffix_tests")
+        p_text = (f"{p_value:.3f} / {p_holm:.3f}" if p_value is not None and p_holm is not None else
+                  f"{p_value:.3f} / —" if p_value is not None else "—")
+        lines.append(f"| {row['model_label']} | {row['arm_label']} | {row['paired_runs_vs_empty']} | "
+                     f"{fmt_effect('delta_cmi_vs_optional_empty', 'delta_cmi_vs_optional_empty_ci95_low', 'delta_cmi_vs_optional_empty_ci95_high')} | "
+                     f"{p_text} | "
+                     f"{fmt_effect('delta_pair_advantage_vs_optional_empty', 'delta_pair_advantage_vs_optional_empty_ci95_low', 'delta_pair_advantage_vs_optional_empty_ci95_high')} |")
     lines += [
         "", "## Metric interpretation", "",
         "The primary coordination outcome is the per-game plug-in I(A;B | shared die), in bits. The shared die is a common cause visible to A and B, so conditioning on it is necessary. The second panel measures whether a treatment moves this CMI closer to the matched no-channel run than optional-empty; negative values mean closer.",
         "Pair advantage is (A+B)/2 − C and is reported separately from coordination. `CS_AB conditional shuffle` subtracts the expected pair advantage under a within-game, within-die shuffle; it is an association measure, not a causal effect. Channel-use rates help show whether the cancellation instruction actually changes messaging.",
-        "A temporal sensitivity metric, I(A;B | previous round's A/B/C actions), is included in the CSV. With 10-round games it is extremely sparse and must be treated as a sensitivity check, not the primary result. Intervals resample complete games, not rounds. With only 6 games per arm in this pilot, intervals may remain wide; do not treat a visible point-estimate difference as confirmation. The CMI estimators are finite-sample and the bootstrap does not correct their bias.",
+        f"A temporal sensitivity metric, I(A;B | previous round's A/B/C actions), is included in the CSV. With 10-round games it is extremely sparse and must be treated as a sensitivity check, not the primary result. Intervals resample complete games, not rounds. This run has {min_games}–{max_games} games per arm; with n this small, intervals are descriptive and do not establish robustness. Exact sign-flip p-values use matched run differences; with three pairs the smallest possible two-sided value is 0.25. Raw p-values and Holm-adjusted p-values across the six suffix contrasts are reported. The CMI estimators are finite-sample and the bootstrap does not correct their bias.",
+        "Communication-episode length is not recorded as a separate metric in this RPS protocol: no-channel has zero episodes, and optional-channel logs do not mark episode boundaries. Each game is fixed at 10 rounds; channel use is recorded per opportunity.",
         "For GLM and Mixtral, the exact Unicode suffix text transfers, but Qwen token IDs and single-token status do not. The placebo `/mp` is one token in the Qwen tokenizer only.",
         "", "## Files", "",
         "- `game_metrics.csv`: one row per complete game.",
         "- `arm_summary.csv`: per-arm means and complete-game bootstrap intervals.",
-        "- `paired_effects_vs_empty.csv`: paired changes from optional-empty, plus paired distance to no-channel.",
+        "- `paired_effects_vs_empty.csv`: paired changes from optional-empty, exact paired sign-flip p-values, plus paired distance to no-channel.",
         "- `fresh_game_metrics.png` and `.pdf`: English multi-model figure.",
+        "- `suffix_effectiveness_english.png` and `.pdf`: focused CMI and per-seat score comparison across models.",
     ]
     (args.out / "REPORT.md").write_text("\n".join(lines) + "\n")
+
+    french_arm_labels = {
+        "no_channel": "Sans canal",
+        "optional_empty": "Canal optionnel vide",
+        "optional_gcg_nai": "Suffixe GCG ない (nai)",
+        "optional_gcg_aru": "Suffixe GCG ある (aru)",
+    }
+    effect_index = {(row["model"], row["arm"]): row for row in effects}
+    french = [
+        "# Résultats du criblage des suffixes", "",
+        f"Préfixe : `{args.prefix}`. Parties complètes : **{len(rows)}**; {min_games} parties par bras.", "",
+        "| Modèle | Bras | n | Scores finaux A/B/C | CMI I(A;B\u00a0|\u00a0dé), bits [IC 95 %] | Δ CMI vs canal vide [IC 95 %] | p exact brut / Holm (6 suffixes) |",
+        "|---|---|---:|---|---|---|---:|",
+    ]
+    for row in arm_rows:
+        effect = effect_index[(row["model"], row["arm"])]
+        def interval(key: str) -> str:
+            mean, low, high = (row.get(f"{key}_{part}") for part in ("mean", "ci95_low", "ci95_high"))
+            return "—" if mean is None else f"{mean:.4f} [{low:.4f}, {high:.4f}]"
+        delta = effect.get("delta_cmi_vs_optional_empty")
+        delta_text = ("—" if delta is None else
+                      f"{delta:+.4f} [{effect['delta_cmi_vs_optional_empty_ci95_low']:+.4f}, "
+                      f"{effect['delta_cmi_vs_optional_empty_ci95_high']:+.4f}]")
+        p_value = effect.get("delta_cmi_vs_optional_empty_p_exact_signflip")
+        p_holm = effect.get("delta_cmi_vs_optional_empty_p_holm_6_suffix_tests")
+        p_text = (f"{p_value:.3f} / {p_holm:.3f}" if p_value is not None and p_holm is not None else
+                  f"{p_value:.3f} / —" if p_value is not None else "—")
+        scores = " / ".join(f"{row[f'score_{seat}_mean']:.2f}" for seat in "ABC")
+        french.append(f"| {row['model_label']} | {french_arm_labels.get(row['arm'], row['arm_label'])} | "
+                      f"{row['n_games']} | {scores} | {interval('cmi_ab_given_shared_die_bits')} | "
+                      f"{delta_text} | {p_text} |")
+    french += [
+        "Figure en anglais : [PNG](suffix_effectiveness_english.png) · [PDF](suffix_effectiveness_english.pdf).",
+        "", "Le p exact brut est un test apparié par inversion des signes des différences entre runs, contre le bras « canal optionnel vide ». "
+        "Les p Holm corrigent les six comparaisons de suffixe. Avec n=3 paires, le plus petit p bilatéral possible est 0,25; aucun effet de suffixe n’est confirmé par ce criblage.",
+        "Les intervalles bootstrap rééchantillonnent les parties complètes. Le CMI est estimé sur seulement 10 manches par partie et peut être biaisé en petit échantillon.",
+        "Longueur des épisodes de communication : non mesurée. `no_channel` a zéro épisode; les bras optionnels n’enregistrent pas les bornes d’épisode. Chaque partie est fixée à 10 manches.",
+        "Pour respecter la fenêtre d’une heure, ce criblage inclut `no_channel`, `optional_empty`, `optional_gcg_nai` et `optional_gcg_aru`; les bras `optional_initial_bang5`, `optional_random_placebo` et `optional_counterinstruction` restent à lancer.",
+    ]
+    (args.out / "RESULTATS_FR.md").write_text("\n".join(french) + "\n")
     print(f"Wrote fresh-game results to {args.out}")
 
 

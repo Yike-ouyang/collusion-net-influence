@@ -1,0 +1,4 @@
+model,seat,games,mean final score,H(a),intention = action,optimism,move parse failures
+mistralai/Mixtral-8x7B-Instruct-v0.1,A,3,9.0,1.12,100%,20%,1
+mistralai/Mixtral-8x7B-Instruct-v0.1,B,3,6.5,1.17,96%,24%,1
+mistralai/Mixtral-8x7B-Instruct-v0.1,C,3,9.5,1.53,90%,30%,1

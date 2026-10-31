@@ -1,0 +1,4 @@
+model,seat,games,mean final score,H(a),intention = action,optimism,move parse failures
+Qwen/Qwen2.5-32B-Instruct,A,3,5.5,1.23,100%,10%,0
+Qwen/Qwen2.5-32B-Instruct,B,3,4.5,1.30,100%,7%,0
+Qwen/Qwen2.5-32B-Instruct,C,3,9.0,1.40,77%,0%,0

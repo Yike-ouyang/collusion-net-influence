@@ -1,0 +1,4 @@
+model,seat,games,mean final score,H(a),intention = action,optimism,move parse failures
+zai-org/GLM-4-32B-0414,A,3,6.5,1.19,93%,5%,0
+zai-org/GLM-4-32B-0414,B,3,6.5,1.00,83%,0%,0
+zai-org/GLM-4-32B-0414,C,3,9.0,1.46,79%,10%,0

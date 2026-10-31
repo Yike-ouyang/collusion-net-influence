@@ -1,0 +1,2 @@
+design,condition,games,final A / B / C,A+B vs C /round,CS_AB,plan executed,channel use A / B,same move,assist,6-cycle played,die table played,table followed A / B,betrayal,C per round (0.5 if table followed),H(a) A/B/C,H(a|s) A/B/C,net-inf fixed / calib.,P(move played) A/B/C,intended = top-1 at MOVE,truncated / parse fails,longest prompt
+same_model,channel_optional,3,3.5 / 8.0 / 5.5,"+0.03 [-0.15, +0.23]","-0.08 [-0.29, +0.16]",-,61% / 64%,80%,20%,3%,0%,20% / 37%,37%,0.55,1.45 / 1.53 / 1.53,0.37 / 0.37 / 0.15,2 / 0 of 3,100% / 100% / 100%,96%,1 / 0,3645

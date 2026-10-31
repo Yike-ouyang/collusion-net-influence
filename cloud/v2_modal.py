@@ -85,7 +85,7 @@ SETTINGS = {
     "NETINF_CONCURRENCY": os.environ.get("NETINF_CONCURRENCY", "32"),  # requests one container takes at once
     "NETINF_MAX_CONTAINERS": os.environ.get("NETINF_MAX_CONTAINERS", "1"),  # GPUs per model at most (quota: 10)
     # HF token secret, only needed for gated models (Llama); empty = no secret
-    "NETINF_HF_SECRET": os.environ.get("NETINF_HF_SECRET", "huggingface"),
+    "NETINF_HF_SECRET": os.environ.get("NETINF_HF_SECRET", ""),
     # a second deployment (e.g. netinf-v2-mixtral) can be added without redeploying the servers of a running campaign
     "NETINF_APP": os.environ.get("NETINF_APP", "netinf-v2"),
 }
@@ -404,7 +404,8 @@ def run_campaign(campaign: str, keys: list[str], design: str, game_args: list[st
             n = min(chunk, runs - start)
             run_logged([sys.executable, "experiments/llm_rps_v2.py", "--design", design, *routing, *game_args,
                         "--runs", str(n), "--run-offset", str(start), "--out", str(out), "--campaign", campaign,
-                        "--cache", str(VOL / "cache" / "llm_v2.sqlite")], log_dir / f"games_chunk_{i:02d}.log", env_for(log_dir))
+                        "--cache", str(VOL / "cache" / f"llm_v2_{campaign}.sqlite")],
+                       log_dir / f"games_chunk_{i:02d}.log", env_for(log_dir))
             volume.commit()  # finished games survive a later failure; relaunching with --campaign resumes
             log(orch, f"chunk {i} committed")
         run_logged([sys.executable, "experiments/analyze_v2.py", str(out / campaign)], log_dir / "analysis.log",
